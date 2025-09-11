@@ -20,7 +20,7 @@
 
 > **My Philosophy for This Project:** Media representation should be measurable, patterns should be visible, and bias should be quantifiable. If we can't measure it, we can't fix it.
 
-I built StreamLens Analytics because I noticed something troubling: everyone talks about representation in media, but few actually quantify it. This framework uses advanced mathematics and machine learning to reveal bias patterns that traditional analysis misses. In testing, it identified systematic disparities across all major streaming platforms that simple demographic counts completely overlooked.
+I designed StreamLens Analytics because I noticed something troubling: everyone talks about representation in media, but few actually quantify it. This framework uses advanced mathematics and machine learning to reveal bias patterns that traditional analysis misses. In testing, it identified systematic disparities across all major streaming platforms that simple demographic counts completely overlooked. This project began September 2024, and is a work in progress. 
 
 <div align="center">
   
