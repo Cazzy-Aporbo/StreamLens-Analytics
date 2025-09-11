@@ -1,0 +1,434 @@
+{
+  "overall_metrics": {
+    "diversity_index": 0.7036058402875651,
+    "gender_parity": 0.686,
+    "intersectionality": {
+      "male_white_<30": {
+        "representation": 0.1812,
+        "baseline": 0.022222222222222223,
+        "ratio": 8.154,
+        "screen_time": 59.465784602353516
+      },
+      "male_white_30-50": {
+        "representation": 0.157,
+        "baseline": 0.022222222222222223,
+        "ratio": 7.0649999999999995,
+        "screen_time": 60.805462093916546
+      },
+      "male_white_>50": {
+        "representation": 0.0478,
+        "baseline": 0.022222222222222223,
+        "ratio": 2.151,
+        "screen_time": 60.922014164678
+      },
+      "male_black_<30": {
+        "representation": 0.0374,
+        "baseline": 0.022222222222222223,
+        "ratio": 1.683,
+        "screen_time": 63.92510190303237
+      },
+      "male_black_30-50": {
+        "representation": 0.0304,
+        "baseline": 0.022222222222222223,
+        "ratio": 1.3679999999999999,
+        "screen_time": 63.20786630795515
+      },
+      "male_black_>50": {
+        "representation": 0.0104,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.46799999999999997,
+        "screen_time": 52.375975638694094
+      },
+      "male_asian_<30": {
+        "representation": 0.0168,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.7559999999999999,
+        "screen_time": 60.93846287763523
+      },
+      "male_asian_30-50": {
+        "representation": 0.0126,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.567,
+        "screen_time": 59.00017813648883
+      },
+      "male_asian_>50": {
+        "representation": 0.0044,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.198,
+        "screen_time": 55.198560594619885
+      },
+      "male_hispanic_<30": {
+        "representation": 0.057,
+        "baseline": 0.022222222222222223,
+        "ratio": 2.565,
+        "screen_time": 61.317884819065334
+      },
+      "male_hispanic_30-50": {
+        "representation": 0.0462,
+        "baseline": 0.022222222222222223,
+        "ratio": 2.0789999999999997,
+        "screen_time": 60.923651474254626
+      },
+      "male_hispanic_>50": {
+        "representation": 0.015,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.6749999999999999,
+        "screen_time": 58.04261434798232
+      },
+      "male_other_<30": {
+        "representation": 0.0086,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.387,
+        "screen_time": 56.47141385100962
+      },
+      "male_other_30-50": {
+        "representation": 0.0072,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.32399999999999995,
+        "screen_time": 63.28384691980958
+      },
+      "male_other_>50": {
+        "representation": 0.0024,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.10799999999999998,
+        "screen_time": 70.47119413536001
+      },
+      "female_white_<30": {
+        "representation": 0.101,
+        "baseline": 0.022222222222222223,
+        "ratio": 4.545,
+        "screen_time": 44.26924019948936
+      },
+      "female_white_30-50": {
+        "representation": 0.0822,
+        "baseline": 0.022222222222222223,
+        "ratio": 3.699,
+        "screen_time": 45.48765883564069
+      },
+      "female_white_>50": {
+        "representation": 0.026,
+        "baseline": 0.022222222222222223,
+        "ratio": 1.17,
+        "screen_time": 46.33470289097895
+      },
+      "female_black_<30": {
+        "representation": 0.0212,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.954,
+        "screen_time": 45.5667016124238
+      },
+      "female_black_30-50": {
+        "representation": 0.0194,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.873,
+        "screen_time": 46.82556372321647
+      },
+      "female_black_>50": {
+        "representation": 0.0052,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.23399999999999999,
+        "screen_time": 46.91171315295049
+      },
+      "female_asian_<30": {
+        "representation": 0.0092,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.414,
+        "screen_time": 42.0825530900295
+      },
+      "female_asian_30-50": {
+        "representation": 0.0074,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.333,
+        "screen_time": 43.60310584565369
+      },
+      "female_asian_>50": {
+        "representation": 0.0018,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.08099999999999999,
+        "screen_time": 44.580275911523856
+      },
+      "female_hispanic_<30": {
+        "representation": 0.0284,
+        "baseline": 0.022222222222222223,
+        "ratio": 1.278,
+        "screen_time": 46.70841887237827
+      },
+      "female_hispanic_30-50": {
+        "representation": 0.0244,
+        "baseline": 0.022222222222222223,
+        "ratio": 1.098,
+        "screen_time": 45.614457344731726
+      },
+      "female_hispanic_>50": {
+        "representation": 0.008,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.36,
+        "screen_time": 50.34667802339669
+      },
+      "female_other_<30": {
+        "representation": 0.0036,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.16199999999999998,
+        "screen_time": 47.4252511060153
+      },
+      "female_other_30-50": {
+        "representation": 0.0032,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.144,
+        "screen_time": 38.88821996182971
+      },
+      "female_other_>50": {
+        "representation": 0.002,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.09,
+        "screen_time": 49.867704536333115
+      },
+      "non-binary_white_<30": {
+        "representation": 0.0056,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.252,
+        "screen_time": 39.419016489405976
+      },
+      "non-binary_white_30-50": {
+        "representation": 0.007,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.315,
+        "screen_time": 31.135824648143988
+      },
+      "non-binary_white_>50": {
+        "representation": 0.001,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.045,
+        "screen_time": 28.498746577951152
+      },
+      "non-binary_black_<30": {
+        "representation": 0.0012,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.05399999999999999,
+        "screen_time": 31.494713499038667
+      },
+      "non-binary_black_30-50": {
+        "representation": 0.0014,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.063,
+        "screen_time": 35.00162319851252
+      },
+      "non-binary_black_>50": {
+        "representation": 0.0004,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.018,
+        "screen_time": 31.49638956525795
+      },
+      "non-binary_asian_<30": {
+        "representation": 0.0006,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.026999999999999996,
+        "screen_time": 28.297283558394273
+      },
+      "non-binary_asian_30-50": {
+        "representation": 0.0004,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.018,
+        "screen_time": 37.82372579119098
+      },
+      "non-binary_asian_>50": {
+        "representation": 0.0004,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.018,
+        "screen_time": 31.446368543226313
+      },
+      "non-binary_hispanic_<30": {
+        "representation": 0.001,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.045,
+        "screen_time": 31.598523895344478
+      },
+      "non-binary_hispanic_30-50": {
+        "representation": 0.0018,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.08099999999999999,
+        "screen_time": 41.51067140196853
+      },
+      "non-binary_hispanic_>50": {
+        "representation": 0.0004,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.018,
+        "screen_time": 46.92235126368726
+      },
+      "non-binary_other_<30": {
+        "representation": 0.0008,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.036,
+        "screen_time": 30.656393614585774
+      },
+      "non-binary_other_30-50": {
+        "representation": 0.0004,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.018,
+        "screen_time": 30.185579153524333
+      },
+      "non-binary_other_>50": {
+        "representation": 0.0002,
+        "baseline": 0.022222222222222223,
+        "ratio": 0.009,
+        "screen_time": 57.445236752715836
+      }
+    }
+  },
+  "temporal_analysis": [
+    {
+      "year": 2021,
+      "diversity": 0.7130094943705839,
+      "gender_parity": 0.6847599164926931,
+      "avg_sentiment": 0.5735998586234936
+    },
+    {
+      "year": 2019,
+      "diversity": 0.7158804557254,
+      "gender_parity": 0.6827309236947792,
+      "avg_sentiment": 0.5575273976328805
+    },
+    {
+      "year": 2023,
+      "diversity": 0.7149989050669333,
+      "gender_parity": 0.7177570093457943,
+      "avg_sentiment": 0.5745999967324709
+    },
+    {
+      "year": 2016,
+      "diversity": 0.7138553979992471,
+      "gender_parity": 0.7249466950959488,
+      "avg_sentiment": 0.5717514636699262
+    },
+    {
+      "year": 2022,
+      "diversity": 0.7193058916613497,
+      "gender_parity": 0.6602316602316602,
+      "avg_sentiment": 0.5675351431601209
+    },
+    {
+      "year": 2017,
+      "diversity": 0.68079389617858,
+      "gender_parity": 0.6961538461538461,
+      "avg_sentiment": 0.5715959706764736
+    },
+    {
+      "year": 2020,
+      "diversity": 0.681997637292684,
+      "gender_parity": 0.696969696969697,
+      "avg_sentiment": 0.5625866190402112
+    },
+    {
+      "year": 2018,
+      "diversity": 0.6940669313373423,
+      "gender_parity": 0.7227926078028748,
+      "avg_sentiment": 0.5588626372457141
+    },
+    {
+      "year": 2024,
+      "diversity": 0.7148619105611547,
+      "gender_parity": 0.6255144032921811,
+      "avg_sentiment": 0.5762589799368745
+    },
+    {
+      "year": 2015,
+      "diversity": 0.6722858309899117,
+      "gender_parity": 0.6458333333333334,
+      "avg_sentiment": 0.5819923929172421
+    }
+  ],
+  "platform_comparison": [
+    {
+      "platform": "hbo_max",
+      "diversity": 0.690604013470149,
+      "female_leads": 0.30303030303030304,
+      "avg_screen_time_disparity": 14.486199187003745
+    },
+    {
+      "platform": "netflix",
+      "diversity": 0.7190386995165596,
+      "female_leads": 0.33098591549295775,
+      "avg_screen_time_disparity": 12.11050286137365
+    },
+    {
+      "platform": "disney_plus",
+      "diversity": 0.6910158324175473,
+      "female_leads": 0.37209302325581395,
+      "avg_screen_time_disparity": 13.639531978886282
+    },
+    {
+      "platform": "apple_tv",
+      "diversity": 0.7049863813628456,
+      "female_leads": 0.3107142857142857,
+      "avg_screen_time_disparity": 9.727324892628458
+    },
+    {
+      "platform": "hulu",
+      "diversity": 0.7095468191680839,
+      "female_leads": 0.3549618320610687,
+      "avg_screen_time_disparity": 16.485613024491222
+    },
+    {
+      "platform": "amazon_prime",
+      "diversity": 0.6984279931262183,
+      "female_leads": 0.3818770226537217,
+      "avg_screen_time_disparity": 13.346732897410366
+    }
+  ],
+  "genre_analysis": {},
+  "bias_detection": {
+    "role_stereotyping": {
+      "lead": {
+        "distribution": {
+          "female": 578,
+          "male": 1074,
+          "non-binary": 38
+        },
+        "chi_square": 953.2023668639051,
+        "stereotype_score": 1,
+        "dominant_gender": "male"
+      },
+      "minor": {
+        "distribution": {
+          "female": 584,
+          "male": 1036,
+          "non-binary": 36
+        },
+        "chi_square": 908.5797101449275,
+        "stereotype_score": 1,
+        "dominant_gender": "male"
+      },
+      "support": {
+        "distribution": {
+          "female": 553,
+          "male": 1062,
+          "non-binary": 39
+        },
+        "chi_square": 949.0967351874244,
+        "stereotype_score": 1,
+        "dominant_gender": "male"
+      }
+    },
+    "dialogue_bias": {
+      "dialogue_female": {
+        "observed": 1554709,
+        "expected": 1820205.3333333333,
+        "bias_score": 38725.467793438176,
+        "percentage": 28.47131166154148
+      },
+      "dialogue_male": {
+        "observed": 3829342,
+        "expected": 1820205.3333333333,
+        "bias_score": 2217678.451667968,
+        "percentage": 70.12655715032882
+      },
+      "dialogue_non-binary": {
+        "observed": 76565,
+        "expected": 1820205.3333333333,
+        "bias_score": 1670295.9585659076,
+        "percentage": 1.402131188129691
+      }
+    }
+  },
+  "network_metrics": {}
+}
