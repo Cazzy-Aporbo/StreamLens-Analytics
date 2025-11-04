@@ -9,6 +9,12 @@
 </div>
 
 <div align="center">
+  
+<div align="center">
+ [StreamLens‑Analytics/streaming‑bias‑index.html](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/StreamLens-Analytics/blob/main/streaming-bias-index.html)  
+<sub>A comprehensive exploration of the Streaming Bias Index within the StreamLens Analytics framework</sub>
+</div>
+
 
 <div align="center">
   
