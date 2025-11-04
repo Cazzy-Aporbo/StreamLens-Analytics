@@ -9,7 +9,16 @@
 </div>
 
 <div align="center">
-  
+
+<div align="center">
+### [StreamLen_processors.html](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/StreamLens-Analytics/blob/main/StreamLen_processors.html)  
+<sub>A deep‑dive into the data‑processing pipeline of the StreamLens Analytics project</sub>
+</div>
+
+<div align="center">
+
+
+
 ![separator](https://img.shields.io/badge/-FFE4E1?style=flat-square&color=FFE4E1)
 ![separator](https://img.shields.io/badge/-E6E6FA?style=flat-square&color=E6E6FA)
 ![separator](https://img.shields.io/badge/-F0F8FF?style=flat-square&color=F0F8FF)
