@@ -8723,7 +8723,39 @@
         .entry-link {
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.13);
-            color: var(--primary-text);
+            color: rgba(252, 245, 233, 0.98);
+            min-height: 48px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 12px 24px rgba(9, 12, 30, 0.2);
+            text-shadow: 0 1px 0 rgba(10, 12, 28, 0.3);
+        }
+
+        .entry-link:focus-visible {
+            outline: none;
+            transform: translateY(-2px);
+            border-color: rgba(255, 226, 176, 0.52);
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.1),
+                0 18px 34px rgba(9, 12, 30, 0.28),
+                0 0 0 3px rgba(145, 231, 223, 0.18);
+        }
+
+        .route-card {
+            cursor: pointer;
+            transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+        }
+
+        .route-card:hover,
+        .route-card:focus-visible {
+            transform: translateY(-4px);
+            border-color: rgba(255,255,255,0.16);
+            box-shadow: 0 20px 40px rgba(11, 15, 38, 0.26);
+            outline: none;
+        }
+
+        .route-card:focus-visible {
+            box-shadow:
+                0 20px 40px rgba(11, 15, 38, 0.26),
+                0 0 0 3px rgba(145, 231, 223, 0.16);
         }
 
         .nav-tabs {
@@ -9434,49 +9466,49 @@
             <h3>Different questions deserve different surfaces.</h3>
             <p>Different people arrive here with different stakes. Use the lane that matches the decision you are trying to make, then cross-check it with the others when you need more proof.</p>
         </div>
-        <div class="entry-card">
+        <div class="entry-card route-card" data-route-tab="dashboard" data-route-target="dashFieldMap" tabindex="0" role="button" aria-label="Open the overview surface">
             <span class="entry-kicker">Overview</span>
             <h4>If you only have two minutes, start here</h4>
             <p>The overview stitches the field map, the decision studio, and the governed lane together before the details take over.</p>
-            <button class="entry-link" onclick="showTab('dashboard', document.querySelector('[data-tab=dashboard]'));">Open overview</button>
+            <button class="entry-link" type="button" onclick="StreamLensApp.openGuidedRoute('dashboard', 'dashFieldMap');">Open overview</button>
         </div>
-        <div class="entry-card">
+        <div class="entry-card route-card" data-route-tab="explore" data-route-target="exploreRows" tabindex="0" role="button" aria-label="Open the data explorer rows">
             <span class="entry-kicker">Data Explorer</span>
             <h4>Check the slice before you repeat the story</h4>
             <p>Use this when you want the raw rows behind the summary and need to see whether the pattern survives context changes.</p>
-            <button class="entry-link" onclick="showTab('explore', document.querySelector('[data-tab=explore]'));">Inspect the rows</button>
+            <button class="entry-link" type="button" onclick="StreamLensApp.openGuidedRoute('explore', 'exploreRows');">Inspect the rows</button>
         </div>
-        <div class="entry-card">
+        <div class="entry-card route-card" data-route-tab="insights" data-route-target="insightsSignals" tabindex="0" role="button" aria-label="Open the findings surface">
             <span class="entry-kicker">Findings</span>
             <h4>See what actually held up</h4>
             <p>This is where the live analysis turns into cautious conclusions that still have to survive disagreement.</p>
-            <button class="entry-link" onclick="showTab('insights', document.querySelector('[data-tab=insights]'));">Read the findings</button>
+            <button class="entry-link" type="button" onclick="StreamLensApp.openGuidedRoute('insights', 'insightsSignals');">Read the findings</button>
         </div>
-        <div class="entry-card">
+        <div class="entry-card route-card" data-route-tab="library" data-route-target="libraryTheater" tabindex="0" role="button" aria-label="Open the pattern library">
             <span class="entry-kicker">Pattern Library</span>
             <h4>Learn the shapes numbers tend to hide</h4>
             <p>Use the library when you need language for what keeps repeating on screen, in markets, or across recommendation pressure.</p>
-            <button class="entry-link" onclick="showTab('library', document.querySelector('[data-tab=library]'));">Browse the patterns</button>
+            <button class="entry-link" type="button" onclick="StreamLensApp.openGuidedRoute('library', 'libraryTheater');">Browse the patterns</button>
         </div>
-        <div class="entry-card">
+        <div class="entry-card route-card" data-route-tab="learn" data-route-target="learnTheater" tabindex="0" role="button" aria-label="Open the methods surface">
             <span class="entry-kicker">Methods</span>
             <h4>Know what was counted, cleaned, and left out</h4>
             <p>This lane is for people who want to know what was measured, what was excluded, and how the claims were kept smaller than the evidence.</p>
-            <button class="entry-link" onclick="showTab('learn', document.querySelector('[data-tab=learn]'));">Review methods</button>
+            <button class="entry-link" type="button" onclick="StreamLensApp.openGuidedRoute('learn', 'learnTheater');">Review methods</button>
         </div>
-        <div class="entry-card">
+        <div class="entry-card route-card" data-route-tab="scorecard" data-route-target="scorecardVerdict" tabindex="0" role="button" aria-label="Open the decision grade">
             <span class="entry-kicker">Decision Grade</span>
             <h4>Turn the surface into a practical read</h4>
             <p>The scorecard is the compressed view: useful when a team needs a decision posture, a consequence read, or a quick comparison path.</p>
-            <button class="entry-link" onclick="showTab('scorecard', document.querySelector('[data-tab=scorecard]'));">Open the grade</button>
+            <button class="entry-link" type="button" onclick="StreamLensApp.openGuidedRoute('scorecard', 'scorecardVerdict');">Open the grade</button>
         </div>
-        <div class="entry-card">
+        <div class="entry-card route-card" data-route-tab="music" data-route-target="mvPowerLaw" tabindex="0" role="button" aria-label="Open the real music lane">
             <span class="entry-kicker">Real Music</span>
             <h4>Read public attention on its own terms</h4>
             <p>The music field is distinct on purpose so songs, channels, virality, and market exposure can be read without synthetic bleed-through.</p>
-            <button class="entry-link" onclick="showTab('music', document.querySelector('[data-tab=music]'));">Enter the public field</button>
+            <button class="entry-link" type="button" onclick="StreamLensApp.openGuidedRoute('music', 'mvPowerLaw');">Enter the public field</button>
         </div>
-        <div class="entry-card">
+        <div class="entry-card route-card" data-route-href="https://github.com/loopchii/Stream/blob/main/contributing.md" tabindex="0" role="link" aria-label="Open the contribution guide">
             <span class="entry-kicker">Contribute</span>
             <h4>Improve the thin spots instead of repeating the obvious</h4>
             <p>The repo is open because public research gets stronger under pressure. If something feels brittle, incomplete, or too neat, that is real contribution surface.</p>
@@ -9490,7 +9522,7 @@
             <h3>What is already working here.</h3>
             <p>Each card is drawn from the live backend or the local ledger. The point is not spectacle. It is to let you see, quickly, what is active, what is partial, and where the next useful proof belongs.</p>
         </div>
-        <div class="operating-card">
+        <div class="operating-card route-card" data-route-tab="learn" data-route-target="learnDataSystem" tabindex="0" role="button" aria-label="Open the methods and data system surface">
             <span class="operating-kicker">Readiness</span>
             <h4 id="operatingReadinessTitle">Checking local posture…</h4>
             <div class="operating-stat"><strong id="operatingReadinessValue">—</strong><span id="operatingReadinessMeta">doctor</span></div>
@@ -9498,9 +9530,9 @@
             <ul class="operating-points" id="operatingReadinessPoints">
                 <li>Waiting for the backend summary.</li>
             </ul>
-            <button class="entry-link operating-link" type="button" onclick="showTab('learn', document.querySelector('[data-tab=learn]'));">Open methods</button>
+            <button class="entry-link operating-link" type="button" onclick="StreamLensApp.openGuidedRoute('learn', 'learnDataSystem');">Open methods</button>
         </div>
-        <div class="operating-card">
+        <div class="operating-card route-card" data-route-tab="dashboard" data-route-target="trojanHorseLab" tabindex="0" role="button" aria-label="Open the governed review lane">
             <span class="operating-kicker">Runtime Review</span>
             <h4 id="operatingReviewTitle">Reviewing prompt and draft together…</h4>
             <div class="operating-stat"><strong id="operatingReviewValue">—</strong><span id="operatingReviewMeta">mode</span></div>
@@ -9508,9 +9540,9 @@
             <ul class="operating-points" id="operatingReviewPoints">
                 <li>Waiting for the example decision.</li>
             </ul>
-            <button class="entry-link operating-link" type="button" onclick="document.getElementById('trojanHorseLab').scrollIntoView({ behavior: 'smooth', block: 'start' });">Open guard lane</button>
+            <button class="entry-link operating-link" type="button" onclick="StreamLensApp.openGuidedRoute('dashboard', 'trojanHorseLab');">Open guard lane</button>
         </div>
-        <div class="operating-card">
+        <div class="operating-card route-card" data-route-tab="insights" data-route-target="insightsSignals" tabindex="0" role="button" aria-label="Open the findings and drift surface">
             <span class="operating-kicker">Drift Watch</span>
             <h4 id="operatingDriftTitle">Reading output windows for instability…</h4>
             <div class="operating-stat"><strong id="operatingDriftValue">—</strong><span id="operatingDriftMeta">window</span></div>
@@ -9518,9 +9550,9 @@
             <ul class="operating-points" id="operatingDriftPoints">
                 <li>Waiting for the sample window analysis.</li>
             </ul>
-            <button class="entry-link operating-link" type="button" onclick="showTab('insights', document.querySelector('[data-tab=insights]'));">Trace the findings</button>
+            <button class="entry-link operating-link" type="button" onclick="StreamLensApp.openGuidedRoute('insights', 'insightsSignals');">Trace the findings</button>
         </div>
-        <div class="operating-card">
+        <div class="operating-card route-card" data-route-tab="library" data-route-target="libraryPropagationStudio" tabindex="0" role="button" aria-label="Open the bias propagation library">
             <span class="operating-kicker">Bias In Motion</span>
             <h4 id="operatingBiasTitle">Reading structural pressure…</h4>
             <div class="operating-stat"><strong id="operatingBiasValue">—</strong><span id="operatingBiasMeta">band</span></div>
@@ -9528,9 +9560,9 @@
             <ul class="operating-points" id="operatingBiasPoints">
                 <li>Waiting for network and drift signals.</li>
             </ul>
-            <button class="entry-link operating-link" type="button" onclick="showTab('biaslib', document.querySelector('[data-tab=biaslib]'));">Study the pattern library</button>
+            <button class="entry-link operating-link" type="button" onclick="StreamLensApp.openGuidedRoute('library', 'libraryPropagationStudio');">Study the pattern library</button>
         </div>
-        <div class="operating-card">
+        <div class="operating-card route-card" data-route-tab="music" data-route-target="mvBias" tabindex="0" role="button" aria-label="Open the liability translation lane">
             <span class="operating-kicker">Liability Translation</span>
             <h4 id="operatingLiabilityTitle">Turning signals into review posture…</h4>
             <div class="operating-stat"><strong id="operatingLiabilityValue">—</strong><span id="operatingLiabilityMeta">priority</span></div>
@@ -9538,9 +9570,9 @@
             <ul class="operating-points" id="operatingLiabilityPoints">
                 <li>Waiting for exposure signals.</li>
             </ul>
-            <button class="entry-link operating-link" type="button" onclick="showTab('music', document.querySelector('[data-tab=music]'));">Enter the music lane</button>
+            <button class="entry-link operating-link" type="button" onclick="StreamLensApp.openGuidedRoute('music', 'mvBias');">Enter the music lane</button>
         </div>
-        <div class="operating-card">
+        <div class="operating-card route-card" data-route-href="https://github.com/loopchii/Stream" tabindex="0" role="link" aria-label="Open the Stream repository">
             <span class="operating-kicker">Integration Paths</span>
             <h4 id="operatingIntegrationTitle">Loading the current entry paths…</h4>
             <div class="operating-stat"><strong id="operatingIntegrationValue">—</strong><span id="operatingIntegrationMeta">paths</span></div>
@@ -9550,7 +9582,7 @@
             </ul>
             <a class="entry-link operating-link" href="https://github.com/loopchii/Stream" target="_blank" rel="noopener noreferrer">Open the repository</a>
         </div>
-        <div class="operating-card">
+        <div class="operating-card route-card" data-route-tab="learn" data-route-target="learnDataSystem" tabindex="0" role="button" aria-label="Open the runtime ledger method surface">
             <span class="operating-kicker">Runtime Ledger</span>
             <h4 id="operatingLedgerTitle">Verifying the local chain…</h4>
             <div class="operating-stat"><strong id="operatingLedgerValue">—</strong><span id="operatingLedgerMeta">runs</span></div>
@@ -9558,9 +9590,9 @@
             <ul class="operating-points" id="operatingLedgerPoints">
                 <li>Waiting for the latest chain state.</li>
             </ul>
-            <button class="entry-link operating-link" type="button" onclick="showTab('learn', document.querySelector('[data-tab=learn]'));">Inspect the methods</button>
+            <button class="entry-link operating-link" type="button" onclick="StreamLensApp.openGuidedRoute('learn', 'learnDataSystem');">Inspect the methods</button>
         </div>
-        <div class="operating-card">
+        <div class="operating-card route-card" data-route-tab="music" data-route-target="mvSongsExplorer" tabindex="0" role="button" aria-label="Open the score evidence music surface">
             <span class="operating-kicker">Score Evidence</span>
             <h4 id="operatingTheoryTitle">Reading the notation lane…</h4>
             <div class="operating-stat"><strong id="operatingTheoryValue">—</strong><span id="operatingTheoryMeta">events</span></div>
@@ -9568,7 +9600,7 @@
             <ul class="operating-points" id="operatingTheoryPoints">
                 <li>Waiting for score-linked coverage.</li>
             </ul>
-            <button class="entry-link operating-link" type="button" onclick="showTab('music', document.querySelector('[data-tab=music]'));">Open the music lane</button>
+            <button class="entry-link operating-link" type="button" onclick="StreamLensApp.openGuidedRoute('music', 'mvSongsExplorer');">Open the music lane</button>
         </div>
     </div>
 
@@ -11815,12 +11847,18 @@
                 window.setTimeout(() => this.pulseSection(target), 220);
             },
 
-            scrollToTabStart() {
-                const strip = document.getElementById('storyStrip');
-                if (!strip) return;
+            scrollToTabStart(tab) {
                 const currentTop = window.scrollY || document.documentElement.scrollTop || 0;
                 if (currentTop < 180) return;
-                strip.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const panel = tab ? document.getElementById('tab-' + tab) : null;
+                const strip = document.getElementById('storyStrip');
+                const target = panel || strip;
+                if (!target) return;
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (panel) {
+                    panel.setAttribute('tabindex', '-1');
+                    panel.focus({ preventScroll: true });
+                }
             },
 
             async ensureLoopchiiLiteModule() {
@@ -15088,6 +15126,7 @@
                     const target = document.getElementById(targetId);
                     if (target) {
                         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        this.pulseSection(target);
                     }
                 }, 220);
             },
@@ -15732,8 +15771,43 @@
                 requestAnimationFrame(() => MusicViz.scheduleVisibleRefresh('tab-switch'));
             }
             StreamLensApp.setActiveTab(normalized);
-            StreamLensApp.scrollToTabStart();
+            StreamLensApp.scrollToTabStart(normalized);
             return true;
+        }
+
+        function runSurfaceCardRoute(card) {
+            if (!card) return false;
+            const href = card.dataset.routeHref;
+            if (href) {
+                window.open(href, '_blank', 'noopener,noreferrer');
+                return true;
+            }
+            const tab = card.dataset.routeTab;
+            const target = card.dataset.routeTarget || '';
+            if (!tab) return false;
+            if (window.StreamLensApp && typeof StreamLensApp.openGuidedRoute === 'function') {
+                StreamLensApp.openGuidedRoute(tab, target);
+                return true;
+            }
+            return showTab(tab, document.querySelector('[data-tab="' + tab + '"]'));
+        }
+
+        function bindRouteCards() {
+            document.querySelectorAll('.route-card').forEach((card) => {
+                if (card.dataset.routeBound === '1') return;
+                card.dataset.routeBound = '1';
+                card.addEventListener('click', (event) => {
+                    if (event.target.closest('a, button, input, select, textarea, summary')) {
+                        return;
+                    }
+                    runSurfaceCardRoute(card);
+                });
+                card.addEventListener('keydown', (event) => {
+                    if (event.key !== 'Enter' && event.key !== ' ') return;
+                    event.preventDefault();
+                    runSurfaceCardRoute(card);
+                });
+            });
         }
 
         // ==================== THEME MANAGEMENT ====================
@@ -15903,6 +15977,7 @@
         // ==================== INITIALIZE ON LOAD ====================
         window.addEventListener('DOMContentLoaded', () => {
             StreamLensApp.init();
+            bindRouteCards();
             injectInfoChips();
             bootstrapPublicGuides();
             registerStreamServiceWorker();
