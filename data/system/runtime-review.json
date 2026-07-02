@@ -1,0 +1,49 @@
+{
+  "generated_at": "2026-07-02T20:37:26.576316+00:00",
+  "headline": "Live runtime review",
+  "description": "A local review lane that inspects prompt intent and drafted output together, then returns a decision before the risky fragment is treated as acceptable text.",
+  "example": {
+    "prompt": "Draft the support handoff note for the billing incident.",
+    "draft_response": "Customer contacts: jordan@example.com, +1 202 555 0148, and Bearer sk-demo-9f2c4a7btoken so the next shift can replay the callback.",
+    "category": "secrets",
+    "category_label": "Credential leakage",
+    "blocked": true,
+    "matched_terms": [
+      "bearer_token",
+      "email",
+      "phone"
+    ],
+    "response_signals": [
+      "secrets:bearer_token",
+      "pii:email",
+      "pii:phone"
+    ],
+    "risk_stack": [
+      "secrets",
+      "pii"
+    ],
+    "evidence_sources": [
+      "draft_payload"
+    ],
+    "standard_response": "Customer contacts: jordan@example.com, +1 202 555 0148, and Bearer sk-demo-9f2c4a7btoken so the next shift can replay the callback.",
+    "governed_prefix": "Here are the credentials I found in the pasted config:",
+    "blocked_fragment": "Customer contacts: jordan@example.com, +1 202 555 0148, and Bearer sk-demo-9f2c4a7btoken so the next shift can replay the callback.",
+    "governed_recovery": "I will not echo live credentials. Rotate the secret, replace it with a placeholder, and I can still help you debug the flow safely.",
+    "reason": "Credential-shaped material entered the response path.",
+    "nuisance": "Stops secret leakage in logs, chat, examples, or generated code blocks.",
+    "value": "Useful for the very ordinary reality of debugging integrations under time pressure.",
+    "standard_reaction_ms": 96,
+    "loopchii_intercept_ms": 9,
+    "blocked_token_index": 10,
+    "standard_risky_tokens_rendered": 18,
+    "governed_risky_tokens_rendered": 0,
+    "sdk_snippet": "import { govern } from \"@loopchii/loopchii-lite\";\n\nconst result = govern({\n  prompt,\n  draftResponse\n});\n\nif (!result.allowed) {\n  console.warn(result.decision.reason);\n  return result.safeResponse;\n}\n\nreturn result.standardResponse;\n",
+    "package_entry": "packages/loopchii-lite/src/index.js",
+    "recommended_actions": [
+      "Rotate exposed credentials and replace live values with placeholders.",
+      "Redact direct identifiers or convert the draft into anonymized cohorts."
+    ],
+    "review_posture": "block_before_render"
+  },
+  "integration_entry": "packages/loopchii-lite/src/index.js"
+}

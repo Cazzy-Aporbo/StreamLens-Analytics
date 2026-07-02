@@ -33,6 +33,10 @@ class RuntimeConfig:
         "agentic-analysis",
     )
     build_targets: tuple[str, ...] = ("api", "static", "sqlite", "doctor")
+    event_window_limit: int = 250
+    event_retention_max_rows: int = 5000
+    event_retention_days: int = 30
+    event_ingest_batch_limit: int = 500
     cache_enabled: bool = True
     notes: tuple[str, ...] = field(
         default_factory=lambda: (

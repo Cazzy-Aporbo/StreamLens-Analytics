@@ -9,6 +9,8 @@ venv/
 # Generated analysis artifacts
 analysis_results.json
 data/system/runtime/
+exports/
+loopchii-wasm-core/target/
 
 # OS / editor
 .DS_Store

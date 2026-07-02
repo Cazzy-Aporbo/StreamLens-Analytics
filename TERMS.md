@@ -4,7 +4,7 @@ These terms apply to the Stream repository and its published artifacts.
 
 ## 1. License scope
 
-Unless a file states otherwise, the repository code is released under the MIT License. See [LICENSE](LICENSE).
+Unless a file states otherwise, the repository code is released under the Apache License 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
 
 That license applies to the repository's code and documentation. It does not automatically transfer ownership of third-party source material referenced or analyzed by the repo.
 
@@ -18,7 +18,7 @@ You are responsible for checking the terms, licenses, and reuse posture of any t
 
 Stream is provided as a public research and analysis surface.
 
-It is provided without warranty of any kind, including accuracy, fitness for a specific purpose, or non-infringement beyond the MIT License disclaimer already included with the code.
+It is provided without warranty of any kind, including accuracy, fitness for a specific purpose, or non-infringement beyond the Apache License 2.0 disclaimer already included with the code.
 
 ## 4. No professional advice
 
@@ -39,7 +39,7 @@ If you reuse Stream or build on it, do not:
 
 If you redistribute substantial parts of this repository or cite its outputs, keep:
 
-- the MIT license notice for repository code
+- the Apache 2.0 license notice and NOTICE file for repository code
 - attribution for third-party data sources where required
 - clear acknowledgment when a surface is synthetic, derived, or public metadata only
 

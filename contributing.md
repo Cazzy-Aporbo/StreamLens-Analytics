@@ -47,6 +47,12 @@ pip install -r requirements.txt
 pip install -r requirements-dev.txt
 ```
 
+Run the smallest public-data path:
+
+```bash
+python3 run_analysis.py --output-dir exports
+```
+
 Run the app locally:
 
 ```bash
@@ -66,6 +72,29 @@ python3 -m py_compile app.py build_static.py music_ingest.py music_pipeline.py s
 pytest -q
 flake8 streamlens_processor.py app.py music_decision_lab.py tests --max-line-length=120 --extend-ignore=E501,W503
 ```
+
+## Codebase Map
+
+Use this map before opening a pull request. It keeps changes close to the layer they actually affect.
+
+| Layer | Files | Purpose |
+|---|---|---|
+| Public data inputs | `data_sources/`, `data/README.md` | Committed datasets, source notes, and provenance boundaries |
+| Music analysis | `music_pipeline.py`, `music_decision_lab.py`, `music_theory.py`, `music_intelligence.py` | Cleaning, feature engineering, public music metrics, notation-aware indexing |
+| Representation and bias methods | `streamlens_processor.py`, `advanced_metrics.py`, `bias_library.py`, `media_liability_lab.py` | Synthetic/tutorial representation lane, statistical helpers, liability and fairness experiments |
+| Backend spine | `stream_backend/`, `app.py`, `build_static.py` | API routes, static exports, runtime snapshots, SQLite materialization, local event window |
+| Compiled metrics | `loopchii-wasm-core/` | Rust metric primitives that are small enough to inspect and test |
+| Browser surface | `index.html`, `data/system/*.json`, `data/music/*.json` | Public UI, baked artifacts, visual explanation, GitHub Pages-style rendering |
+| Verification | `tests/`, `benchmarks/`, `stream_backend/cli/doctor.py` | Unit tests, scale probes, environment checks, readiness checks |
+
+## Good First Pull Requests
+
+- Add a missing test around an endpoint or pipeline function you already touched.
+- Improve a quality check in `stream_backend/cli/doctor.py`.
+- Make a README claim easier to verify with a command.
+- Add source or license notes for a public dataset.
+- Improve a dashboard explanation without changing the metric underneath.
+- Move duplicated frontend math into the backend artifact path.
 
 ## Suggested Branch Lanes
 

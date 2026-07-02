@@ -13,3 +13,8 @@ def test_stream_doctor_report_has_core_checks():
     assert "music-load" in names
     assert "music-genre-coverage" in names
     assert "decision-lab" in names
+    assert "sqlite-path" in names
+    assert "sqlite-pragmas" in names
+    assert "sqlite-ledger-schema" in names
+    assert "sqlite-event-window" in names
+    assert "write-endpoint-auth" in names

@@ -3,14 +3,23 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Callable, Mapping
 
+from loopchii_lite import public_runtime_review_snapshot
+from media_liability_lab import public_insurability_snapshot
+from runtime_drift import public_runtime_drift_snapshot
 from stream_backend.config import RuntimeConfig
+from stream_backend.analytics.streaming_readiness import build_streaming_readiness_snapshot
+from stream_backend.cli.doctor import build_report
 from stream_backend.exporters import (
     persist_runtime_snapshot,
     write_runtime_json_exports,
     write_runtime_markdown,
 )
 from stream_backend.orchestration import EpochClock, StreamPipeline, build_runtime_snapshot
+from stream_backend.services.bias_dynamics import build_bias_dynamics_surface
 from stream_backend.services.catalog import build_runtime_catalog
+from stream_backend.services.integrations import build_integration_surface
+from stream_backend.services.live_runtime import load_live_metrics, runtime_event_contract
+from stream_backend.services.readiness import build_readiness_surface
 from stream_backend.services.snapshots import load_latest_runtime_snapshot
 from stream_backend.utils import slugify
 
@@ -38,7 +47,32 @@ class StreamRuntime:
         size = int(sample_size or self.config.default_sample_size)
         clock = EpochClock.now()
         payloads = self.pipeline().execute(sample_size=size, generated_at=clock.generated_at)
-        run_id = f"{slugify(self.config.owner_label)}-{clock.date_label}-n{size}"
+        doctor_report = build_report(self.config.base_dir)
+        live_metrics = load_live_metrics(self.config.sqlite_path, config=self.config)
+        readiness = build_readiness_surface(
+            generated_at=clock.generated_at,
+            doctor_report=doctor_report,
+            catalog=build_runtime_catalog(self.config),
+            data_engineering=payloads["data_engineering"],
+            streaming_readiness=build_streaming_readiness_snapshot(
+                music_quality=payloads["music"].get("quality", {}),
+                data_engineering=payloads["data_engineering"],
+            ),
+            live_event_count=live_metrics.get("event_count", 0),
+        )
+        payloads["readiness"] = readiness
+        payloads["integrations"] = build_integration_surface(self.config.base_dir)
+        payloads["bias_dynamics"] = build_bias_dynamics_surface(
+            generated_at=clock.generated_at,
+            representation_results=payloads["representation"],
+            music_report=payloads["music"],
+        )
+        payloads["live_contract"] = runtime_event_contract(self.config)
+        payloads["live_metrics"] = live_metrics
+        payloads["runtime_review"] = public_runtime_review_snapshot()
+        payloads["runtime_drift"] = public_runtime_drift_snapshot()
+        payloads["media_insurability"] = public_insurability_snapshot()
+        run_id = f"{slugify(self.config.owner_label)}-n{size}-{clock.run_label}"
         snapshot = build_runtime_snapshot(
             base_dir=self.config.base_dir,
             run_id=run_id,

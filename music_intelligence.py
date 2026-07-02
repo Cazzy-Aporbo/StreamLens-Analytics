@@ -49,8 +49,10 @@ SKIP_DIRS = {
     "__pycache__",
     ".pytest_cache",
     ".mypy_cache",
+    "exports",
     "dist",
     "build",
+    "target",
 }
 MUSIC_DIR_HINTS = {"scores", "sheets", "music", "midi", "tabs", "notation"}
 TEXT_SCAN_EXTS = {".txt", ".md"}

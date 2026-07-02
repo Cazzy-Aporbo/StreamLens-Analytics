@@ -1,9 +1,7 @@
-"""API tests for the StreamLens FastAPI server"""
-
 import pytest
 from fastapi.testclient import TestClient
 
-from app import app
+from app import app, runtime_service
 
 
 @pytest.fixture(scope='module')
@@ -55,6 +53,20 @@ def test_analyze_runs(client):
     res = client.post('/api/analyze', params={'n_samples': 200})
     assert res.status_code == 200
     assert 'overall_metrics' in res.json()
+
+
+def test_write_endpoints_require_key_when_configured(client, monkeypatch):
+    monkeypatch.setenv("STREAM_API_KEY", "stream-secret")
+
+    denied = client.post('/api/analyze', params={'n_samples': 200})
+    assert denied.status_code == 401
+
+    allowed = client.post(
+        '/api/analyze',
+        params={'n_samples': 200},
+        headers={'X-API-Key': 'stream-secret'},
+    )
+    assert allowed.status_code == 200
 
 
 def test_genres(client):
@@ -208,6 +220,51 @@ def test_media_lab_causal_map(client):
     assert body['edge_count'] > 0
 
 
+def test_media_lab_insurability(client):
+    res = client.get('/api/media-lab/insurability')
+    assert res.status_code == 200
+    body = res.json()
+    assert body['analysis']['posture_band'] in {'clear', 'watch', 'elevated', 'high'}
+
+
+def test_runtime_review_demo(client):
+    res = client.get('/api/runtime/review/demo')
+    assert res.status_code == 200
+    body = res.json()
+    assert body['example']['blocked'] is True
+
+
+def test_runtime_review_post(client):
+    res = client.post('/api/runtime/review', json={
+        'prompt': 'Summarize the billing incident briefly.',
+        'draft_response': 'Customer contacts: jordan@example.com and +1 202 555 0148.'
+    })
+    assert res.status_code == 200
+    body = res.json()
+    assert body['blocked'] is True
+    assert 'draft_payload' in body['evidence_sources']
+
+
+def test_runtime_drift_demo(client):
+    res = client.get('/api/runtime/drift/demo')
+    assert res.status_code == 200
+    body = res.json()
+    assert body['analysis']['drift_band'] in {'clear', 'watch', 'elevated', 'severe'}
+
+
+def test_runtime_drift_post(client):
+    res = client.post('/api/runtime/drift', json={
+        'turns': [
+            'I can share the safe cohort summary.',
+            'Customer contacts: jordan@example.com.',
+            'I will not share the lyrics.'
+        ]
+    })
+    assert res.status_code == 200
+    body = res.json()
+    assert body['signals']['turn_count'] == 3
+
+
 def test_learn(client):
     res = client.get('/api/learn')
     assert res.status_code == 200
@@ -235,6 +292,106 @@ def test_data_engineering_surface(client):
     assert first_contract['schema_profile']['column_count'] >= 5
 
 
+def test_system_integrations_surface(client):
+    res = client.get('/api/system/integrations')
+    assert res.status_code == 200
+    body = res.json()
+    assert len(body['available_now']) >= 4
+    assert 'commercial_boundary' in body
+
+
+def test_system_api_contracts_surface(client):
+    res = client.get('/api/system/api-contracts')
+    assert res.status_code == 200
+    body = res.json()
+    assert {'route_count', 'write_route_count', 'routes', 'schemas', 'write_surface_policy'} <= set(body)
+    assert body['route_count'] >= 40
+    assert body['write_surface_policy']['header'] == 'X-API-Key'
+
+
+def test_system_model_registry_surface(client):
+    res = client.get('/api/system/model-registry')
+    assert res.status_code == 200
+    body = res.json()
+    assert {'trained_models', 'statistical_methods', 'deterministic_probes', 'compiled_kernels', 'not_claimed'} <= set(body)
+    assert any(model['id'] == 'music_view_predictability_ensemble' for model in body['trained_models'])
+
+
+def test_system_bias_dynamics_surface(client):
+    res = client.get('/api/system/bias-dynamics')
+    assert res.status_code == 200
+    body = res.json()
+    assert {'headline', 'posture_band', 'bias_score', 'dimensions', 'watchpoints', 'signals'} <= set(body)
+    assert body['posture_band'] in {'clear', 'watch', 'elevated', 'concentrated'}
+    assert 0 <= body['bias_score'] <= 1
+    assert len(body['dimensions']) >= 4
+
+
+def test_system_runtime_ledger_surface(client):
+    runtime_service.materialize(sample_size=500, persist_sqlite=True)
+    res = client.get('/api/system/runtime/ledger')
+    assert res.status_code == 200
+    body = res.json()
+    assert body['status'] in {'empty', 'verified', 'mixed', 'broken'}
+    assert 'items' in body
+
+
+def test_runtime_metrics_live_surface(client):
+    res = client.get('/api/runtime/metrics/live')
+    assert res.status_code == 200
+    body = res.json()
+    assert body['source'] in {'live', 'demonstration'}
+    assert body['pressure_band'] in {'open', 'watch', 'narrow', 'compressed'}
+    assert 'metrics' in body
+    assert 'watchpoints' in body
+    assert 'invariants' in body
+
+
+def test_runtime_invariants_live_surface(client):
+    res = client.get('/api/runtime/invariants/live')
+    assert res.status_code == 200
+    body = res.json()
+    assert body['action'] in {'allow', 'review', 'quarantine'}
+    assert len(body['invariants']) >= 5
+
+
+def test_runtime_event_contract_surface(client):
+    res = client.get('/api/runtime/events/contract')
+    assert res.status_code == 200
+    body = res.json()
+    assert {'fields', 'batch_limits', 'retention', 'filters', 'sample_event', 'distribution_bus'} <= set(body)
+    assert body['batch_limits']['max_events'] >= 100
+    assert len(body['filters']) >= 4
+
+
+def test_runtime_events_demo_seed_and_latest(client):
+    seeded = client.post('/api/runtime/events/demo-seed')
+    assert seeded.status_code == 200
+    seed_body = seeded.json()
+    assert seed_body['status'] == 'ok'
+    assert seed_body['event_count'] >= 1
+    assert 'bus' in seed_body
+
+    latest = client.get('/api/runtime/events/latest', params={'limit': 5})
+    assert latest.status_code == 200
+    latest_body = latest.json()
+    assert latest_body['limit'] == 5
+    assert len(latest_body['items']) >= 1
+
+    filtered = client.get('/api/runtime/metrics/live', params={'market': 'PH'})
+    assert filtered.status_code == 200
+    filtered_body = filtered.json()
+    assert filtered_body['filters'] == {'market': 'PH'}
+
+
+def test_runtime_metrics_live_socket(client):
+    client.post('/api/runtime/events/demo-seed')
+    with client.websocket_connect('/ws/runtime/metrics/live?market=PH&interval_ms=1000') as websocket:
+        body = websocket.receive_json()
+    assert body['filters'] == {'market': 'PH'}
+    assert body['pressure_band'] in {'open', 'watch', 'narrow', 'compressed'}
+
+
 def test_governance_surface(client):
     res = client.get('/api/system/governance')
     assert res.status_code == 200
@@ -243,6 +400,21 @@ def test_governance_surface(client):
     assert body['summary']['repository_mode'] == 'independent_open_source_surface'
     assert len(body['domains']) >= 5
     assert any(domain['id'] == 'gdpr_boundary' for domain in body['domains'])
+
+
+def test_readiness_surface(client):
+    res = client.get('/api/system/readiness')
+    assert res.status_code == 200
+    body = res.json()
+    assert {'overall', 'proof_points', 'quickstart', 'adoption_paths', 'commercial_posture'} <= set(body)
+    assert body['overall']['level'] in {'pass', 'warn', 'fail'}
+    assert body['proof_points']['dataset_count'] >= 2
+    assert body['proof_points']['local_ledger_mode'] in {'hash_linked', 'shape_incomplete'}
+    assert body['proof_points']['write_endpoint_mode'] in {'protected', 'open_local_default'}
+    assert body['proof_points']['entrypoint_count'] >= 3
+    assert len(body['quickstart']) >= 3
+    assert len(body['adoption_paths']) >= 3
+    assert len(body['commercial_posture']['not_claiming_yet']) >= 3
 
 
 def test_streaming_readiness_surface(client):
@@ -254,6 +426,16 @@ def test_streaming_readiness_surface(client):
     assert len(body['architecture_concerns']) >= 3
     assert len(body['production_expectations_missing']['runtime_guarantees']) >= 5
     assert len(body['roadmap']['quick_wins']) >= 3
+
+
+def test_music_theory_surface(client):
+    res = client.get('/api/music/theory')
+    assert res.status_code == 200
+    body = res.json()
+    assert body['posture'] in {'measured', 'waiting_for_scores'}
+    assert 'coverage' in body
+    assert 'pitch_surface' in body
+    assert 'claim_boundaries' in body
 
 
 def test_bias_propagation_surface(client):

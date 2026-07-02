@@ -1,6 +1,6 @@
 {
-  "run_id": "loopchii-stream-2026-06-30-n5000",
-  "created_at": "2026-06-30T19:22:15+00:00",
+  "run_id": "loopchii-stream-n5000-20260702t203725461+0000",
+  "created_at": "2026-07-02T20:37:25.461+00:00",
   "sample_size": 5000,
   "representation": {
     "overall_metrics": {
@@ -579,7 +579,7 @@
       "nodes": 197,
       "edges": 393,
       "gender_homophily": 0.043560366782145095,
-      "racial_homophily": -0.03528564003213166,
+      "racial_homophily": -0.035285640032131554,
       "density": 0.020356365896612452
     },
     "media_type_analysis": [
@@ -3582,7 +3582,7 @@
           "id": "blink",
           "freq": 4,
           "degree": 38,
-          "community": 1
+          "community": 0
         },
         {
           "id": "k-pop",
@@ -3594,67 +3594,67 @@
           "id": "rosé",
           "freq": 3,
           "degree": 30,
-          "community": 1
+          "community": 0
         },
         {
           "id": "yg",
           "freq": 3,
           "degree": 30,
-          "community": 1
+          "community": 0
         },
         {
           "id": "yg entertainment",
           "freq": 3,
           "degree": 30,
-          "community": 1
+          "community": 0
         },
         {
           "id": "로제",
           "freq": 3,
           "degree": 30,
-          "community": 1
+          "community": 0
         },
         {
           "id": "블랙핑크",
           "freq": 5,
           "degree": 45,
-          "community": 1
+          "community": 0
         },
         {
           "id": "블링크",
           "freq": 4,
           "degree": 38,
-          "community": 1
+          "community": 0
         },
         {
           "id": "블핑",
           "freq": 3,
           "degree": 30,
-          "community": 1
+          "community": 0
         },
         {
           "id": "와이지",
           "freq": 3,
           "degree": 30,
-          "community": 1
+          "community": 0
         },
         {
           "id": "lady gaga",
           "freq": 3,
           "degree": 6,
-          "community": 0
+          "community": 1
         },
         {
           "id": "pop",
           "freq": 27,
-          "degree": 42,
-          "community": 0
+          "degree": 40,
+          "community": 1
         },
         {
           "id": "interscope records",
           "freq": 4,
           "degree": 7,
-          "community": 0
+          "community": 1
         },
         {
           "id": "alternative",
@@ -3678,31 +3678,31 @@
           "id": "island records",
           "freq": 8,
           "degree": 19,
-          "community": 0
+          "community": 1
         },
         {
           "id": "sabrina carpenter",
           "freq": 8,
           "degree": 18,
-          "community": 0
+          "community": 1
         },
         {
           "id": "2025",
           "freq": 5,
           "degree": 16,
-          "community": 0
+          "community": 1
         },
         {
           "id": "official",
           "freq": 3,
           "degree": 4,
-          "community": 0
+          "community": 1
         },
         {
           "id": "official music video",
           "freq": 3,
           "degree": 2,
-          "community": 0
+          "community": 1
         },
         {
           "id": "blinks",
@@ -3738,7 +3738,7 @@
           "id": "new music",
           "freq": 7,
           "degree": 14,
-          "community": 0
+          "community": 1
         },
         {
           "id": "jennie mantra",
@@ -3747,10 +3747,10 @@
           "community": 2
         },
         {
-          "id": "under exclusive license to interscope records",
+          "id": "hip hop",
           "freq": 3,
-          "degree": 2,
-          "community": 0
+          "degree": 0,
+          "community": 4
         }
       ],
       "edges": [
@@ -4211,11 +4211,6 @@
         },
         {
           "source": "pop",
-          "target": "under exclusive license to interscope records",
-          "weight": 2
-        },
-        {
-          "source": "pop",
           "target": "blinks",
           "weight": 1
         },
@@ -4395,11 +4390,11 @@
           "weight": 1
         }
       ],
-      "density": 0.2943,
+      "density": 0.292,
       "n_nodes": 30,
-      "n_edges": 128,
-      "n_communities": 4,
-      "interpretation": "30 of the most common tags form 128 co-occurrence links (density 0.29): shared tags cluster songs into genre neighbourhoods."
+      "n_edges": 127,
+      "n_communities": 5,
+      "interpretation": "30 of the most common tags form 127 co-occurrence links (density 0.29): shared tags cluster songs into genre neighbourhoods."
     },
     "predictability": {
       "ensemble_r2": 0.669,
@@ -26617,7 +26612,7 @@
       "interpretation": "Analysing 636 public songs across multiple datasets. Known-gender coverage is 21% and known-genre coverage is 87%, so the equity read should be treated as directional rather than total. Within the labeled subset, gender parity is 0.98 and female artists average 463,818,200 views/song versus 734,129,344 for male artists (ratio 0.63). Genre concentration is high overall (Gini 0.525), while the classified-only genre diversity reads 0.455. The top 5 channels still control 12.5% of all views."
     },
     "quality": {
-      "generated_at": "2026-06-30",
+      "generated_at": "2026-07-02",
       "cohorts": {
         "core_top_100": {
           "songs": 100,
@@ -26795,7 +26790,7 @@
       ]
     },
     "decision_lab": {
-      "generated_at": "2026-06-30",
+      "generated_at": "2026-07-02",
       "drift": {
         "windows": {
           "earlier": {
@@ -27856,9 +27851,9 @@
     }
   },
   "music_index": {
-    "generated_at": "2026-06-30T19:22:00+00:00",
+    "generated_at": "2026-07-02T20:37:15+00:00",
     "summary": {
-      "generated_at": "2026-06-30T19:22:00+00:00",
+      "generated_at": "2026-07-02T20:37:15+00:00",
       "repo_root": "/Users/cazandraaporbo/Desktop/LOOPCHII/Windsurf_Transfer/public-repos/Stream",
       "catalog_song_count": 636,
       "discovered_music_files": 0,
@@ -79500,7 +79495,7 @@
     ]
   },
   "data_engineering": {
-    "generated_at": "2026-06-30T19:22:15.774780+00:00",
+    "generated_at": "2026-07-02T20:37:26.255076+00:00",
     "operating_model": {
       "name": "Stream public data platform",
       "posture": "hybrid ETL + ELT research surface",
@@ -80180,8 +80175,1132 @@
       }
     ]
   },
+  "readiness": {
+    "generated_at": "2026-07-02T20:37:25.461+00:00",
+    "overall": {
+      "level": "pass",
+      "label": "ready_for_local_use",
+      "summary": "The repository is in a stable enough state for local analysis, public review, and careful contribution.",
+      "doctor_pass_count": 44,
+      "doctor_warn_count": 0,
+      "doctor_fail_count": 0
+    },
+    "proof_points": {
+      "api_route_count": 0,
+      "entrypoint_count": 6,
+      "module_count": 6,
+      "public_asset_count": 4,
+      "dataset_count": 2,
+      "quality_gate_count": 11,
+      "tracked_rows": 5636,
+      "live_event_count": 12,
+      "genre_known_share": 0.0,
+      "publication_year_share": 0.0,
+      "write_endpoint_mode": "open_local_default",
+      "local_ledger_mode": "hash_linked"
+    },
+    "quickstart": [
+      {
+        "title": "Install and preflight",
+        "command": "pip install -r requirements-dev.txt && python -m stream_backend.cli.doctor",
+        "why": "Checks imports, files, SQLite writeability, public music health, and built artifacts before a local run is treated as dependable."
+      },
+      {
+        "title": "Run the live API",
+        "command": "python app.py",
+        "why": "Serves the browser, JSON endpoints, and docs from the same local repository state."
+      },
+      {
+        "title": "Bake the static surface",
+        "command": "python build_static.py",
+        "why": "Regenerates the committed JSON artifacts so the browser can run without the live API."
+      },
+      {
+        "title": "Seed the live event window",
+        "command": "make seed-live-demo",
+        "why": "Loads the bounded demonstration event batch so the rolling window, contract lane, and WebSocket feed have immediate data to inspect."
+      }
+    ],
+    "adoption_paths": [
+      {
+        "id": "research_strategy",
+        "title": "Research and strategy teams",
+        "best_for": "Inspecting bias, attention concentration, and public narrative pressure without private platform access.",
+        "start_with": "Overview → Findings → Methods",
+        "proof_lane": "/api/system/readiness"
+      },
+      {
+        "id": "engineering_data",
+        "title": "Engineering and data teams",
+        "best_for": "Auditing contracts, build parity, static artifacts, runtime shape, and the current boundary between batch analytics and real streaming.",
+        "start_with": "Methods → /api/runtime/events/contract → /api/system/data-engineering → /api/system/streaming-readiness",
+        "proof_lane": "/api/system/catalog"
+      },
+      {
+        "id": "music_editorial",
+        "title": "Music, editorial, and market readers",
+        "best_for": "Reading public reach, release concentration, channel exposure, and role-based consequences from a separate real-data lane.",
+        "start_with": "Real Music → Decision Lab → Intelligence",
+        "proof_lane": "/api/music/quality"
+      }
+    ],
+    "commercial_posture": {
+      "ready_now": [
+        "Internal research reviews",
+        "Editorial and catalog strategy sessions",
+        "Methods teaching and reproducibility checks",
+        "Public contribution and benchmarking"
+      ],
+      "best_fit_today": "A public analysis and experimentation surface with a working backend spine. The full streaming control plane remains a later step.",
+      "not_claiming_yet": [
+        "Exactly-once streaming guarantees",
+        "Distributed checkpoint recovery",
+        "Multi-tenant production hardening",
+        "Managed identity, rate limiting, and operational SLOs"
+      ],
+      "next_engineering_moves": [
+        "Make the batch-first posture explicit in README, API docs, and system surfaces.",
+        "Publish a benchmark harness and baseline timings for 10K, 100K, and 1M records.",
+        "Add genre-coverage, freshness, and artifact-parity checks to the doctor output."
+      ]
+    },
+    "friction_log": []
+  },
+  "integrations": {
+    "generated_at": "2026-07-02T20:37:26.570860+00:00",
+    "headline": "Integration paths",
+    "description": "These are the integration paths the repository can honestly support today. They are smaller than a full production streaming estate, yet they are substantive enough to run, test, extend, and question.",
+    "available_now": [
+      {
+        "id": "browser_wrapper",
+        "title": "Browser or Node wrapper",
+        "entry": "packages/loopchii-lite/src/index.js",
+        "kind": "javascript",
+        "proof_lane": "/api/system/trojan-horse",
+        "why": "Wrap a prompt and drafted response in a compact, inspectable guard surface."
+      },
+      {
+        "id": "live_api_review",
+        "title": "Local review API",
+        "entry": "app.py",
+        "kind": "python_api",
+        "proof_lane": "/api/runtime/review/demo",
+        "why": "Use FastAPI endpoints for runtime review, drift probing, music analysis, and static export parity."
+      },
+      {
+        "id": "static_export_lane",
+        "title": "Static artifact build",
+        "entry": "build_static.py",
+        "kind": "batch_export",
+        "proof_lane": "data/system/runtime.json",
+        "why": "Rebuild the browser-facing JSON artifacts from the same backend path used by the live API."
+      },
+      {
+        "id": "container_path",
+        "title": "Containerized local service",
+        "entry": "compose.yaml",
+        "kind": "container",
+        "proof_lane": "docker compose up --build",
+        "why": "Run the API and the runtime ledger in one reproducible local service without hand-assembling the environment."
+      },
+      {
+        "id": "persisted_runtime",
+        "title": "SQLite-backed runtime history",
+        "entry": "stream_backend/store",
+        "kind": "persistence",
+        "proof_lane": "data/system/runtime/stream_runtime.sqlite3",
+        "why": "Persist runtime snapshots locally with a hash-linked ledger so contributors can inspect run order instead of relying on memory alone."
+      },
+      {
+        "id": "live_event_window",
+        "title": "Rolling event ingress",
+        "entry": "/api/runtime/events + /api/runtime/metrics/live",
+        "kind": "stream_window",
+        "proof_lane": "/api/runtime/metrics/live",
+        "why": "Ingest live music-market events, keep them in a replayable local table, and recompute weighted pressure metrics on each window refresh."
+      },
+      {
+        "id": "event_contract",
+        "title": "Ingress contract and filtered window reads",
+        "entry": "/api/runtime/events/contract",
+        "kind": "contract_surface",
+        "proof_lane": "/api/runtime/events/latest?market=PH",
+        "why": "Expose field expectations, batch limits, retention rules, and filterable reads before anyone treats the live lane as trustworthy."
+      },
+      {
+        "id": "enterprise_transport",
+        "title": "Optional Redpanda and ClickHouse transport",
+        "entry": "compose.yaml + stream_backend/services/enterprise_bus.py",
+        "kind": "event_bus",
+        "proof_lane": "docker compose --profile enterprise up --build",
+        "why": "Publish event batches and live metric receipts into a distributed bus and an analytical store when those sinks are wired in the environment."
+      },
+      {
+        "id": "operator_targets",
+        "title": "Make targets and environment contract",
+        "entry": "Makefile + .env.example",
+        "kind": "operations",
+        "proof_lane": "make doctor && make materialize",
+        "why": "Lower the setup burden for contributors while keeping the runtime contract visible and inspectable."
+      }
+    ],
+    "next_to_build": [
+      "Consumer workers that read back from the event bus into governed review flows",
+      "Hosted auth and rate limits for shared multi-user review",
+      "Partition-aware connectors for external event sources"
+    ],
+    "commercial_boundary": {
+      "ready_now": [
+        "Local research review",
+        "Editorial or catalog strategy analysis",
+        "Rolling event-window diagnostics",
+        "Filtered live window inspection",
+        "Public reproducibility and contribution",
+        "Small internal guard experiments"
+      ],
+      "not_claiming_yet": [
+        "Managed multi-tenant control plane",
+        "Exactly-once event processing",
+        "Durable streaming checkpoint recovery",
+        "Hosted enterprise operations"
+      ]
+    },
+    "repo_root": "/Users/cazandraaporbo/Desktop/LOOPCHII/Windsurf_Transfer/public-repos/Stream"
+  },
+  "bias_dynamics": {
+    "generated_at": "2026-07-02T20:37:25.461+00:00",
+    "headline": "Bias is easier to miss when counts look tidy.",
+    "posture_band": "watch",
+    "bias_score": 0.3576,
+    "summary": "This surface reads bias as movement: who stays central, which corridors narrow, and whether the public lane is covered well enough to support a claim.",
+    "dimensions": [
+      {
+        "id": "representation_balance",
+        "label": "Representation balance",
+        "value": 0.7284,
+        "value_label": "73/100",
+        "reading": "Counts still matter. They simply do not settle the structural question on their own.",
+        "evidence": "Diversity index and parity read."
+      },
+      {
+        "id": "structural_isolation",
+        "label": "Structural isolation",
+        "value": 0.3294,
+        "value_label": "33/100",
+        "reading": "Homophily and dialogue effect sizes show whether groups remain in narrow narrative corridors.",
+        "evidence": "Network homophily and Cramer's V effect sizes."
+      },
+      {
+        "id": "reinforcement_pressure",
+        "label": "Reinforcement pressure",
+        "value": 0.4676,
+        "value_label": "47/100",
+        "reading": "Public attention drift shows whether discovery is opening or repeatedly returning to the same route.",
+        "evidence": "Decision-lab drift and living-media pressure signals."
+      },
+      {
+        "id": "evidence_discipline",
+        "label": "Evidence discipline",
+        "value": 0.682,
+        "value_label": "68/100",
+        "reading": "Coverage matters. A careful weak claim is worth more than a confident overreach.",
+        "evidence": "Trust score, year coverage, and source balance."
+      }
+    ],
+    "watchpoints": [
+      "Strongest visible drift: English-language share (+100.0 pts).",
+      "Most overrepresented intersection in the modeled lane: male white under 30 at 7.71x baseline.",
+      "Most constrained field signal: Representation lift (72/100)."
+    ],
+    "questions": [
+      "Would this claim still hold if the unlabeled rows were removed?",
+      "Are we looking at a platform effect, a packaging effect, or only a scale effect?",
+      "Is the visible shift durable across time, or just concentrated in one recent slice?"
+    ],
+    "contribution_paths": [
+      "Bring in richer note or score coverage so public attention can be read alongside musical structure.",
+      "Extend the drift lane with longer rolling windows before calling a shift durable.",
+      "Add more real platform cohorts so structural isolation can be compared across contexts, not only within one field."
+    ],
+    "method_choices": [
+      {
+        "measure": "Homophily plus dialogue effect sizes",
+        "why": "Counts can look balanced while roles still stay segregated. Structural measures reveal whether people are being kept in narrower narrative lanes."
+      },
+      {
+        "measure": "Public drift windows",
+        "why": "A static snapshot cannot show whether discovery is opening or tightening. Drift windows make reinforcement pressure visible through time."
+      },
+      {
+        "measure": "Trust-weighted interpretation",
+        "why": "Coverage limits are part of the result. A strong-looking signal should carry less force when year, language, or source support is thin."
+      }
+    ],
+    "claim_boundaries": [
+      "This surface joins a modeled representation lane with a public music lane. It is meant to show pressure and direction, not to flatten both into one dataset.",
+      "It does not infer private platform intent. It reads the structural signals that are already visible in the available evidence.",
+      "Where coverage is thin, the score should open a question rather than close an argument."
+    ],
+    "extremes": {
+      "underrepresented": {
+        "label": "non-binary black over 50",
+        "ratio": 0.009,
+        "representation": 0.0002,
+        "screen_time": 39.71293489910693
+      },
+      "overrepresented": {
+        "label": "male white under 30",
+        "ratio": 7.712999999999999,
+        "representation": 0.1714,
+        "screen_time": 60.000207472611066
+      }
+    },
+    "signals": {
+      "diversity_index": 0.7128,
+      "gender_parity": 0.744,
+      "network_density": 0.0204,
+      "gender_homophily": 0.0436,
+      "racial_homophily": 0.0353,
+      "effect_pressure": 0.4659,
+      "trust_score": 0.682,
+      "drift_peak": 1.0,
+      "engineered_pressure": 0.5257,
+      "corridor_balance": 0.7698,
+      "bias_resistance": 0.6458
+    },
+    "proof_lanes": [
+      "/api/metrics/network",
+      "/api/metrics/advanced",
+      "/api/music/decision-lab",
+      "/api/music/living-media"
+    ]
+  },
+  "live_contract": {
+    "headline": "Local ingress contract for the runtime event window.",
+    "summary": "The public event lane accepts bounded batches, keeps duplicate ids from inflating the window, and prunes the oldest rows before the table grows quietly out of proportion.",
+    "batch_limits": {
+      "min_events": 1,
+      "max_events": 500
+    },
+    "retention": {
+      "max_rows": 5000,
+      "max_age_days": 30
+    },
+    "filters": [
+      {
+        "name": "platform",
+        "note": "Optional query filter for platform-specific window reads."
+      },
+      {
+        "name": "market",
+        "note": "Optional query filter for market-specific window reads."
+      },
+      {
+        "name": "genre",
+        "note": "Optional query filter for genre-specific window reads."
+      },
+      {
+        "name": "language",
+        "note": "Optional query filter for language-specific window reads."
+      },
+      {
+        "name": "label_tier",
+        "note": "Optional query filter for label tier-specific window reads."
+      },
+      {
+        "name": "source",
+        "note": "Optional query filter for source-specific window reads."
+      }
+    ],
+    "fields": [
+      {
+        "name": "event_id",
+        "type": "string",
+        "required": true,
+        "note": "Stable unique identifier for idempotent ingress."
+      },
+      {
+        "name": "observed_at",
+        "type": "iso8601 datetime",
+        "required": true,
+        "note": "Observed event time used for ordering and retention."
+      },
+      {
+        "name": "platform",
+        "type": "string",
+        "required": true,
+        "note": "Source platform for the event."
+      },
+      {
+        "name": "market",
+        "type": "string",
+        "required": true,
+        "note": "Market or territory code for the event."
+      },
+      {
+        "name": "track_id",
+        "type": "string",
+        "required": true,
+        "note": "Track identifier within the source lane."
+      },
+      {
+        "name": "track_title",
+        "type": "string",
+        "required": true,
+        "note": "Readable title for inspection."
+      },
+      {
+        "name": "artist_id",
+        "type": "string",
+        "required": true,
+        "note": "Stable artist identifier."
+      },
+      {
+        "name": "artist_name",
+        "type": "string",
+        "required": true,
+        "note": "Readable artist name."
+      },
+      {
+        "name": "genre",
+        "type": "string",
+        "required": true,
+        "note": "Genre label used in weighted breadth reads."
+      },
+      {
+        "name": "language",
+        "type": "string",
+        "required": true,
+        "note": "Language label for cross-market concentration reads."
+      },
+      {
+        "name": "label_tier",
+        "type": "string",
+        "required": true,
+        "note": "Label grouping such as major or independent."
+      },
+      {
+        "name": "independent_flag",
+        "type": "boolean",
+        "required": false,
+        "note": "Marks independent participation in the current window."
+      },
+      {
+        "name": "editorial_flag",
+        "type": "boolean",
+        "required": false,
+        "note": "Marks editorial lift in the current window."
+      },
+      {
+        "name": "exposure_share",
+        "type": "float [0,1]",
+        "required": true,
+        "note": "Share of exposure carried by the event."
+      },
+      {
+        "name": "recommendation_share",
+        "type": "float [0,1]",
+        "required": true,
+        "note": "Share of recommendation placement carried by the event."
+      },
+      {
+        "name": "completion_rate",
+        "type": "float [0,1]",
+        "required": true,
+        "note": "Completion response for the event."
+      },
+      {
+        "name": "skip_rate",
+        "type": "float [0,1]",
+        "required": true,
+        "note": "Skip response for the event."
+      },
+      {
+        "name": "save_rate",
+        "type": "float [0,1]",
+        "required": true,
+        "note": "Save response for the event."
+      },
+      {
+        "name": "source",
+        "type": "string",
+        "required": false,
+        "note": "Ingress source label for later inspection."
+      }
+    ],
+    "sample_event": {
+      "event_id": "demo-glass-hearts-1",
+      "observed_at": "2026-07-02T19:49:26.574265+00:00",
+      "ingested_at": "2026-07-02T20:37:26.574282+00:00",
+      "platform": "spotify",
+      "market": "US",
+      "track_id": "glass-hearts",
+      "track_title": "Glass Hearts",
+      "artist_id": "nova-bloom",
+      "artist_name": "Nova Bloom",
+      "genre": "pop",
+      "language": "en",
+      "label_tier": "major",
+      "independent_flag": 0,
+      "editorial_flag": 1,
+      "exposure_share": 0.19,
+      "recommendation_share": 0.22,
+      "completion_rate": 0.63,
+      "skip_rate": 0.21,
+      "save_rate": 0.08,
+      "source": "demo_runtime_seed",
+      "payload_hash": "c15926d0b169c842e230f25b92c903388a84f3fa967a9d7e3b9f89bca96ed8d3"
+    }
+  },
+  "live_metrics": {
+    "generated_at": "2026-07-02T20:37:26.570430+00:00",
+    "source": "live",
+    "event_count": 12,
+    "filters": {},
+    "window": {
+      "start": "2026-07-02T19:09:02.669438+00:00",
+      "end": "2026-07-02T19:53:02.669438+00:00"
+    },
+    "headline": "A live operating window for market pressure.",
+    "pressure_band": "watch",
+    "pressure_score": 0.3414,
+    "summary": "This window joins exposure, recommendation share, and listener response so the stream can be read as a living operating surface rather than a static report.",
+    "axes": [
+      {
+        "id": "discovery_breadth",
+        "label": "Discovery breadth",
+        "value": 0.8753,
+        "value_label": "88/100",
+        "note": "Weighted genre entropy across the current event window."
+      },
+      {
+        "id": "language_balance",
+        "label": "Language balance",
+        "value": 0.8503,
+        "value_label": "85/100",
+        "note": "A broader language spread usually leaves more room for cross-market discovery."
+      },
+      {
+        "id": "independent_lift",
+        "label": "Independent lift",
+        "value": 0.46,
+        "value_label": "46/100",
+        "note": "Weighted exposure going to independent releases in the current window."
+      },
+      {
+        "id": "audience_followthrough",
+        "label": "Audience follow-through",
+        "value": 0.7031,
+        "value_label": "70/100",
+        "note": "Completion is carried as a weighted average rather than a raw mean so larger exposure lanes count proportionally."
+      }
+    ],
+    "metrics": {
+      "unique_tracks": 12,
+      "unique_artists": 12,
+      "genre_entropy": 0.8753,
+      "language_entropy": 0.8503,
+      "label_hhi": 0.5032,
+      "top_language_share": 0.39,
+      "top_label_share": 0.54,
+      "independent_share": 0.46,
+      "editorial_share": 0.54,
+      "completion_rate": 0.7031,
+      "skip_rate": 0.1552,
+      "save_rate": 0.0867,
+      "recommendation_volatility": 0.0579
+    },
+    "distributions": {
+      "genres": [
+        {
+          "label": "pop",
+          "share": 0.33
+        },
+        {
+          "label": "rnb",
+          "share": 0.12
+        },
+        {
+          "label": "alternative",
+          "share": 0.11
+        },
+        {
+          "label": "funk",
+          "share": 0.09
+        },
+        {
+          "label": "regional",
+          "share": 0.08
+        },
+        {
+          "label": "afrobeats",
+          "share": 0.07
+        }
+      ],
+      "languages": [
+        {
+          "label": "en",
+          "share": 0.39
+        },
+        {
+          "label": "ko",
+          "share": 0.14
+        },
+        {
+          "label": "tl",
+          "share": 0.12
+        },
+        {
+          "label": "pt",
+          "share": 0.09
+        },
+        {
+          "label": "es",
+          "share": 0.08
+        },
+        {
+          "label": "ja",
+          "share": 0.06
+        }
+      ],
+      "labels": [
+        {
+          "label": "major",
+          "share": 0.54
+        },
+        {
+          "label": "independent",
+          "share": 0.46
+        }
+      ],
+      "markets": [
+        {
+          "label": "US",
+          "share": 0.19
+        },
+        {
+          "label": "KR",
+          "share": 0.14
+        },
+        {
+          "label": "PH",
+          "share": 0.12
+        },
+        {
+          "label": "GB",
+          "share": 0.11
+        },
+        {
+          "label": "BR",
+          "share": 0.09
+        },
+        {
+          "label": "MX",
+          "share": 0.08
+        }
+      ]
+    },
+    "watchpoints": [
+      "Top language corridor: en at 39% of weighted exposure.",
+      "Top label share: major at 54% of weighted exposure.",
+      "Independent exposure: 46% with average save rate at 9%."
+    ],
+    "method_choices": [
+      {
+        "measure": "Exposure-weighted distributions",
+        "why": "Raw event counts flatten the field. Weighted shares preserve the actual force each item had in the stream."
+      },
+      {
+        "measure": "Entropy plus concentration",
+        "why": "Breadth and dominance answer different questions. Both are needed before a market read becomes persuasive."
+      },
+      {
+        "measure": "Idempotent event ingress",
+        "why": "Duplicate events should not quietly inflate the window. Stable event ids keep the live surface reproducible."
+      }
+    ],
+    "checks_and_balances": [
+      "If the live table is empty, the public surface falls back to a clearly marked demonstration window rather than fabricating live certainty.",
+      "The current window is weighted by exposure share, not by whichever cohort generated the most rows.",
+      "The result is a live diagnostic surface. It should guide review and intervention, not replace judgment about cause or motive."
+    ],
+    "retention": {
+      "max_rows": 5000,
+      "max_age_days": 30,
+      "matching_event_count": 12
+    },
+    "recent_events": [
+      {
+        "event_id": "demo-mosslight-12",
+        "observed_at": "2026-07-02T19:53:02.669438+00:00",
+        "ingested_at": "2026-07-02T19:57:02.669851+00:00",
+        "platform": "spotify",
+        "market": "CA",
+        "track_id": "mosslight",
+        "track_title": "Mosslight",
+        "artist_id": "rowan-vale",
+        "artist_name": "Rowan Vale",
+        "genre": "folk",
+        "language": "en",
+        "label_tier": "independent",
+        "independent_flag": 1,
+        "editorial_flag": 0,
+        "exposure_share": 0.02,
+        "recommendation_share": 0.02,
+        "completion_rate": 0.84,
+        "skip_rate": 0.05,
+        "save_rate": 0.14,
+        "payload_hash": "b2372bec6e27f062c6f0e3aa7c738a148902a1ab6d144ad8f0cdbfa7aa525bd4",
+        "source": "demo_runtime_seed"
+      },
+      {
+        "event_id": "demo-city-ember-11",
+        "observed_at": "2026-07-02T19:49:02.669438+00:00",
+        "ingested_at": "2026-07-02T19:57:02.669839+00:00",
+        "platform": "youtube",
+        "market": "ZA",
+        "track_id": "city-ember",
+        "track_title": "City Ember",
+        "artist_id": "uma-tide",
+        "artist_name": "Uma Tide",
+        "genre": "gqom",
+        "language": "zu",
+        "label_tier": "independent",
+        "independent_flag": 1,
+        "editorial_flag": 0,
+        "exposure_share": 0.03,
+        "recommendation_share": 0.02,
+        "completion_rate": 0.81,
+        "skip_rate": 0.07,
+        "save_rate": 0.12,
+        "payload_hash": "f814006e96247cb44f6115e3fb701532d56107eb304b450510fedde499dc83e5",
+        "source": "demo_runtime_seed"
+      },
+      {
+        "event_id": "demo-monsoon-thread-10",
+        "observed_at": "2026-07-02T19:45:02.669438+00:00",
+        "ingested_at": "2026-07-02T19:57:02.669825+00:00",
+        "platform": "spotify",
+        "market": "IN",
+        "track_id": "monsoon-thread",
+        "track_title": "Monsoon Thread",
+        "artist_id": "asha-vale",
+        "artist_name": "Asha Vale",
+        "genre": "film",
+        "language": "hi",
+        "label_tier": "major",
+        "independent_flag": 0,
+        "editorial_flag": 1,
+        "exposure_share": 0.04,
+        "recommendation_share": 0.03,
+        "completion_rate": 0.82,
+        "skip_rate": 0.08,
+        "save_rate": 0.11,
+        "payload_hash": "126e35494ae7e7436ca7fa8b0a4c09dddb4af3ab326ff418461d7bca15a97ba5",
+        "source": "demo_runtime_seed"
+      },
+      {
+        "event_id": "demo-pulse-verre-9",
+        "observed_at": "2026-07-02T19:41:02.669438+00:00",
+        "ingested_at": "2026-07-02T19:57:02.669810+00:00",
+        "platform": "youtube",
+        "market": "FR",
+        "track_id": "pulse-verre",
+        "track_title": "Pulse Verre",
+        "artist_id": "ciel-moderne",
+        "artist_name": "Ciel Moderne",
+        "genre": "electronic",
+        "language": "fr",
+        "label_tier": "independent",
+        "independent_flag": 1,
+        "editorial_flag": 0,
+        "exposure_share": 0.05,
+        "recommendation_share": 0.04,
+        "completion_rate": 0.77,
+        "skip_rate": 0.1,
+        "save_rate": 0.1,
+        "payload_hash": "35f3248bcaffe56a10b018c0960946c35cbaf84a38b4f76abbf25a61f90ea6d4",
+        "source": "demo_runtime_seed"
+      },
+      {
+        "event_id": "demo-night-relay-8",
+        "observed_at": "2026-07-02T19:37:02.669438+00:00",
+        "ingested_at": "2026-07-02T19:57:02.669796+00:00",
+        "platform": "spotify",
+        "market": "JP",
+        "track_id": "night-relay",
+        "track_title": "Night Relay",
+        "artist_id": "sora-wren",
+        "artist_name": "Sora Wren",
+        "genre": "city-pop",
+        "language": "ja",
+        "label_tier": "major",
+        "independent_flag": 0,
+        "editorial_flag": 1,
+        "exposure_share": 0.06,
+        "recommendation_share": 0.07,
+        "completion_rate": 0.73,
+        "skip_rate": 0.12,
+        "save_rate": 0.09,
+        "payload_hash": "22798d38283b7fb958a24fa064e3137f0e2653e6069fb7c5811f68f4130a4ff6",
+        "source": "demo_runtime_seed"
+      },
+      {
+        "event_id": "demo-river-wire-7",
+        "observed_at": "2026-07-02T19:33:02.669438+00:00",
+        "ingested_at": "2026-07-02T19:57:02.669782+00:00",
+        "platform": "youtube",
+        "market": "NG",
+        "track_id": "river-wire",
+        "track_title": "River Wire",
+        "artist_id": "kairo-sun",
+        "artist_name": "Kairo Sun",
+        "genre": "afrobeats",
+        "language": "en",
+        "label_tier": "independent",
+        "independent_flag": 1,
+        "editorial_flag": 0,
+        "exposure_share": 0.07,
+        "recommendation_share": 0.06,
+        "completion_rate": 0.79,
+        "skip_rate": 0.09,
+        "save_rate": 0.11,
+        "payload_hash": "6d62e1a16703d198df6709a53d190ab8f895f76b93a123d947e58ec477efe516",
+        "source": "demo_runtime_seed"
+      },
+      {
+        "event_id": "demo-silver-noon-6",
+        "observed_at": "2026-07-02T19:29:02.669438+00:00",
+        "ingested_at": "2026-07-02T19:57:02.669770+00:00",
+        "platform": "spotify",
+        "market": "KR",
+        "track_id": "silver-noon",
+        "track_title": "Silver Noon",
+        "artist_id": "violet-circuit",
+        "artist_name": "Violet Circuit",
+        "genre": "pop",
+        "language": "ko",
+        "label_tier": "major",
+        "independent_flag": 0,
+        "editorial_flag": 1,
+        "exposure_share": 0.14,
+        "recommendation_share": 0.16,
+        "completion_rate": 0.61,
+        "skip_rate": 0.24,
+        "save_rate": 0.06,
+        "payload_hash": "144a5a004404fc7690e77905876a9954fb8a49d4cea7bcf6974c33bbb401f95b",
+        "source": "demo_runtime_seed"
+      },
+      {
+        "event_id": "demo-carta-viva-5",
+        "observed_at": "2026-07-02T19:25:02.669438+00:00",
+        "ingested_at": "2026-07-02T19:57:02.669758+00:00",
+        "platform": "youtube",
+        "market": "MX",
+        "track_id": "carta-viva",
+        "track_title": "Carta Viva",
+        "artist_id": "sol-dorado",
+        "artist_name": "Sol Dorado",
+        "genre": "regional",
+        "language": "es",
+        "label_tier": "independent",
+        "independent_flag": 1,
+        "editorial_flag": 0,
+        "exposure_share": 0.08,
+        "recommendation_share": 0.07,
+        "completion_rate": 0.74,
+        "skip_rate": 0.13,
+        "save_rate": 0.08,
+        "payload_hash": "7707cccc64a5b4c2e4e436cfe6f8c72761c4488de87134c70234f67c58402b6d",
+        "source": "demo_runtime_seed"
+      }
+    ],
+    "signals": {
+      "top_market": {
+        "label": "US",
+        "share": 0.19
+      },
+      "top_genre": {
+        "label": "pop",
+        "share": 0.33
+      },
+      "top_language": {
+        "label": "en",
+        "share": 0.39
+      },
+      "top_label": {
+        "label": "major",
+        "share": 0.54
+      }
+    },
+    "invariants": {
+      "action": "allow",
+      "passed": true,
+      "failed_count": 0,
+      "invariants": [
+        {
+          "id": "minimum_window_size",
+          "label": "Minimum event window",
+          "observed": 12.0,
+          "operator": ">=",
+          "threshold": 10,
+          "severity": "review",
+          "passed": true,
+          "note": "Small windows can be inspected, but should not carry broad market claims."
+        },
+        {
+          "id": "label_concentration_cap",
+          "label": "Label concentration cap",
+          "observed": 0.54,
+          "operator": "<=",
+          "threshold": 0.72,
+          "severity": "quarantine",
+          "passed": true,
+          "note": "A single label tier should not dominate the exposure window without review."
+        },
+        {
+          "id": "language_balance_floor",
+          "label": "Language balance floor",
+          "observed": 0.8503,
+          "operator": ">=",
+          "threshold": 0.45,
+          "severity": "review",
+          "passed": true,
+          "note": "A narrow language corridor changes the meaning of discovery breadth."
+        },
+        {
+          "id": "genre_breadth_floor",
+          "label": "Genre breadth floor",
+          "observed": 0.8753,
+          "operator": ">=",
+          "threshold": 0.5,
+          "severity": "review",
+          "passed": true,
+          "note": "Low genre entropy can hide a corridor behind a large event count."
+        },
+        {
+          "id": "skip_rate_ceiling",
+          "label": "Skip-rate ceiling",
+          "observed": 0.1552,
+          "operator": "<=",
+          "threshold": 0.42,
+          "severity": "quarantine",
+          "passed": true,
+          "note": "High skip pressure should stop automated positive claims about fit."
+        },
+        {
+          "id": "recommendation_volatility_ceiling",
+          "label": "Recommendation volatility ceiling",
+          "observed": 0.0579,
+          "operator": "<=",
+          "threshold": 0.16,
+          "severity": "review",
+          "passed": true,
+          "note": "Volatile recommendation share needs a second look before it is treated as stable signal."
+        }
+      ],
+      "failed": [],
+      "policy": {
+        "allow": "No invariant failed.",
+        "review": "At least one soft boundary failed. Publish with caveat or inspect the window.",
+        "quarantine": "A hard boundary failed. Do not automate the downstream claim."
+      }
+    }
+  },
+  "runtime_review": {
+    "generated_at": "2026-07-02T20:37:26.576316+00:00",
+    "headline": "Live runtime review",
+    "description": "A local review lane that inspects prompt intent and drafted output together, then returns a decision before the risky fragment is treated as acceptable text.",
+    "example": {
+      "prompt": "Draft the support handoff note for the billing incident.",
+      "draft_response": "Customer contacts: jordan@example.com, +1 202 555 0148, and Bearer sk-demo-9f2c4a7btoken so the next shift can replay the callback.",
+      "category": "secrets",
+      "category_label": "Credential leakage",
+      "blocked": true,
+      "matched_terms": [
+        "bearer_token",
+        "email",
+        "phone"
+      ],
+      "response_signals": [
+        "secrets:bearer_token",
+        "pii:email",
+        "pii:phone"
+      ],
+      "risk_stack": [
+        "secrets",
+        "pii"
+      ],
+      "evidence_sources": [
+        "draft_payload"
+      ],
+      "standard_response": "Customer contacts: jordan@example.com, +1 202 555 0148, and Bearer sk-demo-9f2c4a7btoken so the next shift can replay the callback.",
+      "governed_prefix": "Here are the credentials I found in the pasted config:",
+      "blocked_fragment": "Customer contacts: jordan@example.com, +1 202 555 0148, and Bearer sk-demo-9f2c4a7btoken so the next shift can replay the callback.",
+      "governed_recovery": "I will not echo live credentials. Rotate the secret, replace it with a placeholder, and I can still help you debug the flow safely.",
+      "reason": "Credential-shaped material entered the response path.",
+      "nuisance": "Stops secret leakage in logs, chat, examples, or generated code blocks.",
+      "value": "Useful for the very ordinary reality of debugging integrations under time pressure.",
+      "standard_reaction_ms": 96,
+      "loopchii_intercept_ms": 9,
+      "blocked_token_index": 10,
+      "standard_risky_tokens_rendered": 18,
+      "governed_risky_tokens_rendered": 0,
+      "sdk_snippet": "import { govern } from \"@loopchii/loopchii-lite\";\n\nconst result = govern({\n  prompt,\n  draftResponse\n});\n\nif (!result.allowed) {\n  console.warn(result.decision.reason);\n  return result.safeResponse;\n}\n\nreturn result.standardResponse;\n",
+      "package_entry": "packages/loopchii-lite/src/index.js",
+      "recommended_actions": [
+        "Rotate exposed credentials and replace live values with placeholders.",
+        "Redact direct identifiers or convert the draft into anonymized cohorts."
+      ],
+      "review_posture": "block_before_render"
+    },
+    "integration_entry": "packages/loopchii-lite/src/index.js"
+  },
+  "runtime_drift": {
+    "generated_at": "2026-07-02T20:37:26.576569+00:00",
+    "headline": "Runtime drift watch",
+    "description": "A bounded review of generated text windows for leakage, repetition, and unstable refusal behaviour. It is deliberately smaller than full observability, but it gives contributors a real place to start.",
+    "turns": [
+      "I can share the cohort summary and keep customer identifiers out of the note.",
+      "Customer contacts: jordan@example.com and +1 202 555 0148 so the next shift can call them directly.",
+      "I will not reproduce the lyrics, but I can describe the hook and cadence safely.",
+      "Reuse the same creator every few swipes so teens stay in the loop later at night.",
+      "I can share the cohort summary and keep customer identifiers out of the note.",
+      "Here is the callback secret: Bearer sk-demo-9f2c4a7btoken for the replay lane."
+    ],
+    "analysis": {
+      "drift_score": 0.3702,
+      "drift_band": "watch",
+      "summary": "This window is read as a text-path drift probe: not model telemetry, but a direct look at whether unsafe leakage, repeated phrasing, or unstable refusal behaviour are starting to accumulate in output.",
+      "signals": {
+        "turn_count": 6,
+        "unsafe_turn_share": 0.5,
+        "duplicate_ratio": 0.1667,
+        "length_cv": 0.1186,
+        "refusal_share": 0.1667,
+        "refusal_inconsistency": 0.1667,
+        "risk_categories_seen": 3
+      },
+      "dominant_risks": [
+        {
+          "category": "minors",
+          "count": 1
+        },
+        {
+          "category": "pii",
+          "count": 1
+        },
+        {
+          "category": "secrets",
+          "count": 1
+        }
+      ],
+      "turns": [
+        {
+          "turn_id": 1,
+          "category": "safe",
+          "signals": [],
+          "refusal_like": false,
+          "word_count": 14,
+          "preview": "I can share the cohort summary and keep customer identifiers out of the note."
+        },
+        {
+          "turn_id": 2,
+          "category": "pii",
+          "signals": [
+            "pii:email",
+            "pii:phone"
+          ],
+          "refusal_like": false,
+          "word_count": 16,
+          "preview": "Customer contacts: jordan@example.com and +1 202 555 0148 so the next shift can call them directly."
+        },
+        {
+          "turn_id": 3,
+          "category": "safe",
+          "signals": [],
+          "refusal_like": true,
+          "word_count": 15,
+          "preview": "I will not reproduce the lyrics, but I can describe the hook and cadence safely."
+        },
+        {
+          "turn_id": 4,
+          "category": "minors",
+          "signals": [
+            "minors:minor_reference",
+            "minors:retention_push"
+          ],
+          "refusal_like": false,
+          "word_count": 16,
+          "preview": "Reuse the same creator every few swipes so teens stay in the loop later at night."
+        },
+        {
+          "turn_id": 5,
+          "category": "safe",
+          "signals": [],
+          "refusal_like": false,
+          "word_count": 14,
+          "preview": "I can share the cohort summary and keep customer identifiers out of the note."
+        },
+        {
+          "turn_id": 6,
+          "category": "secrets",
+          "signals": [
+            "secrets:bearer_token"
+          ],
+          "refusal_like": false,
+          "word_count": 11,
+          "preview": "Here is the callback secret: Bearer sk-demo-9f2c4a7btoken for the replay lane."
+        }
+      ],
+      "recommended_actions": [
+        "Review the unsafe turns directly and tighten the guard before treating the window as stable."
+      ]
+    }
+  },
+  "media_insurability": {
+    "generated_at": "2026-07-02T20:37:26.576795+00:00",
+    "headline": "Liability translation",
+    "description": "A bounded bridge between recommendation risk, generated-buffer review, and the questions operations or policy teams would ask before calling a system acceptable.",
+    "analysis": {
+      "generated_at": "2026-07-02T20:37:26.576834+00:00",
+      "posture_score": 0.5892,
+      "posture_band": "elevated",
+      "review_priority": "near_term",
+      "claim_boundary": "This surface translates public recommendation and buffer signals into a review posture. It is not an underwriting decision and it does not replace legal counsel.",
+      "exposures": {
+        "youth_safety": 0.4171,
+        "creative_rights": 1.0,
+        "moderation_load": 0.6778,
+        "evidence_readiness": 0.9
+      },
+      "loss_channels": [
+        {
+          "name": "Compulsive recommendation pressure",
+          "score": 0.4171,
+          "why": "Short-cycle repetition and high completion patterns can become youth-safety or platform-duty questions."
+        },
+        {
+          "name": "Protected content release",
+          "score": 1.0,
+          "why": "A blocked protected signature is a direct cue that rights-handling needs to stay close to generation."
+        },
+        {
+          "name": "Manual review burden",
+          "score": 0.6778,
+          "why": "Dense recommendation loops and repeated edges often create more human review work even before a public incident appears."
+        }
+      ],
+      "recommended_controls": [
+        "Route generated media through a rights review lane before release.",
+        "Add friction, diversity injection, and late-night safeguards to the recommendation flow.",
+        "Budget for manual review and keep causal traces attached to repeated recommendation paths.",
+        "Keep release authority close to the evidence trail rather than relying on post-release cleanup."
+      ]
+    }
+  },
   "frontend_state": {
-    "generated_at": "2026-06-30T19:22:15+00:00",
+    "generated_at": "2026-07-02T20:37:25.461+00:00",
     "sample_size": 5000,
     "hero": {
       "headline": "Public analysis should be able to survive a second question.",
@@ -80390,7 +81509,7 @@
       ]
     },
     "critical_spine": {
-      "generated_at": "2026-06-30T19:22:15+00:00",
+      "generated_at": "2026-07-02T20:37:25.461+00:00",
       "sample_size": 5000,
       "summary": {
         "posture": "critical_reading_before_claims",
@@ -80462,9 +81581,9 @@
           "purpose": "Explain how the pipeline behaves before anyone is asked to trust the visuals it produces.",
           "learn": "There are 2 public contracts and 4 explicit quality highlights in the current system surface. That is the spine underneath the charts.",
           "if_changes": "If quality gates fail or contracts drift, the visual layer should become less confident immediately.",
-          "improve": "Keep expanding lineage, refresh posture, and coverage notes so a contributor can see where a claim is strong, thin, or intentionally withheld.",
+          "improve": "Keep expanding lineage, refresh posture, and coverage notes so a contributor can see where a claim is strong, thin, or outside the public evidence.",
           "limits": "Documentation can still drift if it is not regenerated from the same backend that serves the UI.",
-          "scale": "This is the part that makes the repo feel operational rather than theatrical to senior engineers and data leads."
+          "scale": "This is the part that helps engineers and data leads review the work without guessing how it was made."
         },
         "scorecardVerdict": {
           "title": "Decision grade",
@@ -80858,17 +81977,17 @@
       ]
     },
     "freshness": {
-      "generated_at": "2026-06-30T19:22:15+00:00",
+      "generated_at": "2026-07-02T20:37:25.461+00:00",
       "representation_run_rows": 5000,
       "publication_year_share": 0.193,
       "inferred_year_share": 0.083,
       "notation_files": 0,
       "matched_catalog_songs": 0
     },
-    "payload_hash": "0cde109934b6b48b5a84c20a3e3b28f271bcc20562c569c37a483d6a314ec5dc"
+    "payload_hash": "6aad863cd1b6a090f6193730d2737084cf9efbabd61adae949071bc10bfe450b"
   },
   "critical_spine": {
-    "generated_at": "2026-06-30T19:22:15+00:00",
+    "generated_at": "2026-07-02T20:37:25.461+00:00",
     "sample_size": 5000,
     "summary": {
       "posture": "critical_reading_before_claims",
@@ -80940,9 +82059,9 @@
         "purpose": "Explain how the pipeline behaves before anyone is asked to trust the visuals it produces.",
         "learn": "There are 2 public contracts and 4 explicit quality highlights in the current system surface. That is the spine underneath the charts.",
         "if_changes": "If quality gates fail or contracts drift, the visual layer should become less confident immediately.",
-        "improve": "Keep expanding lineage, refresh posture, and coverage notes so a contributor can see where a claim is strong, thin, or intentionally withheld.",
+        "improve": "Keep expanding lineage, refresh posture, and coverage notes so a contributor can see where a claim is strong, thin, or outside the public evidence.",
         "limits": "Documentation can still drift if it is not regenerated from the same backend that serves the UI.",
-        "scale": "This is the part that makes the repo feel operational rather than theatrical to senior engineers and data leads."
+        "scale": "This is the part that helps engineers and data leads review the work without guessing how it was made."
       },
       "scorecardVerdict": {
         "title": "Decision grade",
@@ -81092,7 +82211,7 @@
   },
   "orchestration": {
     "runtime": "stream_backend",
-    "generated_at": "2026-06-30T19:22:15+00:00",
+    "generated_at": "2026-07-02T20:37:25.461+00:00",
     "sample_size": 5000,
     "languages": [
       "python",
@@ -81234,7 +82353,7 @@
       "representation_checks": [],
       "music_checks": [],
       "music_quality": {
-        "generated_at": "2026-06-30",
+        "generated_at": "2026-07-02",
         "cohorts": {
           "core_top_100": {
             "songs": 100,
@@ -81867,7 +82986,7 @@
       "name": "frontend_state",
       "kind": "json",
       "path": "data/system/frontend-state.json",
-      "freshness_label": "2026-06-30T19:22:15+00:00",
+      "freshness_label": "2026-07-02T20:37:25.461+00:00",
       "row_count": 0,
       "note": "Generated UI state for the public dashboard."
     },
@@ -81875,7 +82994,7 @@
       "name": "critical_spine",
       "kind": "json",
       "path": "data/system/critical-spine.json",
-      "freshness_label": "2026-06-30T19:22:15+00:00",
+      "freshness_label": "2026-07-02T20:37:25.461+00:00",
       "row_count": 0,
       "note": "Per-visual guidance explaining purpose, limits, and next checks."
     },
@@ -81883,23 +83002,87 @@
       "name": "streaming_readiness",
       "kind": "json",
       "path": "data/system/streaming-readiness.json",
-      "freshness_label": "2026-06-30T19:22:15+00:00",
+      "freshness_label": "2026-07-02T20:37:25.461+00:00",
       "row_count": 0,
-      "note": "Candid principal-engineer review of current streaming posture and missing guarantees."
+      "note": "Current streaming posture, operating boundary, and missing guarantees."
     },
     {
       "name": "governance_surface",
       "kind": "json",
       "path": "data/system/governance.json",
-      "freshness_label": "2026-06-30T19:22:15+00:00",
+      "freshness_label": "2026-07-02T20:37:25.461+00:00",
       "row_count": 0,
       "note": "Public governance contract for fairness, review posture, and claim boundaries."
+    },
+    {
+      "name": "readiness_surface",
+      "kind": "json",
+      "path": "data/system/readiness.json",
+      "freshness_label": "2026-07-02T20:37:25.461+00:00",
+      "row_count": 0,
+      "note": "Operational readiness surface for onboarding, bounded commercial use, and contribution paths."
+    },
+    {
+      "name": "integration_surface",
+      "kind": "json",
+      "path": "data/system/integrations.json",
+      "freshness_label": "2026-07-02T20:37:25.461+00:00",
+      "row_count": 0,
+      "note": "Actual integration paths the public repo supports today."
+    },
+    {
+      "name": "bias_dynamics_surface",
+      "kind": "json",
+      "path": "data/system/bias-dynamics.json",
+      "freshness_label": "2026-07-02T20:37:25.461+00:00",
+      "row_count": 0,
+      "note": "Structural bias surface combining representation balance, network isolation, and public drift signals."
+    },
+    {
+      "name": "live_contract_surface",
+      "kind": "json",
+      "path": "data/system/live-contract.json",
+      "freshness_label": "2026-07-02T20:37:25.461+00:00",
+      "row_count": 0,
+      "note": "Ingress contract, query filters, and retention posture for the local event window."
+    },
+    {
+      "name": "live_metrics_surface",
+      "kind": "json",
+      "path": "data/system/live-metrics.json",
+      "freshness_label": "2026-07-02T20:37:25.461+00:00",
+      "row_count": 0,
+      "note": "Rolling event-window metrics for the active market surface."
+    },
+    {
+      "name": "runtime_review_surface",
+      "kind": "json",
+      "path": "data/system/runtime-review.json",
+      "freshness_label": "2026-07-02T20:37:25.461+00:00",
+      "row_count": 0,
+      "note": "Prompt-plus-draft review example for the public guard lane."
+    },
+    {
+      "name": "runtime_drift_surface",
+      "kind": "json",
+      "path": "data/system/runtime-drift.json",
+      "freshness_label": "2026-07-02T20:37:25.461+00:00",
+      "row_count": 0,
+      "note": "Text-path drift probe for repeated output windows."
+    },
+    {
+      "name": "media_insurability_surface",
+      "kind": "json",
+      "path": "data/system/media-insurability.json",
+      "freshness_label": "2026-07-02T20:37:25.461+00:00",
+      "row_count": 0,
+      "note": "Bounded liability translation for the public media lab."
     },
     {
       "name": "runtime_surface",
       "kind": "markdown",
       "path": "data/system/runtime_surface.md",
-      "freshness_label": "2026-06-30T19:22:15+00:00",
+      "freshness_label": "2026-07-02T20:37:25.461+00:00",
       "row_count": 0,
       "note": "Human-readable runtime summary."
     },
@@ -81907,7 +83090,7 @@
       "name": "representation_results",
       "kind": "json",
       "path": "analysis_results.json",
-      "freshness_label": "2026-06-30T19:22:15+00:00",
+      "freshness_label": "2026-07-02T20:37:25.461+00:00",
       "row_count": 5000,
       "note": "Synthetic representation export used by the API and static build."
     },
@@ -81915,7 +83098,7 @@
       "name": "music_index",
       "kind": "json",
       "path": "music_index.json",
-      "freshness_label": "2026-06-30T19:22:15+00:00",
+      "freshness_label": "2026-07-02T20:37:25.461+00:00",
       "row_count": 636,
       "note": "Catalog + notation export for the music intelligence lane."
     }
@@ -81953,6 +83136,16 @@
         "name": "Runtime materializer",
         "path": "stream_backend/cli/materialize.py",
         "purpose": "Persist runtime snapshots and exports."
+      },
+      {
+        "name": "Event ingress window",
+        "path": "/api/runtime/events",
+        "purpose": "Accept bounded live event batches and recalculate weighted market metrics."
+      },
+      {
+        "name": "Event ingress contract",
+        "path": "/api/runtime/events/contract",
+        "purpose": "Describe batch bounds, retention posture, filterable fields, and a safe example payload."
       },
       {
         "name": "Validation CLI",

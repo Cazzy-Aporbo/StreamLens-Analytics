@@ -27,6 +27,25 @@ def test_system_frontend_state_endpoint():
     assert "payload_hash" in body
 
 
+def test_system_readiness_endpoint():
+    client = TestClient(app)
+    res = client.get("/api/system/readiness")
+    assert res.status_code == 200
+    body = res.json()
+    assert body["overall"]["label"]
+    assert body["proof_points"]["api_route_count"] > 0
+    assert len(body["quickstart"]) >= 3
+
+
+def test_system_integrations_endpoint():
+    client = TestClient(app)
+    res = client.get("/api/system/integrations")
+    assert res.status_code == 200
+    body = res.json()
+    assert len(body["available_now"]) >= 4
+    assert "next_to_build" in body
+
+
 def test_system_critical_spine_endpoint():
     client = TestClient(app)
     res = client.get("/api/system/critical-spine", params={"sample_size": 700})

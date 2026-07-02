@@ -4,8 +4,10 @@ from media_liability_lab import (
     analyze_compulsive_usage,
     build_causal_map,
     guard_generated_buffer,
+    public_insurability_snapshot,
     public_media_lab_snapshot,
     sample_recommendation_events,
+    translate_liability_posture,
 )
 
 
@@ -32,4 +34,17 @@ def test_causal_map_has_nodes_and_edges():
 
 def test_public_snapshot_contains_all_sections():
     snapshot = public_media_lab_snapshot()
-    assert {"compulsive_usage", "generative_guard", "causal_map", "events"} <= set(snapshot)
+    assert {"compulsive_usage", "generative_guard", "causal_map", "insurability", "events"} <= set(snapshot)
+
+
+def test_liability_translation_returns_bounded_posture():
+    posture = translate_liability_posture(sample_recommendation_events())
+    assert posture["posture_band"] in {"clear", "watch", "elevated", "high"}
+    assert 0 <= posture["posture_score"] <= 1
+    assert posture["review_priority"]
+
+
+def test_public_insurability_snapshot_contains_analysis():
+    snapshot = public_insurability_snapshot()
+    assert "analysis" in snapshot
+    assert "loss_channels" in snapshot["analysis"]

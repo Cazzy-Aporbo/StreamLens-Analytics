@@ -1,11 +1,11 @@
 # Stream
 
 <p align="center">
-  <strong>LOOPCHii Stream</strong> is an open-source engineering repository for inspectable media analysis, public music intelligence, and reproducible analytical systems.
+  <strong>LOOPCHii Stream</strong> is an open-source repository for inspectable media analysis, public music intelligence, and reproducible analytical systems.
 </p>
 
 <p align="center">
-  It is built so people can inspect the field, question the method, and improve the system without confusing open-source analysis with private runtime work.
+  It separates modeled representation work from public music data on purpose, so readers can always tell what kind of evidence they are looking at and what the claim can actually support.
 </p>
 
 <p align="center">
@@ -24,46 +24,140 @@
   <img src="https://img.shields.io/github/license/loopchii/Stream?style=for-the-badge" alt="License">
 </p>
 
-> **Why this exists:** public work should not ask for trust before it shows its inputs, assumptions, and tradeoffs. Stream exists to make the work visible enough to inspect, challenge, improve, and use.
+## The 30-Second Read
 
-Stream is where LOOPCHii publishes reproducible methods, readable visual reasoning, and a contribution path that does not depend on private infrastructure. Some lanes are synthetic and clearly labeled because they teach the method. Some lanes are built from public music data because they test what the method can actually hold when the inputs are real. The separation matters: it keeps the public analytical scope honest while still making the repository useful.
+Stream is a public, self-contained media-analysis repository. It helps people inspect music attention, representation signals, data quality, and lightweight runtime contracts without depending on private LOOPCHii infrastructure.
 
-## Start Here
+It is useful today as:
+
+- a reproducible public music analysis engine
+- a readable media-representation research surface
+- a local FastAPI and static-export playground
+- a contribution space for better methods, quality checks, and visual explanation
+- a careful prototype for event-contract and runtime-readiness work
+
+It is not presented as:
+
+- a production Kafka, Flink, or Spark replacement
+- a hosted compliance platform
+- a complete enterprise runtime
+- a disclosure of private LOOPCHii architecture
+
+That boundary matters. Stream should earn adoption by being easy to run, easy to inspect, and honest about what the current code can prove.
+
+## First Run
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements-dev.txt
+python3 run_analysis.py --output-dir exports
+```
+
+This writes a public music report, quality report, song table, and notation-aware music index into `exports/`. It requires no API key.
+
+For the full setup path, read [docs/QUICKSTART.md](docs/QUICKSTART.md). For the production boundary, read [docs/PRODUCTION_READINESS.md](docs/PRODUCTION_READINESS.md).
+
+## Architecture At A Glance
+
+```mermaid
+flowchart LR
+    sources["Public data sources"] --> analysis["Analysis layer\nmusic, representation, media risk"]
+    analysis --> api["Backend layer\nFastAPI, static exports, local ledger"]
+    rust["Rust metric primitives"] --> api
+    api --> contracts["Contract artifacts\nOpenAPI, model registry, live event contract"]
+    api --> ui["UI edge\nindex.html and GitHub Pages preview"]
+    tests["Tests, doctor, benchmarks"] --> analysis
+    tests --> api
+```
+
+The repository is intentionally readable before it is ambitious. The public
+code separates analysis, backend contracts, compiled metric primitives, static
+exports, and the browser surface. See [docs/REPOSITORY_STRUCTURE.md](docs/REPOSITORY_STRUCTURE.md)
+for the file map.
+
+## What Runs Today
+
+| Surface | Command or route | What it proves |
+|---|---|---|
+| Public music export | `python3 run_analysis.py --output-dir exports` | Public data can be cleaned, measured, and exported without a private service |
+| Environment doctor | `python3 -m stream_backend.cli.doctor` | Required files, imports, static artifacts, SQLite, and data quality are checkable |
+| API contract index | `/api/system/api-contracts` | Swagger/OpenAPI routes, schemas, and write surfaces are inspectable |
+| Model registry | `/api/system/model-registry` | Trained models, statistical methods, deterministic probes, and claim boundaries are named |
+| Live event invariants | `/api/runtime/invariants/live` | Rolling event windows pass through deterministic review checks |
+| Static build | `python3 build_static.py` | GitHub Pages artifacts come from the same backend path as the API |
+| Rust metric lane | `cargo test --manifest-path loopchii-wasm-core/Cargo.toml` | Compiled entropy, concentration, weighted mean, and chi-square primitives are tested |
+
+## Use The Right Entry Point
+
+The easiest way to understand Stream is to choose the lane that matches your question:
+
+- `Representation`: who appears, who stays central, and where narrowness keeps repeating.
+- `Governed response`: what gets interrupted, what gets routed away, and what still requires a human decision.
+- `Public music`: how attention, concentration, virality, and market exposure behave on public-source rows.
 
 Pick the first question you want answered, then take the route that matches it:
 
 | If you want to... | Go here | What you get |
 |---|---|---|
+| Run the public-data path first | `python3 run_analysis.py --output-dir exports` | Reproducible public music artifacts with no API key |
 | See the browser surface first | [Dashboard Preview](https://htmlpreview.github.io/?https://github.com/loopchii/Stream/blob/main/index.html) | The public UI with charts, story flow, the real-data music lane, and the clickable audit layer |
 | Read the processing choices first | [`StreamLen_processors.html`](https://htmlpreview.github.io/?https://github.com/loopchii/Stream/blob/main/StreamLen_processors.html) | A notebook-style walkthrough of how the data is cleaned, shaped, and measured |
 | Inspect the public governance boundary | `/api/system/governance` or the Learn tab | Fairness posture, discrimination pressure, public-data boundary, and the point where a human still has to decide |
 | Check the legal and data-use boundary | [docs/PRIVACY_AND_DATA.md](docs/PRIVACY_AND_DATA.md) | What data the repo uses, what it does not collect, and how attribution and privacy posture are handled |
 | Try the smallest working tool | `python lens_visualizer.py` | A terminal-first demo with public lens findings and instant visual feedback |
 | Check whether your machine is ready | `python -m stream_backend.cli.doctor` | A quick preflight for Python, imports, SQLite, static artifacts, and public music data health |
-| Pressure-test the architecture claim | [docs/STREAMING_FOUNDATION_REVIEW.md](docs/STREAMING_FOUNDATION_REVIEW.md) or `/api/system/streaming-readiness` | A candid principal-engineer style read on what is real, what is missing, and what would have to change for production streaming trust |
+| Materialize a fresh backend state | `python -m stream_backend.cli.materialize --json` or `make materialize` | Refresh the public runtime, persist the local ledger, and inspect the resulting run id and artifact count |
+| See what is usable right now | `/api/system/readiness` | A backend-generated summary of local readiness, current proof points, and bounded commercial fit |
+| Verify persisted run history | `/api/system/runtime/ledger` | A readable view of recent materializations, hash-linked persistence, and whether the local chain still verifies |
+| Read the current event window | `/api/runtime/metrics/live` | A rolling market surface built from weighted exposure, recommendation, and listener-response events |
+| Inspect the event ingress contract | `/api/runtime/events/contract` | Batch bounds, retention posture, filterable fields, and a safe example payload for the live event lane |
+| Ingest or seed live events locally | `POST /api/runtime/events` or `POST /api/runtime/events/demo-seed` | A replayable local event window for pressure metrics, contribution experiments, optional bus publishing, and runtime inspection |
+| Review one prompt-plus-draft pair | `/api/runtime/review/demo` or `POST /api/runtime/review` | A real guard lane that inspects both the request and the drafted output before it is treated as final text |
+| Check whether a small output window is drifting | `/api/runtime/drift/demo` or `POST /api/runtime/drift` | A lightweight text-path drift probe for repetition, leakage, and unstable refusal behavior |
+| Translate media risk into review posture | `/api/media-lab/insurability` | A bounded bridge from recommendation/buffer signals into review priority and operational exposure |
+| Inspect the score-aware music lane | `/api/music/theory` | A note, chord, tempo, and coverage surface that stays honest about where linked notation exists and where it does not |
+| Read the streaming boundary | [docs/STREAMING_FOUNDATION_REVIEW.md](docs/STREAMING_FOUNDATION_REVIEW.md) or `/api/system/streaming-readiness` | A direct read on what is already operational, what remains local, and what would need to change before this could support heavier streaming workloads |
 | Benchmark the current public workload | `python benchmarks/analytics_scale.py --rows 1000000` | A reproducible scale baseline for the actual groupby-heavy workload this repo runs today |
 | Review the setup and contribution lanes | [contributing.md](contributing.md) | Local setup, accepted scopes, and how to add public value without overclaiming |
 | See which environments are expected to work | [docs/SUPPORT_MATRIX.md](docs/SUPPORT_MATRIX.md) | Supported operating systems, Python versions, runtime lanes, and common recovery moves |
+| Choose an adoption path | [docs/ADOPTION_PATHS.md](docs/ADOPTION_PATHS.md) | Separate routes for researchers, engineers, and production evaluators |
+| Inspect API contracts | [docs/API_CONTRACTS.md](docs/API_CONTRACTS.md) or `/api/system/api-contracts` | Swagger/OpenAPI, write-surface policy, and static contract artifacts |
+| Inspect executable models | [docs/MODEL_REGISTRY.md](docs/MODEL_REGISTRY.md) or `/api/system/model-registry` | What is trained, what is statistical, what is deterministic, and what is not claimed |
+| Understand repo structure | [docs/REPOSITORY_STRUCTURE.md](docs/REPOSITORY_STRUCTURE.md) | How analysis, backend, compiled metrics, frontend, and verification are separated |
+| Read the production boundary | [docs/PRODUCTION_READINESS.md](docs/PRODUCTION_READINESS.md) | What works today, what is not claimed, and what would be needed for production streaming |
+| See the roadmap | [ROADMAP.md](ROADMAP.md) | Current capability kept separate from future work |
 | Start with the public scope | [What This Actually Does](#what-this-actually-does) | The quickest way to understand what this repo is for, what it is not, and how the evidence is scoped |
 
-If you only have five minutes, do these three things in order:
+If you only have five minutes, do these three things:
 
-1. Open the [Dashboard Preview](https://htmlpreview.github.io/?https://github.com/loopchii/Stream/blob/main/index.html)
-2. Run `python -m stream_backend.cli.doctor`
+1. Run `python3 run_analysis.py --output-dir exports`
+2. Run `python3 -m stream_backend.cli.doctor`
 3. Read [Questions This Repo Answers Early](#questions-this-repo-answers-early)
 
-## Navigation
+## Table Of Contents
 
+- [The 30-Second Read](#the-30-second-read)
+- [First Run](#first-run)
+- [Architecture At A Glance](#architecture-at-a-glance)
+- [What Runs Today](#what-runs-today)
+- [Use The Right Entry Point](#use-the-right-entry-point)
 - [What This Actually Does](#what-this-actually-does)
 - [Browser Playground](#browser-playground)
 - [Public Lens SDK](#public-lens-sdk)
 - [Media Liability Lab](#media-liability-lab)
-- [Why Engineers Trust This Repo](#why-engineers-trust-this-repo)
+- [How To Inspect The Work](#how-to-inspect-the-work)
 - [Engineering Depth At A Glance](#engineering-depth-at-a-glance)
 - [Streaming Readiness](#streaming-readiness)
 - [Preflight](#preflight)
 - [Music Virality Module — Real YouTube Data](#music-virality-module--real-youtube-data)
 - [Quick Start](#quick-start)
+- [Adoption Paths](docs/ADOPTION_PATHS.md)
+- [API Contracts](docs/API_CONTRACTS.md)
+- [Model Registry](docs/MODEL_REGISTRY.md)
+- [Repository Structure](docs/REPOSITORY_STRUCTURE.md)
+- [Production Readiness](docs/PRODUCTION_READINESS.md)
+- [Roadmap](ROADMAP.md)
 - [What the Pipeline Surfaces](#what-the-pipeline-surfaces)
 - [The Interactive Dashboard](#the-interactive-dashboard)
 - [Project Structure](#project-structure)
@@ -72,37 +166,46 @@ If you only have five minutes, do these three things in order:
 - [Contributing](#contributing)
 - [License and Citation](#license-and-citation)
 
-## Why Engineers Trust This Repo
+## How To Inspect The Work
+
+No public repository should ask for faith. It should give you a clean way to inspect the evidence, disagree with the method, and improve the thin spots.
 
 - The analytical scope is explicit. Synthetic representation data is labeled throughout, and the real-data music lane is kept separate on purpose.
 - The artifacts are inspectable. The dashboard, methods notebook, static exports, and API surfaces all trace back to code in this repository.
-- The same pipeline feeds local runs, static JSON exports, and API responses. There is less room for the public story to drift away from what the code actually does.
+- The same pipeline feeds local runs, static JSON exports, and API responses. That keeps the public story closer to the code that produced it.
 - The governance boundary is explicit. `/api/system/governance` and the Learn tab show where fairness signals are strong, where GDPR or consent claims would overreach, and where a person still needs to stay in the loop.
-- CI runs tests on push so contributors can change the repo without turning it into a slideshow of unverifiable screenshots.
+- CI runs tests on push so contributors can change the repo without turning it into a gallery of uncheckable screenshots.
 
 ## Engineering Depth At A Glance
 
 This repo is strongest when it leads with the engineering facts:
 
 - `stream_backend/` is the shared backend spine for the live API, static exports, runtime snapshots, and browser-facing state.
-- `python -m stream_backend.cli.doctor` checks Python, imports, required files, SQLite writability, static artifacts, genre coverage, year coverage, and decision-lab generation before you trust a local run.
+- `python -m stream_backend.cli.doctor` checks Python, imports, required files, SQLite writability, static artifacts, genre coverage, year coverage, and decision-lab generation before you rely on a local run.
+- `python -m stream_backend.cli.materialize --json` is now a real entrypoint. It refreshes the runtime outputs and can persist a fresh local ledger record in one step.
+- `POST /api/runtime/events`, `GET /api/runtime/events/contract`, and `GET /api/runtime/metrics/live` give the repo a bounded event-ingestion surface with explicit filters, retention rules, and replayable inspection.
+- `/ws/runtime/metrics/live` exposes the same rolling window over a WebSocket feed so the presentation tier can subscribe instead of rebuilding the math in the browser.
+- `stream_backend/services/enterprise_bus.py` can publish event batches and metric receipts to Redpanda and ClickHouse when those sinks are wired into the environment.
+- `loopchii-wasm-core/` now carries a compiled metric lane with tested entropy, concentration, weighted mean, and chi-square primitives.
 - `benchmarks/analytics_scale.py` benchmarks the real public workload instead of a toy micro-example.
 - `build_static.py` regenerates the same contracts the browser reads when no live API is present.
 - `data/system/*.json` exposes machine-readable operating contracts, runtime posture, critical-spine notes, data-engineering metadata, and streaming-readiness limits.
+- State-changing endpoints can stay open for local use or require `X-API-Key` when `STREAM_API_KEY` is set in the environment.
+- Persisted runtime rows are hash-linked so contributors can verify run order and spot silent replacement more easily.
 - The statistical layer is not decorative. The repo uses chi-square tests, Shannon entropy, NetworkX assortativity, Cramer's V, bootstrap confidence intervals, cross-validated RandomForest and GradientBoosting models, and counterfactual decision-lab experiments.
-- Validation is broad enough to matter: `pytest -q` currently covers 149 tests across pipeline logic, API behavior, music analysis, decision routing, and runtime checks.
+- Validation is part of the operating path: `pytest -q` covers pipeline logic, API behavior, music analysis, live runtime windows, decision routing, and runtime checks.
 
 If you want the full topology and current operational posture in one place, read [docs/ENGINEERING_FOUNDATION.md](docs/ENGINEERING_FOUNDATION.md).
 
 ## Streaming Readiness
 
-This repo now exposes a blunt self-audit for streaming and data-infrastructure readers.
+This repo now exposes a direct self-audit for streaming and data-infrastructure readers.
 
 - `docs/STREAMING_FOUNDATION_REVIEW.md` is the written review.
 - `/api/system/streaming-readiness` is the machine-readable surface.
 - `benchmarks/analytics_scale.py` is the first scale benchmark for the public workload.
 
-The point is not to cosplay as Kafka or Flink before the backend earns that language. The point is to make the current boundary explicit, measurable, and improvable.
+The point is not to borrow language the backend has not earned. The point is to make the current boundary explicit, measurable, and improvable.
 
 ## Preflight
 
@@ -128,7 +231,7 @@ Cross-platform commands for macOS, Linux, Windows PowerShell, and Docker are doc
 
 ## Data Engineering Surface
 
-Stream now exposes its public analytical operating model directly instead of hiding it behind screenshots and prose. The Learn tab and `/api/system/data-engineering` surface show the same things a data engineer or analytics lead would ask for before trusting a public number:
+Stream now exposes its public analytical operating model directly instead of hiding it behind screenshots and prose. The Learn tab and `/api/system/data-engineering` surface show the same things a data engineer or analytics lead would ask for before relying on a public number:
 
 - dataset grain and primary keys
 - partition strategy and refresh posture
@@ -137,7 +240,7 @@ Stream now exposes its public analytical operating model directly instead of hid
 - delivery parity across FastAPI, static JSON exports, and the browser surface
 - deterministic synthetic seed, public artifact contract, and self-contained runtime boundary
 
-This is deliberate. A chart should not be the first place someone learns how a system behaves. The pipeline, the contract boundary, and the publishing discipline should be visible before anyone is asked to trust the result.
+This is deliberate. A chart should not be the first place someone learns how a system behaves. The pipeline, the contract boundary, and the publishing discipline should be visible before anyone is asked to carry the result forward.
 
 The repo now also exposes a separate public governance contract. That surface is intentionally practical: it spells out where discrimination pressure is still material, where the repo remains a public-scope research tool rather than a consent-management system, and when a conclusion is still too soft to automate.
 
@@ -154,14 +257,14 @@ Senior engineers, researchers, and media operators usually ask some version of t
 - **What happens when the evidence is thin?**  
   The coverage posture is surfaced directly in the quality, timeline, and decision-lab outputs. Missing publication years and unlabeled fields stay visible instead of being smoothed away.
 
-- **Can I inspect the contract before I trust the charts?**  
+- **Can I inspect the contract before I repeat the charts?**
   Yes. `data/system/*.json`, `openapi.stream.json`, `/docs`, and the Learn tab all exist for that reason.
 
 - **Does this depend on a private LOOPCHii platform to work?**  
   No. This repository ships its own public Python pipeline, static exports, SQLite materialization, browser surface, and API. It is intentionally self-contained.
 
 - **How do I know a weak conclusion is being treated as weak?**  
-  Coverage, trust posture, missing publication years, labeled-share gaps, and cohort split notes are surfaced directly in the music lane and the decision lab. Stream is more useful when it says “not enough here yet” than when it smooths uncertainty away.
+  Coverage, evidence posture, missing publication years, labeled-share gaps, and cohort split notes are surfaced directly in the music lane and the decision lab. Stream is more useful when it says “not enough here yet” than when it smooths uncertainty away.
 
 ## Backend Runtime Spine
 
@@ -273,9 +376,9 @@ This is a public research harness, not a claim that the repo contains private pr
 
 </div>
 
-## Music Virality Module — Real YouTube Data
+## Music Virality Module — Public Music Data
 
-The newest module goes beyond synthetic data entirely. It analyses the **100 most-watched YouTube music videos of 2025** — 10.59 billion real views from 65 channels — using the actual `youtube-top-100-songs-2025.csv` dataset.
+The music lane is separate from the synthetic representation lane. It analyzes a primary **Top 100 YouTube music cohort** and an enriched public context of **636 songs** across committed source files, with 10.59 billion views in the core cohort.
 
 | Analysis | What It Computes | Where to See It |
 |---|---|---|
@@ -289,11 +392,11 @@ The newest module goes beyond synthetic data entirely. It analyses the **100 mos
 | **Repeat pressure map** | Public proxy for repetition, release pressure, and attention oscillation across the real music catalog | Movement 07 — 3D resonance core + clickable track list |
 | **Bias analysis** | Gender parity, genre concentration (Gini), collaboration patterns, duration bias, attention concentration, per-genre breakdowns, and a publication timeline drawn from public upload dates | Movement 09 — equity grade + 7 charts + genre table |
 | **3D virality landscape** | Plotly 3D scatter of views × virality × subscribers, coloured by archetype cluster | Movement 10 — interactive 3D orbit |
-| **Real songs explorer** | Sortable, searchable table of all 100 tracks with computed features | Movement 11 — sortable table |
+| **Real songs explorer** | Sortable, searchable table with computed public features | Movement 11 — sortable table |
 
 **Live data extraction (optional):** If you set a `YOUTUBE_API_KEY` environment variable, the built-in `music_ingest.py` module calls the YouTube Data API v3 to refresh view counts and pull additional tracks on demand — no code changes needed. Without a key, the app serves the committed real dataset.
 
-Data sources: YouTube Top 100 (2025), Most Viewed Music Videos (2026, Kaggle), YouTube Music Data (Kaggle), YouTube Top Channels (2026, Kaggle). **636 real songs** from 3 datasets. No synthetic data is used in this module.
+Data sources: YouTube Top 100 (2025), Most Viewed Music Videos (2026, Kaggle), YouTube Music Data (Kaggle), YouTube Top Channels (2026, Kaggle). The music lane uses public rows and keeps source coverage, genre coverage, year coverage, and missing notation visible.
 
 ### Score-Aware Music Intelligence
 
@@ -412,31 +515,41 @@ No machine-learning models are trained in this pipeline — every number is a tr
 ## Quick Start
 
 ```bash
-# Clone the repository
 git clone https://github.com/loopchii/Stream.git
 cd Stream
 
-# Set up environment (I use venv, but conda works too)
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate
 
-# Install dependencies
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
+python3 run_analysis.py --output-dir exports
+python3 -m stream_backend.cli.doctor
+```
 
-# Launch the API server + dashboard
-python app.py
-# Then open http://localhost:8000 in your browser
+That is the first adoption path. It proves the committed public music data can
+load, clean, measure, and export without a private service or API key.
 
-# Or get the terminal-first lens demo
-python lens_visualizer.py
+Useful next commands:
 
-# Or run the analysis pipeline standalone
-python streamlens_processor.py
+```bash
+# Launch the API server and dashboard.
+python3 app.py
 
-# Or materialize the public runtime and static exports
-python build_static.py
+# Refresh static artifacts for the browser preview.
+python3 build_static.py
 
-# Or just open index.html directly in your browser for the static dashboard
+# Refresh the runtime and ledger directly.
+python3 -m stream_backend.cli.materialize --json
+
+# Run the local validation path.
+make doctor
+make test
+```
+
+If you prefer a container path, copy `.env.example` to `.env` if needed and run:
+
+```bash
+docker compose up --build
 ```
 
 ### API Endpoints
@@ -463,13 +576,21 @@ python build_static.py
 | `/api/media-lab/compulsive-loop` | GET | Compulsive-loop risk score and recommended friction for a sample recommendation stream |
 | `/api/media-lab/generative-guard` | GET | Public generative buffer screening and zeroization demo |
 | `/api/media-lab/causal-map` | GET | Topological recommendation-flow export with repeat-path risk edges |
+| `/api/media-lab/insurability` | GET / POST | Bounded liability translation for recommendation + generated-media signals, with optional custom review payload |
 | `/api/system/catalog` | GET | Public catalog of runtime surfaces, generated assets, and active analytical lanes |
+| `/api/system/readiness` | GET | Backend-generated summary of what works now, current proof points, and honest commercial boundaries |
+| `/api/system/integrations` | GET | Current integration paths, adoption lanes, and the boundary between usable now versus still-to-build |
 | `/api/system/runtime` | GET | Fresh materialized runtime snapshot spanning synthetic, music, and orchestration surfaces |
 | `/api/system/runtime/latest` | GET | Latest persisted runtime snapshot from the local SQLite-backed run history |
+| `/api/system/runtime/ledger` | GET | Readable verification surface for recent runtime materializations and their hash-linked chain |
 | `/api/system/frontend-state` | GET | Browser-ready payload generated by the backend instead of hand-authored view math |
 | `/api/system/critical-spine` | GET | Per-visual purpose, limits, and improvement guidance generated from the backend runtime |
 | `/api/system/comparatives` | GET | Comparative framing surface for role-aware reading across the same evidence |
 | `/api/system/materialize` | POST | Force a runtime materialization pass and write updated public artifacts |
+| `/api/runtime/review/demo` | GET | Sample prompt-plus-draft review showing what the guard does before text is treated as acceptable output |
+| `/api/runtime/review` | POST | Review a real prompt and drafted response together |
+| `/api/runtime/drift/demo` | GET | Sample text-window drift surface |
+| `/api/runtime/drift` | POST | Review a custom output window for leakage, repetition, and refusal inconsistency |
 | `/api/metrics/advanced` | GET | Inequality (Gini/Theil/Lorenz), Simpson/Theil diversity, Cramér's V effect sizes, bootstrap CIs, fitted year trend |
 | `/api/metrics/scorecard` | GET | Per-platform A–F report card across four representation dimensions |
 | `/api/simulate/parity?female_ratio=R` | GET | What-If parity index, letter grade, and verdict for a hypothetical female lead share |
@@ -489,10 +610,13 @@ python build_static.py
 | `/api/music/bias` | GET | Gender, genre, collaboration, duration, and concentration bias metrics |
 | `/api/music/genres` | GET | Per-genre breakdown with view share, duration, collaboration mix, and top track |
 | `/api/music/timeline` | GET | Publication timeline built from public upload dates and views |
+| `/api/music/theory` | GET | Score-aware note, chord, tempo, and coverage surface built from linked notation assets |
 | `/api/music/status` | GET | Whether a YouTube API key is configured for live data |
 | `/api/music/refresh` | POST | Pull fresh data from YouTube Data API v3 (needs key) |
 
 Interactive API docs are available at `http://localhost:8000/docs`.
+
+When `STREAM_API_KEY` is set, state-changing endpoints require `X-API-Key`. If it is unset, the repo stays friction-light for local research and contribution.
 
 <div align="center">
   
@@ -723,11 +847,11 @@ The real-data music lane goes further: it includes bootstrap confidence interval
 
 Media shapes culture. When most action heroes are male, when women of color rarely hold lead roles, when characters over 50 fade from screens, it sends a message about whose stories matter. This isn't about quotas or political correctness. It's about accurately reflecting the world we live in.
 
-Stream exists to make those patterns measurable and readable at the same time. The Bias Library names documented patterns so you can spot them; the Learn tab explains the math so you can verify it; the Explore tab hands you the raw rows so you never have to trust a summary by default.
+Stream exists to make those patterns measurable and readable at the same time. The Bias Library names documented patterns so you can spot them; the Learn tab explains the math so you can verify it; the Explore tab hands you the raw rows so you never have to take a summary at face value.
 
 ## Public Data, Ethics, and Governance
 
-This repository is easier to trust when its boundaries are easy to find.
+This repository is easier to inspect when its boundaries are easy to find.
 
 Start with these documents:
 
@@ -735,12 +859,13 @@ Start with these documents:
 - [docs/ETHICS.md](docs/ETHICS.md) for the human-consequence and uncertainty standards behind the analysis surfaces
 - [GOVERNANCE.md](GOVERNANCE.md) for maintainership, claim-boundary rules, and merge discipline
 - [TERMS.md](TERMS.md) for repository use terms and third-party source caution
+- [NOTICE](NOTICE) for the Apache 2.0 attribution record shipped with the repository
 - [data/README.md](data/README.md) for the current input and artifact structure across synthetic, music, and system surfaces
 - [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for contributor behavior expectations
 
 The short version is simple:
 
-- code is MIT licensed
+- code is Apache 2.0 licensed
 - synthetic data stays labeled as synthetic
 - public music analysis stays tied to documented public-source inputs
 - private LOOPCHii systems stay out of this repository
@@ -769,6 +894,7 @@ Before opening a pull request, read:
 - [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 - [GOVERNANCE.md](GOVERNANCE.md)
 - [docs/PRIVACY_AND_DATA.md](docs/PRIVACY_AND_DATA.md)
+- [NOTICE](NOTICE)
 
 The repo also ships issue templates for bugs, feature requests, and data/source improvements so contributors can plug in without guessing the expected shape.
 
@@ -825,11 +951,11 @@ The repo also ships issue templates for bugs, feature requests, and data/source 
 
 ## License and Citation
 
-Stream is released under the [MIT License](LICENSE).
+Stream is released under the [Apache License 2.0](LICENSE).
 
 The code is open. The source boundary is still important:
 
-- repository code and documentation are MIT licensed
+- repository code and documentation are Apache 2.0 licensed
 - third-party data sources keep their own licenses or platform terms
 - committed public analysis artifacts should stay attributed and clearly scoped
 
@@ -839,6 +965,7 @@ For the legal, privacy, ethics, and governance surfaces, see:
 - [docs/ETHICS.md](docs/ETHICS.md)
 - [GOVERNANCE.md](GOVERNANCE.md)
 - [TERMS.md](TERMS.md)
+- [NOTICE](NOTICE)
 - [data/README.md](data/README.md)
 
 If you use Stream in research:

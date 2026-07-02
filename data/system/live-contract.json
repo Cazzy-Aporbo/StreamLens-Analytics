@@ -1,0 +1,177 @@
+{
+  "headline": "Local ingress contract for the runtime event window.",
+  "summary": "The public event lane accepts bounded batches, keeps duplicate ids from inflating the window, and prunes the oldest rows before the table grows quietly out of proportion.",
+  "batch_limits": {
+    "min_events": 1,
+    "max_events": 500
+  },
+  "retention": {
+    "max_rows": 5000,
+    "max_age_days": 30
+  },
+  "filters": [
+    {
+      "name": "platform",
+      "note": "Optional query filter for platform-specific window reads."
+    },
+    {
+      "name": "market",
+      "note": "Optional query filter for market-specific window reads."
+    },
+    {
+      "name": "genre",
+      "note": "Optional query filter for genre-specific window reads."
+    },
+    {
+      "name": "language",
+      "note": "Optional query filter for language-specific window reads."
+    },
+    {
+      "name": "label_tier",
+      "note": "Optional query filter for label tier-specific window reads."
+    },
+    {
+      "name": "source",
+      "note": "Optional query filter for source-specific window reads."
+    }
+  ],
+  "fields": [
+    {
+      "name": "event_id",
+      "type": "string",
+      "required": true,
+      "note": "Stable unique identifier for idempotent ingress."
+    },
+    {
+      "name": "observed_at",
+      "type": "iso8601 datetime",
+      "required": true,
+      "note": "Observed event time used for ordering and retention."
+    },
+    {
+      "name": "platform",
+      "type": "string",
+      "required": true,
+      "note": "Source platform for the event."
+    },
+    {
+      "name": "market",
+      "type": "string",
+      "required": true,
+      "note": "Market or territory code for the event."
+    },
+    {
+      "name": "track_id",
+      "type": "string",
+      "required": true,
+      "note": "Track identifier within the source lane."
+    },
+    {
+      "name": "track_title",
+      "type": "string",
+      "required": true,
+      "note": "Readable title for inspection."
+    },
+    {
+      "name": "artist_id",
+      "type": "string",
+      "required": true,
+      "note": "Stable artist identifier."
+    },
+    {
+      "name": "artist_name",
+      "type": "string",
+      "required": true,
+      "note": "Readable artist name."
+    },
+    {
+      "name": "genre",
+      "type": "string",
+      "required": true,
+      "note": "Genre label used in weighted breadth reads."
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "required": true,
+      "note": "Language label for cross-market concentration reads."
+    },
+    {
+      "name": "label_tier",
+      "type": "string",
+      "required": true,
+      "note": "Label grouping such as major or independent."
+    },
+    {
+      "name": "independent_flag",
+      "type": "boolean",
+      "required": false,
+      "note": "Marks independent participation in the current window."
+    },
+    {
+      "name": "editorial_flag",
+      "type": "boolean",
+      "required": false,
+      "note": "Marks editorial lift in the current window."
+    },
+    {
+      "name": "exposure_share",
+      "type": "float [0,1]",
+      "required": true,
+      "note": "Share of exposure carried by the event."
+    },
+    {
+      "name": "recommendation_share",
+      "type": "float [0,1]",
+      "required": true,
+      "note": "Share of recommendation placement carried by the event."
+    },
+    {
+      "name": "completion_rate",
+      "type": "float [0,1]",
+      "required": true,
+      "note": "Completion response for the event."
+    },
+    {
+      "name": "skip_rate",
+      "type": "float [0,1]",
+      "required": true,
+      "note": "Skip response for the event."
+    },
+    {
+      "name": "save_rate",
+      "type": "float [0,1]",
+      "required": true,
+      "note": "Save response for the event."
+    },
+    {
+      "name": "source",
+      "type": "string",
+      "required": false,
+      "note": "Ingress source label for later inspection."
+    }
+  ],
+  "sample_event": {
+    "event_id": "demo-glass-hearts-1",
+    "observed_at": "2026-07-02T19:49:26.574265+00:00",
+    "ingested_at": "2026-07-02T20:37:26.574282+00:00",
+    "platform": "spotify",
+    "market": "US",
+    "track_id": "glass-hearts",
+    "track_title": "Glass Hearts",
+    "artist_id": "nova-bloom",
+    "artist_name": "Nova Bloom",
+    "genre": "pop",
+    "language": "en",
+    "label_tier": "major",
+    "independent_flag": 0,
+    "editorial_flag": 1,
+    "exposure_share": 0.19,
+    "recommendation_share": 0.22,
+    "completion_rate": 0.63,
+    "skip_rate": 0.21,
+    "save_rate": 0.08,
+    "source": "demo_runtime_seed",
+    "payload_hash": "c15926d0b169c842e230f25b92c903388a84f3fa967a9d7e3b9f89bca96ed8d3"
+  }
+}

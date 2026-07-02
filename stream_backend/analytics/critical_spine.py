@@ -250,14 +250,13 @@ def build_critical_spine(
             ),
             improve=(
                 "Keep expanding lineage, refresh posture, and coverage notes so a contributor can see where a claim "
-                "is strong, thin, or intentionally withheld."
+                "is strong, thin, or outside the public evidence."
             ),
             limits=(
                 "Documentation can still drift if it is not regenerated from the same backend that serves the UI."
             ),
             scale=(
-                "This is the part that makes the repo feel operational rather than theatrical to senior engineers and "
-                "data leads."
+                "This is the part that helps engineers and data leads review the work without guessing how it was made."
             ),
         ),
         "scorecardVerdict": _section(

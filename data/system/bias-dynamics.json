@@ -1,0 +1,108 @@
+{
+  "generated_at": "2026-07-02T20:37:25.461+00:00",
+  "headline": "Bias is easier to miss when counts look tidy.",
+  "posture_band": "watch",
+  "bias_score": 0.3576,
+  "summary": "This surface reads bias as movement: who stays central, which corridors narrow, and whether the public lane is covered well enough to support a claim.",
+  "dimensions": [
+    {
+      "id": "representation_balance",
+      "label": "Representation balance",
+      "value": 0.7284,
+      "value_label": "73/100",
+      "reading": "Counts still matter. They simply do not settle the structural question on their own.",
+      "evidence": "Diversity index and parity read."
+    },
+    {
+      "id": "structural_isolation",
+      "label": "Structural isolation",
+      "value": 0.3294,
+      "value_label": "33/100",
+      "reading": "Homophily and dialogue effect sizes show whether groups remain in narrow narrative corridors.",
+      "evidence": "Network homophily and Cramer's V effect sizes."
+    },
+    {
+      "id": "reinforcement_pressure",
+      "label": "Reinforcement pressure",
+      "value": 0.4676,
+      "value_label": "47/100",
+      "reading": "Public attention drift shows whether discovery is opening or repeatedly returning to the same route.",
+      "evidence": "Decision-lab drift and living-media pressure signals."
+    },
+    {
+      "id": "evidence_discipline",
+      "label": "Evidence discipline",
+      "value": 0.682,
+      "value_label": "68/100",
+      "reading": "Coverage matters. A careful weak claim is worth more than a confident overreach.",
+      "evidence": "Trust score, year coverage, and source balance."
+    }
+  ],
+  "watchpoints": [
+    "Strongest visible drift: English-language share (+100.0 pts).",
+    "Most overrepresented intersection in the modeled lane: male white under 30 at 7.71x baseline.",
+    "Most constrained field signal: Representation lift (72/100)."
+  ],
+  "questions": [
+    "Would this claim still hold if the unlabeled rows were removed?",
+    "Are we looking at a platform effect, a packaging effect, or only a scale effect?",
+    "Is the visible shift durable across time, or just concentrated in one recent slice?"
+  ],
+  "contribution_paths": [
+    "Bring in richer note or score coverage so public attention can be read alongside musical structure.",
+    "Extend the drift lane with longer rolling windows before calling a shift durable.",
+    "Add more real platform cohorts so structural isolation can be compared across contexts, not only within one field."
+  ],
+  "method_choices": [
+    {
+      "measure": "Homophily plus dialogue effect sizes",
+      "why": "Counts can look balanced while roles still stay segregated. Structural measures reveal whether people are being kept in narrower narrative lanes."
+    },
+    {
+      "measure": "Public drift windows",
+      "why": "A static snapshot cannot show whether discovery is opening or tightening. Drift windows make reinforcement pressure visible through time."
+    },
+    {
+      "measure": "Trust-weighted interpretation",
+      "why": "Coverage limits are part of the result. A strong-looking signal should carry less force when year, language, or source support is thin."
+    }
+  ],
+  "claim_boundaries": [
+    "This surface joins a modeled representation lane with a public music lane. It is meant to show pressure and direction, not to flatten both into one dataset.",
+    "It does not infer private platform intent. It reads the structural signals that are already visible in the available evidence.",
+    "Where coverage is thin, the score should open a question rather than close an argument."
+  ],
+  "extremes": {
+    "underrepresented": {
+      "label": "non-binary black over 50",
+      "ratio": 0.009,
+      "representation": 0.0002,
+      "screen_time": 39.71293489910693
+    },
+    "overrepresented": {
+      "label": "male white under 30",
+      "ratio": 7.712999999999999,
+      "representation": 0.1714,
+      "screen_time": 60.000207472611066
+    }
+  },
+  "signals": {
+    "diversity_index": 0.7128,
+    "gender_parity": 0.744,
+    "network_density": 0.0204,
+    "gender_homophily": 0.0436,
+    "racial_homophily": 0.0353,
+    "effect_pressure": 0.4659,
+    "trust_score": 0.682,
+    "drift_peak": 1.0,
+    "engineered_pressure": 0.5257,
+    "corridor_balance": 0.7698,
+    "bias_resistance": 0.6458
+  },
+  "proof_lanes": [
+    "/api/metrics/network",
+    "/api/metrics/advanced",
+    "/api/music/decision-lab",
+    "/api/music/living-media"
+  ]
+}

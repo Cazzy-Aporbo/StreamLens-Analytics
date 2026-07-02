@@ -10,6 +10,7 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
+import re
 from typing import Iterable
 
 
@@ -156,6 +157,36 @@ PROFILE_MAP = {
     },
 }
 
+SEVERITY_ORDER = {
+    "safe": 0,
+    "copyright": 1,
+    "minors": 2,
+    "pii": 3,
+    "secrets": 4,
+}
+
+EMAIL_RE = re.compile(r"\b[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,}\b", re.IGNORECASE)
+PHONE_RE = re.compile(r"(?:\+?\d[\d\s().\-]{7,}\d)")
+SSN_RE = re.compile(r"\b\d{3}-\d{2}-\d{4}\b")
+SECRET_PATTERNS = (
+    ("bearer_token", re.compile(r"\bBearer\s+[A-Za-z0-9._\-]{8,}\b")),
+    ("openai_key", re.compile(r"\bsk-[A-Za-z0-9]{10,}\b")),
+    ("webhook_secret", re.compile(r"\bwhsec_[A-Za-z0-9]{8,}\b")),
+    ("github_token", re.compile(r"\bghp_[A-Za-z0-9]{12,}\b")),
+    ("aws_access_key", re.compile(r"\bAKIA[0-9A-Z]{12,}\b")),
+    ("slack_token", re.compile(r"\bxox[baprs]-[A-Za-z0-9\-]{10,}\b")),
+)
+COPYRIGHT_MARKERS = (
+    ("lyrics_label", re.compile(r"\blyrics?\s*:", re.IGNORECASE)),
+    ("verse_label", re.compile(r"\bverse\s+\d+\s*:", re.IGNORECASE)),
+    ("chorus_label", re.compile(r"\bchorus\s*:", re.IGNORECASE)),
+    ("bridge_label", re.compile(r"\bbridge\s*:", re.IGNORECASE)),
+)
+MINOR_PATTERNS = (
+    ("minor_reference", re.compile(r"\b(?:teen|teens|minor|child|children|kid|kids)\b", re.IGNORECASE)),
+    ("retention_push", re.compile(r"\b(?:repeat|requeue|loop|late-night|late night|scroll|harder to exit)\b", re.IGNORECASE)),
+)
+
 
 def classify_prompt(prompt: str) -> str:
     lowered = prompt.lower()
@@ -172,25 +203,109 @@ def matched_terms(prompt: str, category: str) -> list[str]:
     return [term for term in terms if term in lowered]
 
 
-def simulate_governance(prompt: str) -> dict:
-    category = classify_prompt(prompt)
+def inspect_draft_response(draft_response: str) -> dict:
+    text = (draft_response or "").strip()
+    if not text:
+        return {
+            "category": "safe",
+            "risk_stack": [],
+            "signals": [],
+            "matched_categories": [],
+            "evidence_sources": [],
+        }
+
+    hits: dict[str, list[str]] = {"pii": [], "secrets": [], "copyright": [], "minors": []}
+
+    if EMAIL_RE.search(text):
+        hits["pii"].append("email")
+    if PHONE_RE.search(text):
+        hits["pii"].append("phone")
+    if SSN_RE.search(text):
+        hits["pii"].append("ssn")
+
+    for label, pattern in SECRET_PATTERNS:
+        if pattern.search(text):
+            hits["secrets"].append(label)
+
+    for label, pattern in COPYRIGHT_MARKERS:
+        if pattern.search(text):
+            hits["copyright"].append(label)
+
+    minor_hits = [label for label, pattern in MINOR_PATTERNS if pattern.search(text)]
+    if len(minor_hits) >= 2:
+        hits["minors"].extend(minor_hits)
+
+    matched_categories = [category for category, values in hits.items() if values]
+    if not matched_categories:
+        return {
+            "category": "safe",
+            "risk_stack": [],
+            "signals": [],
+            "matched_categories": [],
+            "evidence_sources": [],
+        }
+
+    matched_categories.sort(key=lambda item: SEVERITY_ORDER.get(item, 0), reverse=True)
+    top_category = matched_categories[0]
+    signals = []
+    for category in matched_categories:
+        signals.extend(f"{category}:{label}" for label in hits[category])
+    return {
+        "category": top_category,
+        "risk_stack": matched_categories,
+        "signals": signals,
+        "matched_categories": matched_categories,
+        "evidence_sources": ["draft_payload"],
+    }
+
+
+def review_request(prompt: str, draft_response: str = "") -> dict:
+    prompt_category = classify_prompt(prompt)
+    prompt_hits = matched_terms(prompt, prompt_category) if prompt_category != "safe" else []
+    response_review = inspect_draft_response(draft_response)
+
+    category = prompt_category
+    risk_stack = [prompt_category] if prompt_category != "safe" else []
+    evidence_sources = ["prompt_intent"] if prompt_category != "safe" else []
+
+    response_category = response_review["category"]
+    if response_category != "safe":
+        risk_stack.extend(item for item in response_review["risk_stack"] if item not in risk_stack)
+        evidence_sources.extend(
+            source for source in response_review["evidence_sources"] if source not in evidence_sources
+        )
+        if SEVERITY_ORDER.get(response_category, 0) > SEVERITY_ORDER.get(category, 0):
+            category = response_category
+
     profile = PROFILE_MAP[category]
 
     blocked = category != "safe"
-    standard_response = _compose_standard_response(profile)
+    standard_response = _compose_standard_response(profile, draft_response=draft_response)
     governed_prefix = profile["standard_prefix"] if blocked else ""
-    blocked_fragment = profile["blocked_fragment"]
+    blocked_fragment = _extract_blocked_fragment(
+        draft_response,
+        fallback=profile["blocked_fragment"],
+        blocked=blocked,
+    )
     safe_response = profile["safe_response"]
 
     blocked_token_index = len(governed_prefix.split()) if blocked else None
-    risky_tokens = len(blocked_fragment.split()) if blocked else 0
+    risky_tokens = len(str(blocked_fragment).split()) if blocked else 0
+    response_signals = response_review["signals"]
+    matched = prompt_hits + [signal.split(":", 1)[-1] for signal in response_signals]
+    unique_matched = list(dict.fromkeys(matched))
+    recommended_actions = _recommended_actions(risk_stack)
 
     return {
         "prompt": prompt,
+        "draft_response": draft_response,
         "category": category,
         "category_label": profile["label"],
         "blocked": blocked,
-        "matched_terms": matched_terms(prompt, category),
+        "matched_terms": unique_matched,
+        "response_signals": response_signals,
+        "risk_stack": risk_stack,
+        "evidence_sources": evidence_sources,
         "standard_response": standard_response,
         "governed_prefix": governed_prefix,
         "blocked_fragment": blocked_fragment,
@@ -205,6 +320,31 @@ def simulate_governance(prompt: str) -> dict:
         "governed_risky_tokens_rendered": 0,
         "sdk_snippet": SDK_SNIPPET,
         "package_entry": "packages/loopchii-lite/src/index.js",
+        "recommended_actions": recommended_actions,
+        "review_posture": "block_before_render" if blocked else "pass_through",
+    }
+
+
+def simulate_governance(prompt: str, draft_response: str = "") -> dict:
+    return review_request(prompt, draft_response=draft_response)
+
+
+def public_runtime_review_snapshot() -> dict:
+    sample_prompt = "Draft the support handoff note for the billing incident."
+    sample_draft = (
+        "Customer contacts: jordan@example.com, +1 202 555 0148, "
+        "and Bearer sk-demo-9f2c4a7btoken so the next shift can replay the callback."
+    )
+    review = review_request(sample_prompt, sample_draft)
+    return {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "headline": "Live runtime review",
+        "description": (
+            "A local review lane that inspects prompt intent and drafted output together, "
+            "then returns a decision before the risky fragment is treated as acceptable text."
+        ),
+        "example": review,
+        "integration_entry": "packages/loopchii-lite/src/index.js",
     }
 
 
@@ -230,7 +370,9 @@ def preset_prompts() -> list[str]:
     return [preset.prompt for preset in PRESETS]
 
 
-def _compose_standard_response(profile: dict) -> str:
+def _compose_standard_response(profile: dict, draft_response: str = "") -> str:
+    if str(draft_response or "").strip():
+        return str(draft_response).strip()
     if not profile["standard_prefix"]:
         return profile["safe_response"]
     return " ".join(
@@ -242,3 +384,28 @@ def _compose_standard_response(profile: dict) -> str:
         )
         if part.strip()
     )
+
+
+def _extract_blocked_fragment(draft_response: str, *, fallback: str, blocked: bool) -> str:
+    text = str(draft_response or "").strip()
+    if not blocked:
+        return ""
+    if not text:
+        return fallback
+    words = text.split()
+    return " ".join(words[:18]) + (" …" if len(words) > 18 else "")
+
+
+def _recommended_actions(risk_stack: list[str]) -> list[str]:
+    actions = []
+    if "secrets" in risk_stack:
+        actions.append("Rotate exposed credentials and replace live values with placeholders.")
+    if "pii" in risk_stack:
+        actions.append("Redact direct identifiers or convert the draft into anonymized cohorts.")
+    if "copyright" in risk_stack:
+        actions.append("Keep the analysis, but remove verbatim protected material.")
+    if "minors" in risk_stack:
+        actions.append("Remove retention tactics aimed at minors and switch to age-aware safeguards.")
+    if not actions:
+        actions.append("No block needed; keep the request inside the documented public scope.")
+    return actions

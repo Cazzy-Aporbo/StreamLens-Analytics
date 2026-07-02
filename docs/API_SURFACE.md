@@ -16,11 +16,23 @@ python -m stream_backend.cli.doctor
 python app.py
 ```
 
+Helpful local operator paths:
+
+```bash
+python run_analysis.py --output-dir exports
+python -m stream_backend.cli.materialize --json
+make doctor
+make test
+make cargo-test
+docker compose up --build
+```
+
 Key entry points:
 
 - `/docs`: Swagger UI
 - `/openapi.json`: live OpenAPI schema
 - `openapi.stream.json`: committed static schema export
+- `/api/system/api-contracts`: compact contract index derived from OpenAPI
 
 ## Runtime materialization
 
@@ -29,12 +41,22 @@ The backend runtime spine is centered in `stream_backend/`.
 Main outputs:
 
 - `data/system/frontend-state.json`
+- `data/system/readiness.json`
+- `data/system/integrations.json`
+- `data/system/runtime-review.json`
+- `data/system/runtime-drift.json`
+- `data/system/media-insurability.json`
+- `data/system/live-contract.json`
+- `data/system/api-contracts.json`
 - `data/system/critical-spine.json`
 - `data/system/comparatives.json`
 - `data/system/runtime.json`
+- `data/system/runtime-latest.json`
+- `data/system/runtime-ledger.json`
 - `data/system/contracts.json`
 - `data/system/runtime_surface.md`
 - `data/music/decision-lab.json`
+- `data/music/theory.json`
 
 These are generated from the same Python orchestration path used by the API so the static site does not drift into a different story.
 
@@ -47,11 +69,26 @@ docker run --rm -p 8000:8000 loopchii-stream
 
 The image runs `python build_static.py` during build, then serves the live API from `app.py`.
 
+If you want the same path with a named runtime volume and optional environment overrides, use:
+
+```bash
+docker compose up --build
+```
+
+If you want the optional event-bus lane as well, including Redpanda and ClickHouse:
+
+```bash
+make enterprise-up
+```
+
+Copy `.env.example` to `.env` if you want to set `STREAM_API_KEY`, `STREAM_SQLITE_BUSY_TIMEOUT_MS`, `PORT`, or `YOUTUBE_API_KEY`.
+
 ## Claim boundary
 
 - Synthetic representation data is for method testing and visual reasoning.
 - Public music data is a separate real-data lane and should be read with its own quality posture.
-- The repo is designed to help contributors inspect, challenge, and improve the public surface without pretending it contains private LOOPCHii runtime internals.
+- The repo is designed to help contributors inspect, challenge, and improve the public surface without implying access to non-public systems.
+- Production streaming claims are tracked in [PRODUCTION_READINESS.md](PRODUCTION_READINESS.md), not folded into the README as if they were already complete.
 
 ## Policy surfaces
 
@@ -69,5 +106,36 @@ If you need the non-code boundary before you trust the API, start here:
 - `/api/music/decision-lab`
 - `/api/music/timeline`
 - `/api/music/intelligence`
+- `/api/music/theory`
 
 These four routes are the quickest way to understand whether the current public corpus is broad enough, current enough, and well-labeled enough to support the story the UI is telling.
+
+## Runtime and adoption surfaces worth checking next
+
+- `/api/system/readiness`
+- `/api/system/integrations`
+- `/api/system/model-registry`
+- `/api/system/runtime/ledger`
+- `/api/runtime/events/contract`
+- `/api/runtime/events/latest?market=PH`
+- `/ws/runtime/metrics/live`
+- `/api/runtime/review/demo`
+- `/api/runtime/drift/demo`
+- `/api/media-lab/insurability`
+
+These routes are there to answer a more practical question: what is truly usable now, what kind of review lane already exists, and where the current public repo still stops short of production streaming infrastructure.
+
+## Write-surface protection
+
+If `STREAM_API_KEY` is set, the state-changing endpoints require an `X-API-Key` header:
+
+- `POST /api/analyze`
+- `POST /api/media-lab/insurability`
+- `POST /api/system/materialize`
+- `POST /api/runtime/review`
+- `POST /api/runtime/drift`
+- `POST /api/music/refresh`
+- `POST /api/runtime/events`
+- `POST /api/runtime/events/demo-seed`
+
+If the environment variable is unset, those routes remain open for local experimentation.

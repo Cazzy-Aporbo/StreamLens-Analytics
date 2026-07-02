@@ -1,0 +1,66 @@
+services:
+  stream:
+    build:
+      context: .
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      PORT: "${PORT:-8000}"
+      STREAM_SQLITE_BUSY_TIMEOUT_MS: "${STREAM_SQLITE_BUSY_TIMEOUT_MS:-30000}"
+      STREAM_API_KEY: "${STREAM_API_KEY:-}"
+      YOUTUBE_API_KEY: "${YOUTUBE_API_KEY:-}"
+      STREAM_PANDAPROXY_URL: "${STREAM_PANDAPROXY_URL:-http://redpanda:8082}"
+      STREAM_PANDAPROXY_TOPIC: "${STREAM_PANDAPROXY_TOPIC:-stream.runtime.events}"
+      STREAM_CLICKHOUSE_URL: "${STREAM_CLICKHOUSE_URL:-http://clickhouse:8123}"
+      STREAM_CLICKHOUSE_TABLE: "${STREAM_CLICKHOUSE_TABLE:-stream_runtime_metrics}"
+    volumes:
+      - stream_runtime:/app/data/system/runtime
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  redpanda:
+    image: redpandadata/redpanda:v24.2.12
+    command:
+      - redpanda
+      - start
+      - --overprovisioned
+      - --smp
+      - "1"
+      - --memory
+      - "1G"
+      - --reserve-memory
+      - "0M"
+      - --node-id
+      - "0"
+      - --check=false
+      - --kafka-addr
+      - PLAINTEXT://0.0.0.0:9092
+      - --advertise-kafka-addr
+      - PLAINTEXT://redpanda:9092
+      - --pandaproxy-addr
+      - 0.0.0.0:8082
+      - --advertise-pandaproxy-addr
+      - redpanda:8082
+    profiles: ["enterprise"]
+    ports:
+      - "9092:9092"
+      - "8082:8082"
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.6
+    profiles: ["enterprise"]
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    environment:
+      CLICKHOUSE_DB: "${CLICKHOUSE_DB:-default}"
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+
+volumes:
+  stream_runtime:
+  clickhouse_data:

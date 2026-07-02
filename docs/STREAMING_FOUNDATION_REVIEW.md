@@ -1,6 +1,6 @@
 # Streaming Foundation Review
 
-This repository is strongest when it presents itself honestly: a serious public research and analysis system with real APIs, reproducible batch pipelines, static export parity, and explicit governance surfaces. It is not yet a production streaming runtime.
+This repository is strongest when it presents itself honestly: a public research and analysis system with real APIs, reproducible batch pipelines, static export parity, and explicit governance surfaces. It is not yet a production streaming runtime.
 
 ## What problem this repo solves
 
@@ -33,7 +33,7 @@ Why:
 What is still missing for production streaming credibility:
 
 - exactly-once semantics
-- replayable event log
+- durable replayable event log
 - checkpoint and recovery model
 - schema evolution policy
 - partitioning and ordering guarantees
@@ -62,6 +62,7 @@ What is still missing for production streaming credibility:
 
 - Publish performance baselines with `benchmarks/analytics_scale.py`
 - Keep the README explicit about batch-first posture
+- Keep [PRODUCTION_READINESS.md](PRODUCTION_READINESS.md) separate from feature claims
 - Treat genre coverage, freshness, and artifact parity as first-class health checks
 - Link directly to the quality and governance surfaces from the main entry points
 

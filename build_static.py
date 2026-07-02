@@ -20,6 +20,13 @@ from pathlib import Path
 import app as backend
 import music_intelligence
 import music_pipeline
+from stream_backend.services.live_runtime import (
+    build_live_metrics_surface,
+    demo_runtime_events,
+    runtime_event_contract,
+)
+from stream_backend.services.api_contracts import build_api_contract_surface
+from stream_backend.services.model_registry import build_model_registry_surface
 
 BASE = Path(__file__).resolve().parent
 DATA = BASE / "data"
@@ -37,13 +44,25 @@ def write_json(path: Path, obj) -> None:
 
 def build_data() -> None:
     DATA.mkdir(parents=True, exist_ok=True)
+    demo_live_events = demo_runtime_events()
     # Sample-size independent content.
     write_json(DATA / "learn.json", backend.learn())
     write_json(DATA / "bias-library.json", backend.bias_library())
     write_json(DATA / "system" / "data-engineering.json", backend.data_engineering_surface())
+    write_json(DATA / "system" / "readiness.json", backend.system_readiness())
+    write_json(DATA / "system" / "integrations.json", backend.system_integrations())
+    write_json(DATA / "system" / "bias-dynamics.json", backend.system_bias_dynamics())
     write_json(DATA / "system" / "streaming-readiness.json", backend.system_streaming_readiness())
+    write_json(DATA / "system" / "model-registry.json", backend.system_model_registry())
+    write_json(DATA / "system" / "api-contracts.json", build_api_contract_surface(backend.app.openapi()))
     write_json(DATA / "system" / "bias-propagation.json", backend.bias_propagation())
     write_json(DATA / "system" / "trojan-horse.json", backend.trojan_horse_surface())
+    write_json(DATA / "system" / "runtime-review.json", backend.runtime_review_demo())
+    write_json(DATA / "system" / "runtime-drift.json", backend.runtime_drift_demo())
+    write_json(DATA / "system" / "media-insurability.json", backend.media_lab_insurability())
+    write_json(DATA / "system" / "live-contract.json", runtime_event_contract(backend.runtime_config))
+    write_json(DATA / "system" / "live-metrics.json", build_live_metrics_surface(demo_live_events, source="demonstration"))
+    write_json(DATA / "system" / "live-events.json", {"items": demo_live_events, "limit": len(demo_live_events)})
     write_json(DATA / "system" / "catalog.json", backend.system_catalog())
     write_json(BASE / "openapi.stream.json", backend.app.openapi())
 
@@ -71,6 +90,8 @@ def build_data() -> None:
 
     build_music()
     backend.runtime_service.materialize(sample_size=DEFAULT_SIZE, persist_sqlite=True)
+    write_json(DATA / "system" / "runtime-latest.json", backend.system_runtime_latest())
+    write_json(DATA / "system" / "runtime-ledger.json", backend.system_runtime_ledger(limit=12))
 
     # Disable Jekyll so GitHub Pages serves the data/ files verbatim.
     (BASE / ".nojekyll").write_text("", encoding="utf-8")
@@ -95,6 +116,8 @@ def build_music() -> None:
     write_json(out / "quality.json", report["quality"])
     write_json(out / "decision-lab.json", report["decision_lab"])
     write_json(out / "living-media.json", report["living_media"])
+    write_json(out / "model-registry.json", build_model_registry_surface(report))
+    write_json(out / "theory.json", backend.music_theory_surface())
     write_json(out / "genres.json", report["bias"].get("genre_breakdown", []))
     write_json(out / "timeline.json", report["bias"].get("publication_timeline", {}))
     write_json(out / "status.json", {"live_available": False, "source": "bundled_csv",

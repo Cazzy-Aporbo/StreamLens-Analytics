@@ -129,7 +129,45 @@ const PROFILE_MAP = {
   }
 };
 
+const SEVERITY_ORDER = {
+  safe: 0,
+  copyright: 1,
+  minors: 2,
+  pii: 3,
+  secrets: 4
+};
+
+const RESPONSE_PATTERNS = {
+  pii: [
+    ["email", /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i],
+    ["phone", /(?:\+?\d[\d\s().-]{7,}\d)/],
+    ["ssn", /\b\d{3}-\d{2}-\d{4}\b/]
+  ],
+  secrets: [
+    ["bearer_token", /\bBearer\s+[A-Za-z0-9._-]{8,}\b/],
+    ["openai_key", /\bsk-[A-Za-z0-9]{10,}\b/],
+    ["webhook_secret", /\bwhsec_[A-Za-z0-9]{8,}\b/],
+    ["github_token", /\bghp_[A-Za-z0-9]{12,}\b/],
+    ["aws_access_key", /\bAKIA[0-9A-Z]{12,}\b/],
+    ["slack_token", /\bxox[baprs]-[A-Za-z0-9-]{10,}\b/]
+  ],
+  copyright: [
+    ["lyrics_label", /\blyrics?\s*:/i],
+    ["verse_label", /\bverse\s+\d+\s*:/i],
+    ["chorus_label", /\bchorus\s*:/i],
+    ["bridge_label", /\bbridge\s*:/i]
+  ],
+  minors: [
+    ["minor_reference", /\b(?:teen|teens|minor|child|children|kid|kids)\b/i],
+    ["retention_push", /\b(?:repeat|requeue|loop|late-night|late night|scroll|harder to exit)\b/i]
+  ]
+};
+
 function composeStandardResponse(profile) {
+  const draftResponse = arguments.length > 1 ? arguments[1] : "";
+  if (String(draftResponse || "").trim()) {
+    return String(draftResponse).trim();
+  }
   if (!profile.standardPrefix) {
     return profile.safeResponse;
   }
@@ -150,48 +188,125 @@ export function classifyPrompt(prompt = "") {
   return "safe";
 }
 
-export function buildPresetSuite() {
-  return PRESETS.slice();
+export function inspectDraftResponse(draftResponse = "") {
+  const text = String(draftResponse || "").trim();
+  if (!text) {
+    return {
+      category: "safe",
+      riskStack: [],
+      signals: [],
+      matchedCategories: [],
+      evidenceSources: []
+    };
+  }
+
+  const hits = { pii: [], secrets: [], copyright: [], minors: [] };
+  Object.entries(RESPONSE_PATTERNS).forEach(([category, patterns]) => {
+    patterns.forEach(([label, pattern]) => {
+      if (pattern.test(text)) hits[category].push(label);
+    });
+  });
+
+  if (hits.minors.length < 2) hits.minors = [];
+
+  const matchedCategories = Object.entries(hits)
+    .filter(([, values]) => values.length)
+    .map(([category]) => category)
+    .sort((left, right) => (SEVERITY_ORDER[right] || 0) - (SEVERITY_ORDER[left] || 0));
+
+  if (!matchedCategories.length) {
+    return {
+      category: "safe",
+      riskStack: [],
+      signals: [],
+      matchedCategories: [],
+      evidenceSources: []
+    };
+  }
+
+  const signals = matchedCategories.flatMap((category) =>
+    hits[category].map((label) => `${category}:${label}`)
+  );
+
+  return {
+    category: matchedCategories[0],
+    riskStack: matchedCategories,
+    signals,
+    matchedCategories,
+    evidenceSources: ["draft_payload"]
+  };
 }
 
-export function simulateSplitScreen(prompt = "") {
-  const category = classifyPrompt(prompt);
+export function reviewRequest({ prompt = "", draftResponse = "" } = {}) {
+  const promptCategory = classifyPrompt(prompt);
+  const responseReview = inspectDraftResponse(draftResponse);
+  let category = promptCategory;
+  const riskStack = promptCategory !== "safe" ? [promptCategory] : [];
+  const evidenceSources = promptCategory !== "safe" ? ["prompt_intent"] : [];
+  if (responseReview.category !== "safe") {
+    responseReview.riskStack.forEach((item) => {
+      if (!riskStack.includes(item)) riskStack.push(item);
+    });
+    responseReview.evidenceSources.forEach((item) => {
+      if (!evidenceSources.includes(item)) evidenceSources.push(item);
+    });
+    if ((SEVERITY_ORDER[responseReview.category] || 0) > (SEVERITY_ORDER[category] || 0)) {
+      category = responseReview.category;
+    }
+  }
+
   const profile = PROFILE_MAP[category];
-  const lowered = String(prompt).toLowerCase();
   const blocked = category !== "safe";
-  const standardResponse = composeStandardResponse(profile);
+  const standardResponse = composeStandardResponse(profile, draftResponse);
   const governedPrefix = blocked ? profile.standardPrefix : "";
-  const blockedFragment = profile.blockedFragment;
-  const safeResponse = profile.safeResponse;
-  const matchedTerms = profile.matchedTerms.filter((term) => lowered.includes(term));
-  const blockedTokenIndex = blocked ? governedPrefix.split(/\s+/).filter(Boolean).length : null;
-  const riskyTokens = blocked ? blockedFragment.split(/\s+/).filter(Boolean).length : 0;
+  const blockedFragment = extractBlockedFragment(draftResponse, profile.blockedFragment, blocked);
+  const promptMatches = promptCategory !== "safe"
+    ? PROFILE_MAP[promptCategory].matchedTerms.filter((term) => String(prompt).toLowerCase().includes(term))
+    : [];
+  const responseSignals = responseReview.signals;
+  const matchedTerms = Array.from(new Set(
+    promptMatches.concat(responseSignals.map((signal) => signal.split(":").slice(-1)[0]))
+  ));
 
   return {
     prompt,
+    draftResponse,
     category,
     categoryLabel: profile.label,
     blocked,
     matchedTerms,
+    responseSignals,
+    riskStack,
+    evidenceSources,
     standardResponse,
     governedPrefix,
     blockedFragment,
-    governedRecovery: safeResponse,
+    governedRecovery: profile.safeResponse,
     reason: profile.reason,
     nuisance: profile.nuisance,
     value: profile.value,
     standardReactionMs: profile.standardMs,
     loopchiiInterceptMs: profile.interceptMs,
-    blockedTokenIndex,
-    standardRiskyTokensRendered: riskyTokens,
+    blockedTokenIndex: blocked ? governedPrefix.split(/\s+/).filter(Boolean).length : null,
+    standardRiskyTokensRendered: blocked ? String(blockedFragment).split(/\s+/).filter(Boolean).length : 0,
     governedRiskyTokensRendered: 0,
     sdkSnippet: SDK_SNIPPET,
-    packageEntry: "packages/loopchii-lite/src/index.js"
+    packageEntry: "packages/loopchii-lite/src/index.js",
+    recommendedActions: recommendedActions(riskStack),
+    reviewPosture: blocked ? "block_before_render" : "pass_through"
   };
 }
 
+export function buildPresetSuite() {
+  return PRESETS.slice();
+}
+
+export function simulateSplitScreen(prompt = "", draftResponse = "") {
+  return reviewRequest({ prompt, draftResponse });
+}
+
 export function govern({ prompt = "", draftResponse = "" } = {}) {
-  const simulation = simulateSplitScreen(prompt);
+  const simulation = simulateSplitScreen(prompt, draftResponse);
   const standardResponse = draftResponse || simulation.standardResponse;
   return {
     allowed: !simulation.blocked,
@@ -202,6 +317,8 @@ export function govern({ prompt = "", draftResponse = "" } = {}) {
       mode: simulation.blocked ? "apoptosis" : "pass",
       reason: simulation.reason,
       matchedTerms: simulation.matchedTerms,
+      responseSignals: simulation.responseSignals,
+      evidenceSources: simulation.evidenceSources,
       interceptMs: simulation.loopchiiInterceptMs
     },
     telemetry: {
@@ -213,3 +330,31 @@ export function govern({ prompt = "", draftResponse = "" } = {}) {
 }
 
 export { SDK_SNIPPET };
+
+function extractBlockedFragment(draftResponse, fallback, blocked) {
+  if (!blocked) return "";
+  const text = String(draftResponse || "").trim();
+  if (!text) return fallback;
+  const words = text.split(/\s+/).filter(Boolean);
+  return words.slice(0, 18).join(" ") + (words.length > 18 ? " …" : "");
+}
+
+function recommendedActions(riskStack) {
+  const actions = [];
+  if (riskStack.includes("secrets")) {
+    actions.push("Rotate exposed credentials and replace live values with placeholders.");
+  }
+  if (riskStack.includes("pii")) {
+    actions.push("Redact direct identifiers or convert the draft into anonymized cohorts.");
+  }
+  if (riskStack.includes("copyright")) {
+    actions.push("Keep the analysis, but remove verbatim protected material.");
+  }
+  if (riskStack.includes("minors")) {
+    actions.push("Remove retention tactics aimed at minors and switch to age-aware safeguards.");
+  }
+  if (!actions.length) {
+    actions.push("No block needed; keep the request inside the documented public scope.");
+  }
+  return actions;
+}

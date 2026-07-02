@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-07-02T20:37:26.576795+00:00",
+  "headline": "Liability translation",
+  "description": "A bounded bridge between recommendation risk, generated-buffer review, and the questions operations or policy teams would ask before calling a system acceptable.",
+  "analysis": {
+    "generated_at": "2026-07-02T20:37:26.576834+00:00",
+    "posture_score": 0.5892,
+    "posture_band": "elevated",
+    "review_priority": "near_term",
+    "claim_boundary": "This surface translates public recommendation and buffer signals into a review posture. It is not an underwriting decision and it does not replace legal counsel.",
+    "exposures": {
+      "youth_safety": 0.4171,
+      "creative_rights": 1.0,
+      "moderation_load": 0.6778,
+      "evidence_readiness": 0.9
+    },
+    "loss_channels": [
+      {
+        "name": "Compulsive recommendation pressure",
+        "score": 0.4171,
+        "why": "Short-cycle repetition and high completion patterns can become youth-safety or platform-duty questions."
+      },
+      {
+        "name": "Protected content release",
+        "score": 1.0,
+        "why": "A blocked protected signature is a direct cue that rights-handling needs to stay close to generation."
+      },
+      {
+        "name": "Manual review burden",
+        "score": 0.6778,
+        "why": "Dense recommendation loops and repeated edges often create more human review work even before a public incident appears."
+      }
+    ],
+    "recommended_controls": [
+      "Route generated media through a rights review lane before release.",
+      "Add friction, diversity injection, and late-night safeguards to the recommendation flow.",
+      "Budget for manual review and keep causal traces attached to repeated recommendation paths.",
+      "Keep release authority close to the evidence trail rather than relying on post-release cleanup."
+    ]
+  }
+}

@@ -3,7 +3,7 @@ name = "loopchii-wasm-core"
 version = "0.1.0"
 edition = "2021"
 description = "Public deterministic micro-kernel scaffold for Stream browser demos."
-license = "MIT"
+license = "Apache-2.0"
 
 [lib]
 crate-type = ["cdylib", "rlib"]

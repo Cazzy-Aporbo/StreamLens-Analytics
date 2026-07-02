@@ -1,0 +1,111 @@
+from __future__ import annotations
+
+from datetime import datetime, timezone
+from pathlib import Path
+
+
+def build_integration_surface(base_dir: Path) -> dict:
+    return {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "headline": "Integration paths",
+        "description": (
+            "These are the integration paths the repository can honestly support today. They are smaller than a full production streaming estate, "
+            "yet they are substantive enough to run, test, extend, and question."
+        ),
+        "available_now": [
+            {
+                "id": "browser_wrapper",
+                "title": "Browser or Node wrapper",
+                "entry": "packages/loopchii-lite/src/index.js",
+                "kind": "javascript",
+                "proof_lane": "/api/system/trojan-horse",
+                "why": "Wrap a prompt and drafted response in a compact, inspectable guard surface.",
+            },
+            {
+                "id": "live_api_review",
+                "title": "Local review API",
+                "entry": "app.py",
+                "kind": "python_api",
+                "proof_lane": "/api/runtime/review/demo",
+                "why": "Use FastAPI endpoints for runtime review, drift probing, music analysis, and static export parity.",
+            },
+            {
+                "id": "static_export_lane",
+                "title": "Static artifact build",
+                "entry": "build_static.py",
+                "kind": "batch_export",
+                "proof_lane": "data/system/runtime.json",
+                "why": "Rebuild the browser-facing JSON artifacts from the same backend path used by the live API.",
+            },
+            {
+                "id": "container_path",
+                "title": "Containerized local service",
+                "entry": "compose.yaml",
+                "kind": "container",
+                "proof_lane": "docker compose up --build",
+                "why": "Run the API and the runtime ledger in one reproducible local service without hand-assembling the environment.",
+            },
+            {
+                "id": "persisted_runtime",
+                "title": "SQLite-backed runtime history",
+                "entry": "stream_backend/store",
+                "kind": "persistence",
+                "proof_lane": "data/system/runtime/stream_runtime.sqlite3",
+                "why": "Persist runtime snapshots locally with a hash-linked ledger so contributors can inspect run order instead of relying on memory alone.",
+            },
+            {
+                "id": "live_event_window",
+                "title": "Rolling event ingress",
+                "entry": "/api/runtime/events + /api/runtime/metrics/live",
+                "kind": "stream_window",
+                "proof_lane": "/api/runtime/metrics/live",
+                "why": "Ingest live music-market events, keep them in a replayable local table, and recompute weighted pressure metrics on each window refresh.",
+            },
+            {
+                "id": "event_contract",
+                "title": "Ingress contract and filtered window reads",
+                "entry": "/api/runtime/events/contract",
+                "kind": "contract_surface",
+                "proof_lane": "/api/runtime/events/latest?market=PH",
+                "why": "Expose field expectations, batch limits, retention rules, and filterable reads before anyone treats the live lane as trustworthy.",
+            },
+            {
+                "id": "enterprise_transport",
+                "title": "Optional Redpanda and ClickHouse transport",
+                "entry": "compose.yaml + stream_backend/services/enterprise_bus.py",
+                "kind": "event_bus",
+                "proof_lane": "docker compose --profile enterprise up --build",
+                "why": "Publish event batches and live metric receipts into a distributed bus and an analytical store when those sinks are wired in the environment.",
+            },
+            {
+                "id": "operator_targets",
+                "title": "Make targets and environment contract",
+                "entry": "Makefile + .env.example",
+                "kind": "operations",
+                "proof_lane": "make doctor && make materialize",
+                "why": "Lower the setup burden for contributors while keeping the runtime contract visible and inspectable.",
+            },
+        ],
+        "next_to_build": [
+            "Consumer workers that read back from the event bus into governed review flows",
+            "Hosted auth and rate limits for shared multi-user review",
+            "Partition-aware connectors for external event sources",
+        ],
+        "commercial_boundary": {
+            "ready_now": [
+                "Local research review",
+                "Editorial or catalog strategy analysis",
+                "Rolling event-window diagnostics",
+                "Filtered live window inspection",
+                "Public reproducibility and contribution",
+                "Small internal guard experiments",
+            ],
+            "not_claiming_yet": [
+                "Managed multi-tenant control plane",
+                "Exactly-once event processing",
+                "Durable streaming checkpoint recovery",
+                "Hosted enterprise operations",
+            ],
+        },
+        "repo_root": str(base_dir),
+    }

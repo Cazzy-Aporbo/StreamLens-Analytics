@@ -11,6 +11,7 @@ Most public research repos make a reader understand the whole worldview before t
 ## What it does
 
 - classifies a prompt into a small set of high-friction nuisance cases
+- inspects drafted output for direct identifiers, credential shapes, and other risky fragments
 - simulates how an ordinary wrapper would let a risky fragment render
 - returns a governed alternative before the risky fragment lands
 

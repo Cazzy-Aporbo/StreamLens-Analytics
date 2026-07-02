@@ -1,6 +1,6 @@
 # Stream Runtime Surface
 
-- Generated at: `2026-06-30T19:22:15+00:00`
+- Generated at: `2026-07-02T20:37:25.461+00:00`
 - Sample size: `5000`
 - Synthetic rows: `5000`
 - Public music songs: `100`
@@ -11,6 +11,12 @@
 - **Representation breadth**: `71.3%` — Synthetic lane diversity index, computed in Python and exported for the UI.
 - **Attention concentration**: `46.5%` — Top-3 channel control share in the public music lane.
 - **Notation-linked coverage**: `0.0%` — Share of catalog songs with directly linked score or notation support.
+
+## Structural Bias Read
+
+- **Band**: `watch`
+- **Score**: `0.3576`
+- **Summary**: This surface reads bias as movement: who stays central, which corridors narrow, and whether the public lane is covered well enough to support a claim.
 
 ## Runtime Notes
 

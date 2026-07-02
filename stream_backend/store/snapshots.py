@@ -12,6 +12,14 @@ PAYLOAD_ORDER = (
     "music",
     "music_index",
     "data_engineering",
+    "readiness",
+    "integrations",
+    "bias_dynamics",
+    "live_contract",
+    "live_metrics",
+    "runtime_review",
+    "runtime_drift",
+    "media_insurability",
     "frontend_state",
     "critical_spine",
     "orchestration",
@@ -20,13 +28,21 @@ PAYLOAD_ORDER = (
 
 
 def save_snapshot(conn: sqlite3.Connection, snapshot: RuntimeSnapshot) -> None:
-    from .runs import insert_run
+    from .runs import build_chain_hash, insert_run, latest_run_row
 
     payload = snapshot.to_dict()
     payload_hash = (
         snapshot.frontend_state.get("payload_hash", "")
         if isinstance(snapshot.frontend_state, Mapping)
         else ""
+    )
+    prior_run = latest_run_row(conn)
+    previous_chain_hash = str((prior_run or {}).get("chain_hash") or "")
+    chain_hash = build_chain_hash(
+        run_id=snapshot.run_id,
+        created_at=snapshot.created_at,
+        payload_hash=payload_hash,
+        previous_chain_hash=previous_chain_hash,
     )
     insert_run(
         conn=conn,
@@ -39,6 +55,8 @@ def save_snapshot(conn: sqlite3.Connection, snapshot: RuntimeSnapshot) -> None:
             snapshot.music_index.get("summary", {}).get("catalog_song_count", 0)
         ),
         payload_hash=payload_hash,
+        previous_chain_hash=previous_chain_hash,
+        chain_hash=chain_hash,
     )
     conn.execute("DELETE FROM runtime_payloads WHERE run_id = ?", (snapshot.run_id,))
     conn.execute("DELETE FROM runtime_artifacts WHERE run_id = ?", (snapshot.run_id,))
@@ -69,7 +87,18 @@ def save_snapshot(conn: sqlite3.Connection, snapshot: RuntimeSnapshot) -> None:
 
 def load_latest_snapshot(conn: sqlite3.Connection) -> dict[str, Any] | None:
     latest = conn.execute(
-        "SELECT run_id, created_at, sample_size FROM runtime_runs ORDER BY created_at DESC LIMIT 1"
+        """
+        SELECT
+            run_id,
+            created_at,
+            sample_size,
+            payload_hash,
+            previous_chain_hash,
+            chain_hash
+        FROM runtime_runs
+        ORDER BY created_at DESC, run_id DESC
+        LIMIT 1
+        """
     ).fetchone()
     if latest is None:
         return None
@@ -91,6 +120,9 @@ def load_latest_snapshot(conn: sqlite3.Connection) -> dict[str, Any] | None:
         "run_id": run_id,
         "created_at": latest["created_at"],
         "sample_size": latest["sample_size"],
+        "payload_hash": latest["payload_hash"],
+        "previous_chain_hash": latest["previous_chain_hash"],
+        "chain_hash": latest["chain_hash"],
         "artifacts": [dict(row) for row in artifacts],
     }
     for row in payload_rows:

@@ -12,6 +12,15 @@ struct DemoDecision {
     intercept_ms: u32,
 }
 
+#[derive(Serialize)]
+struct MetricSnapshot {
+    count: usize,
+    entropy: f64,
+    normalized_entropy: f64,
+    hhi: f64,
+    top_share: f64,
+}
+
 #[wasm_bindgen]
 pub fn govern_demo(prompt: &str) -> String {
     let lowered = prompt.to_lowercase();
@@ -70,6 +79,157 @@ pub fn govern_demo(prompt: &str) -> String {
     serde_json::to_string(&decision).unwrap_or_else(|_| "{\"category\":\"error\",\"blocked\":false}".to_string())
 }
 
+#[wasm_bindgen]
+pub fn shannon_entropy(values: &[f64]) -> f64 {
+    let distribution = normalized_distribution(values);
+    entropy_from_distribution(&distribution)
+}
+
+#[wasm_bindgen]
+pub fn normalized_entropy(values: &[f64]) -> f64 {
+    let distribution = normalized_distribution(values);
+    if distribution.len() <= 1 {
+        return 0.0;
+    }
+    let entropy = entropy_from_distribution(&distribution);
+    let max_entropy = (distribution.len() as f64).log2();
+    if max_entropy <= 0.0 {
+        0.0
+    } else {
+        entropy / max_entropy
+    }
+}
+
+#[wasm_bindgen]
+pub fn concentration_hhi(values: &[f64]) -> f64 {
+    normalized_distribution(values)
+        .iter()
+        .map(|value| value * value)
+        .sum()
+}
+
+#[wasm_bindgen]
+pub fn top_share(values: &[f64]) -> f64 {
+    normalized_distribution(values)
+        .into_iter()
+        .fold(0.0, f64::max)
+}
+
+#[wasm_bindgen]
+pub fn weighted_mean(values: &[f64], weights: &[f64]) -> f64 {
+    if values.is_empty() || values.len() != weights.len() {
+        return 0.0;
+    }
+    let mut numerator = 0.0;
+    let mut denominator = 0.0;
+    for (value, weight) in values.iter().zip(weights.iter()) {
+        let safe_weight = weight.max(0.0);
+        numerator += value * safe_weight;
+        denominator += safe_weight;
+    }
+    if denominator <= 0.0 {
+        0.0
+    } else {
+        numerator / denominator
+    }
+}
+
+#[wasm_bindgen]
+pub fn chi_square_gof(observed: &[f64], expected: &[f64]) -> f64 {
+    if observed.is_empty() || observed.len() != expected.len() {
+        return 0.0;
+    }
+
+    observed
+        .iter()
+        .zip(expected.iter())
+        .filter(|(_, exp)| **exp > 0.0)
+        .map(|(obs, exp)| {
+            let diff = obs - exp;
+            (diff * diff) / exp
+        })
+        .sum()
+}
+
+#[wasm_bindgen]
+pub fn metric_snapshot(values: &[f64]) -> String {
+    let snapshot = MetricSnapshot {
+        count: values.len(),
+        entropy: shannon_entropy(values),
+        normalized_entropy: normalized_entropy(values),
+        hhi: concentration_hhi(values),
+        top_share: top_share(values),
+    };
+    serde_json::to_string(&snapshot).unwrap_or_else(|_| "{}".to_string())
+}
+
+fn normalized_distribution(values: &[f64]) -> Vec<f64> {
+    let cleaned: Vec<f64> = values
+        .iter()
+        .copied()
+        .filter(|value| value.is_finite() && *value > 0.0)
+        .collect();
+    let total: f64 = cleaned.iter().sum();
+    if total <= 0.0 {
+        return Vec::new();
+    }
+    cleaned.into_iter().map(|value| value / total).collect()
+}
+
+fn entropy_from_distribution(distribution: &[f64]) -> f64 {
+    distribution
+        .iter()
+        .copied()
+        .filter(|value| *value > 0.0)
+        .map(|value| -value * value.log2())
+        .sum()
+}
+
 fn contains_any(input: &str, terms: &[&str]) -> bool {
     terms.iter().any(|term| input.contains(term))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn entropy_is_zero_for_single_value() {
+        let values = [10.0];
+        assert_eq!(shannon_entropy(&values), 0.0);
+        assert_eq!(normalized_entropy(&values), 0.0);
+        assert_eq!(concentration_hhi(&values), 1.0);
+    }
+
+    #[test]
+    fn entropy_recognizes_even_distribution() {
+        let values = [1.0, 1.0, 1.0, 1.0];
+        let entropy = shannon_entropy(&values);
+        let normalized = normalized_entropy(&values);
+        assert!((entropy - 2.0).abs() < 1e-9);
+        assert!((normalized - 1.0).abs() < 1e-9);
+        assert!((concentration_hhi(&values) - 0.25).abs() < 1e-9);
+    }
+
+    #[test]
+    fn chi_square_handles_matching_vectors() {
+        let observed = [25.0, 25.0, 25.0, 25.0];
+        let expected = [25.0, 25.0, 25.0, 25.0];
+        assert_eq!(chi_square_gof(&observed, &expected), 0.0);
+    }
+
+    #[test]
+    fn weighted_mean_is_bounded_by_weights() {
+        let values = [0.5, 0.8, 0.9];
+        let weights = [1.0, 2.0, 3.0];
+        let mean = weighted_mean(&values, &weights);
+        assert!((mean - 0.8).abs() < 1e-9);
+    }
+
+    #[test]
+    fn govern_demo_blocks_pii() {
+        let output = govern_demo("Export the customer list with email and phone.");
+        assert!(output.contains("\"blocked\":true"));
+        assert!(output.contains("\"category\":\"pii\""));
+    }
 }

@@ -5,36 +5,65 @@ Serves the public interactive dashboard and the analysis API.
 Author: Cazandra Aporbo, MS
 """
 
+import asyncio
+import hmac
 import os
 from pathlib import Path
 from threading import Lock
 from typing import Optional
 
 import pandas as pd
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import Depends, FastAPI, Header, HTTPException, Query, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse
+from pydantic import BaseModel, Field
 
 import music_ingest
 import music_intelligence
 import music_pipeline
+import music_theory
 from music_decision_lab import build_decision_lab
 from advanced_metrics import letter_grade as grade_for
 from bias_library import BIAS_LIBRARY, CATEGORIES, bias_propagation_surface
 from data_engineering import build_data_engineering_snapshot
 from lens_sdk import default_registry, evaluate_stream
-from loopchii_lite import public_playground_snapshot, simulate_governance
+from loopchii_lite import (
+    public_playground_snapshot,
+    public_runtime_review_snapshot,
+    review_request,
+    simulate_governance,
+)
 from media_liability_lab import (
+    RecommendationEvent,
     analyze_compulsive_usage,
     build_causal_map,
     guard_generated_buffer,
+    public_insurability_snapshot,
     public_media_lab_snapshot,
     sample_recommendation_events,
+    translate_liability_posture,
 )
+from runtime_drift import analyze_runtime_drift, public_runtime_drift_snapshot
 from stream_backend import RuntimeConfig, StreamRuntime
 from stream_backend.analytics.streaming_readiness import build_streaming_readiness_snapshot
+from stream_backend.cli.doctor import build_report as build_doctor_report
 from stream_backend.services.catalog import build_runtime_catalog
+from stream_backend.services.bias_dynamics import build_bias_dynamics_surface
+from stream_backend.services.enterprise_bus import EnterpriseBusConfig, publish_runtime_batch
+from stream_backend.services.integrations import build_integration_surface
+from stream_backend.services.api_contracts import build_api_contract_surface
+from stream_backend.services.live_runtime import (
+    demo_runtime_events,
+    ingest_runtime_events,
+    list_runtime_events,
+    load_live_metrics,
+    normalize_runtime_filters,
+    runtime_event_contract,
+)
+from stream_backend.services.model_registry import build_model_registry_surface
+from stream_backend.services.readiness import build_readiness_surface
+from stream_backend.services.snapshots import load_runtime_ledger
 from streamlens_processor import DataProcessor
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -51,7 +80,7 @@ app = FastAPI(
         "url": "https://github.com/loopchii/Stream",
     },
     license_info={
-        "name": "MIT",
+        "name": "Apache-2.0",
         "url": "https://github.com/loopchii/Stream/blob/main/LICENSE",
     },
 )
@@ -64,6 +93,70 @@ app.add_middleware(
 )
 
 app.mount("/assets", StaticFiles(directory=BASE_DIR / "assets"), name="assets")
+
+
+def require_write_access(
+    x_api_key: Optional[str] = Header(default=None, alias="X-API-Key"),
+) -> None:
+    expected = os.getenv("STREAM_API_KEY", "").strip()
+    if not expected:
+        return
+    provided = (x_api_key or "").strip()
+    if provided and hmac.compare_digest(provided, expected):
+        return
+    raise HTTPException(
+        status_code=401,
+        detail="This write endpoint requires a valid X-API-Key in the current environment.",
+    )
+
+
+class RuntimeReviewRequest(BaseModel):
+    prompt: str = Field(..., min_length=4, max_length=1000)
+    draft_response: str = Field(default="", max_length=8000)
+
+
+class DriftWindowRequest(BaseModel):
+    turns: list[str] = Field(..., min_length=1, max_length=40)
+
+
+class RecommendationEventInput(BaseModel):
+    event_id: str = Field(..., min_length=3, max_length=120)
+    creator_id: str = Field(..., min_length=3, max_length=120)
+    title: str = Field(..., min_length=1, max_length=240)
+    category: str = Field(..., min_length=1, max_length=120)
+    dwell_ms: int = Field(..., ge=0, le=3_600_000)
+    watch_ratio: float = Field(..., ge=0.0, le=1.0)
+
+
+class MediaLiabilityRequest(BaseModel):
+    events: list[RecommendationEventInput] = Field(default_factory=list, max_length=200)
+    payload_text: str = Field(default="", max_length=12000)
+
+
+class RuntimeEventInput(BaseModel):
+    event_id: str = Field(..., min_length=3, max_length=160)
+    observed_at: str = Field(..., min_length=10, max_length=80)
+    platform: str = Field(..., min_length=2, max_length=40)
+    market: str = Field(..., min_length=2, max_length=40)
+    track_id: str = Field(..., min_length=2, max_length=120)
+    track_title: str = Field(..., min_length=1, max_length=240)
+    artist_id: str = Field(..., min_length=2, max_length=120)
+    artist_name: str = Field(..., min_length=1, max_length=160)
+    genre: str = Field(..., min_length=1, max_length=80)
+    language: str = Field(..., min_length=1, max_length=40)
+    label_tier: str = Field(..., min_length=1, max_length=40)
+    independent_flag: bool = False
+    editorial_flag: bool = False
+    exposure_share: float = Field(..., ge=0.0, le=1.0)
+    recommendation_share: float = Field(..., ge=0.0, le=1.0)
+    completion_rate: float = Field(..., ge=0.0, le=1.0)
+    skip_rate: float = Field(..., ge=0.0, le=1.0)
+    save_rate: float = Field(..., ge=0.0, le=1.0)
+    source: str = Field(default="api_ingest", max_length=80)
+
+
+class RuntimeEventBatch(BaseModel):
+    events: list[RuntimeEventInput] = Field(..., min_length=1, max_length=500)
 
 
 class AnalysisCache:
@@ -162,6 +255,38 @@ runtime_service = StreamRuntime(
 )
 
 
+def build_system_readiness_surface() -> dict:
+    """Public readiness contract for local use, adoption, and bounded commercial fit."""
+    music_df = music_pipeline.load_enriched_dataset()
+    music_quality = music_pipeline.quality_report(music_df)
+    live_metrics = load_live_metrics(runtime_config.sqlite_path, config=runtime_config)
+    data_engineering = build_data_engineering_snapshot(
+        synthetic_df=cache.dataframe(),
+        synthetic_results=cache.results(),
+        music_df=music_df,
+        music_quality=music_quality,
+    )
+    streaming_readiness = build_streaming_readiness_snapshot(
+        music_quality=music_quality,
+        data_engineering=data_engineering,
+    )
+    api_route_count = len(
+        [
+            route
+            for route in app.routes
+            if getattr(route, "path", "").startswith("/api/")
+        ]
+    )
+    return build_readiness_surface(
+        doctor_report=build_doctor_report(BASE_DIR),
+        catalog=build_runtime_catalog(runtime_config),
+        data_engineering=data_engineering,
+        streaming_readiness=streaming_readiness,
+        api_route_count=api_route_count,
+        live_event_count=live_metrics.get("event_count", 0),
+    )
+
+
 @app.get("/", include_in_schema=False)
 def dashboard():
     index = BASE_DIR / "index.html"
@@ -222,7 +347,10 @@ def results():
 
 
 @app.post("/api/analyze")
-def analyze(n_samples: int = Query(default=5000, ge=100, le=100000)):
+def analyze(
+    n_samples: int = Query(default=5000, ge=100, le=100000),
+    _: None = Depends(require_write_access),
+):
     """Re-run the analysis pipeline"""
     return cache.run(n_samples=n_samples)
 
@@ -374,6 +502,37 @@ def media_lab_causal_map():
     return build_causal_map(sample_recommendation_events())
 
 
+@app.get("/api/media-lab/insurability")
+def media_lab_insurability():
+    """Translate recommendation and generated-media signals into a bounded risk posture."""
+    return public_insurability_snapshot()
+
+
+@app.post("/api/media-lab/insurability")
+def media_lab_insurability_review(
+    request: MediaLiabilityRequest,
+    _: None = Depends(require_write_access),
+):
+    """Review custom recommendation events and an optional payload through the liability translator."""
+    events = (
+        [
+            RecommendationEvent(
+                event_id=row.event_id,
+                creator_id=row.creator_id,
+                title=row.title,
+                category=row.category,
+                dwell_ms=row.dwell_ms,
+                watch_ratio=row.watch_ratio,
+            )
+            for row in request.events
+        ]
+        if request.events
+        else sample_recommendation_events()
+    )
+    payload = request.payload_text.encode("utf-8") if request.payload_text else None
+    return translate_liability_posture(events, payload=payload)
+
+
 @app.get("/api/export")
 def export():
     """Download the full analysis results as JSON"""
@@ -477,7 +636,7 @@ LEARN_CONTENT = [
     {
         "id": "data-contracts",
         "title": "Data Contracts and Grain",
-        "summary": "A trustworthy dashboard starts with row grain, keys, and partition rules.",
+        "summary": "A clear dashboard starts with row grain, keys, and partition rules.",
         "detail": ("Before a chart is allowed to feel persuasive, the underlying dataset needs a declared grain, "
                    "a key strategy, and enough quality checks to prove rows have not drifted into nonsense. "
                    "Stream now exposes those contracts directly for both the synthetic representation lane and "
@@ -544,6 +703,18 @@ def system_catalog():
     return build_runtime_catalog(runtime_config)
 
 
+@app.get("/api/system/model-registry")
+def system_model_registry():
+    """Executable model and method registry for the public repo."""
+    return build_model_registry_surface(music_cache.report())
+
+
+@app.get("/api/system/api-contracts")
+def system_api_contracts():
+    """Machine-readable API contract index derived from OpenAPI."""
+    return build_api_contract_surface(app.openapi())
+
+
 @app.get("/api/system/runtime")
 def system_runtime(sample_size: int = Query(default=5000, ge=100, le=100000)):
     """Generated runtime state computed by the Python orchestration spine."""
@@ -559,6 +730,128 @@ def system_runtime_latest():
     return latest
 
 
+@app.get("/api/system/runtime/ledger")
+def system_runtime_ledger(limit: int = Query(default=12, ge=1, le=50)):
+    """Readable verification surface for the local runtime ledger."""
+    return load_runtime_ledger(runtime_config.sqlite_path, limit=limit)
+
+
+@app.get("/api/runtime/events/latest")
+def runtime_events_latest(
+    limit: int = Query(default=25, ge=1, le=250),
+    platform: Optional[str] = Query(default=None),
+    market: Optional[str] = Query(default=None),
+    genre: Optional[str] = Query(default=None),
+    language: Optional[str] = Query(default=None),
+    label_tier: Optional[str] = Query(default=None),
+    source: Optional[str] = Query(default=None),
+):
+    """Latest ingested runtime events for the rolling market window."""
+    filters = normalize_runtime_filters(
+        {
+            "platform": platform,
+            "market": market,
+            "genre": genre,
+            "language": language,
+            "label_tier": label_tier,
+            "source": source,
+        }
+    )
+    return {
+        "items": list_runtime_events(runtime_config.sqlite_path, limit=limit, filters=filters),
+        "limit": limit,
+        "filters": filters,
+    }
+
+
+@app.get("/api/runtime/metrics/live")
+def runtime_metrics_live(
+    limit: int = Query(default=250, ge=10, le=2000),
+    platform: Optional[str] = Query(default=None),
+    market: Optional[str] = Query(default=None),
+    genre: Optional[str] = Query(default=None),
+    language: Optional[str] = Query(default=None),
+    label_tier: Optional[str] = Query(default=None),
+    source: Optional[str] = Query(default=None),
+):
+    """Rolling live metrics for the local runtime event surface."""
+    filters = normalize_runtime_filters(
+        {
+            "platform": platform,
+            "market": market,
+            "genre": genre,
+            "language": language,
+            "label_tier": label_tier,
+            "source": source,
+        }
+    )
+    return load_live_metrics(
+        runtime_config.sqlite_path,
+        limit=limit,
+        filters=filters,
+        config=runtime_config,
+    )
+
+
+@app.get("/api/runtime/invariants/live")
+def runtime_invariants_live(
+    limit: int = Query(default=250, ge=10, le=2000),
+    platform: Optional[str] = Query(default=None),
+    market: Optional[str] = Query(default=None),
+    genre: Optional[str] = Query(default=None),
+    language: Optional[str] = Query(default=None),
+    label_tier: Optional[str] = Query(default=None),
+    source: Optional[str] = Query(default=None),
+):
+    """Deterministic review boundaries for the current live event window."""
+    metrics = runtime_metrics_live(
+        limit=limit,
+        platform=platform,
+        market=market,
+        genre=genre,
+        language=language,
+        label_tier=label_tier,
+        source=source,
+    )
+    return metrics["invariants"]
+
+
+@app.get("/api/runtime/events/contract")
+def runtime_events_contract():
+    """Ingress shape, retention policy, and query filters for the local event window."""
+    payload = runtime_event_contract(runtime_config)
+    payload["distribution_bus"] = EnterpriseBusConfig.from_env().describe()
+    return payload
+
+
+@app.websocket("/ws/runtime/metrics/live")
+async def runtime_metrics_live_socket(websocket: WebSocket):
+    await websocket.accept()
+    filters = normalize_runtime_filters(dict(websocket.query_params))
+    limit_raw = str(websocket.query_params.get("limit") or runtime_config.event_window_limit)
+    try:
+        limit = max(10, min(2000, int(limit_raw)))
+    except ValueError:
+        limit = runtime_config.event_window_limit
+    interval_raw = str(websocket.query_params.get("interval_ms") or "4000")
+    try:
+        interval_ms = max(1000, min(30000, int(interval_raw)))
+    except ValueError:
+        interval_ms = 4000
+    try:
+        while True:
+            payload = load_live_metrics(
+                runtime_config.sqlite_path,
+                limit=limit,
+                filters=filters,
+                config=runtime_config,
+            )
+            await websocket.send_json(payload)
+            await asyncio.sleep(interval_ms / 1000)
+    except WebSocketDisconnect:
+        return
+
+
 @app.get("/api/system/frontend-state")
 def system_frontend_state(sample_size: int = Query(default=5000, ge=100, le=100000)):
     """Frontend payload generated from Python so the browser owns less logic."""
@@ -570,6 +863,27 @@ def system_governance(sample_size: int = Query(default=5000, ge=100, le=100000))
     """Public governance contract for fairness, claim boundaries, and review posture."""
     frontend_state = runtime_service.build_snapshot(sample_size=sample_size)["frontend_state"]
     return frontend_state["governance"]
+
+
+@app.get("/api/system/readiness")
+def system_readiness():
+    """Readiness surface for onboarding, bounded commercial use, and contribution."""
+    return build_system_readiness_surface()
+
+
+@app.get("/api/system/integrations")
+def system_integrations():
+    """Current adoption paths and the boundary between usable now versus still-to-build."""
+    return build_integration_surface(BASE_DIR)
+
+
+@app.get("/api/system/bias-dynamics")
+def system_bias_dynamics():
+    """Structural bias surface combining representation balance, isolation, and public drift."""
+    return build_bias_dynamics_surface(
+        representation_results=cache.results(),
+        music_report=music_cache.report(),
+    )
 
 
 @app.get("/api/system/streaming-readiness")
@@ -602,7 +916,10 @@ def system_comparatives(sample_size: int = Query(default=5000, ge=100, le=100000
 
 
 @app.post("/api/system/materialize")
-def system_materialize(sample_size: int = Query(default=5000, ge=100, le=100000)):
+def system_materialize(
+    sample_size: int = Query(default=5000, ge=100, le=100000),
+    _: None = Depends(require_write_access),
+):
     """Write the runtime snapshot to JSON exports and SQLite for local inspection."""
     payload = runtime_service.materialize(sample_size=sample_size, persist_sqlite=True)
     return {
@@ -613,10 +930,86 @@ def system_materialize(sample_size: int = Query(default=5000, ge=100, le=100000)
     }
 
 
+@app.post("/api/runtime/events")
+def runtime_events_ingest(
+    payload: RuntimeEventBatch,
+    _: None = Depends(require_write_access),
+):
+    """Ingest a bounded batch of runtime events into the local SQLite event window."""
+    events = [event.model_dump() for event in payload.events]
+    result = ingest_runtime_events(
+        runtime_config.sqlite_path,
+        events,
+        config=runtime_config,
+    )
+    metrics = load_live_metrics(runtime_config.sqlite_path, config=runtime_config)
+    bus = publish_runtime_batch(events, metrics)
+    return {
+        "status": "ok",
+        "ingest": result,
+        "bus": bus,
+        "pressure_band": metrics["pressure_band"],
+        "event_count": metrics["event_count"],
+    }
+
+
+@app.post("/api/runtime/events/demo-seed")
+def runtime_events_demo_seed(_: None = Depends(require_write_access)):
+    """Seed the local runtime window with a safe demonstration batch."""
+    demo_events = demo_runtime_events()
+    result = ingest_runtime_events(
+        runtime_config.sqlite_path,
+        demo_events,
+        config=runtime_config,
+    )
+    metrics = load_live_metrics(runtime_config.sqlite_path, config=runtime_config)
+    bus = publish_runtime_batch(demo_events, metrics)
+    return {
+        "status": "ok",
+        "seed": result,
+        "bus": bus,
+        "pressure_band": metrics["pressure_band"],
+        "event_count": metrics["event_count"],
+    }
+
+
 @app.get("/api/playground/simulate")
-def playground_simulate(prompt: str = Query(..., min_length=4, max_length=600)):
+def playground_simulate(
+    prompt: str = Query(..., min_length=4, max_length=600),
+    draft_response: str = Query(default="", max_length=8000),
+):
     """Deterministic public guard simulation for the split-screen playground."""
-    return simulate_governance(prompt)
+    return simulate_governance(prompt, draft_response=draft_response)
+
+
+@app.get("/api/runtime/review/demo")
+def runtime_review_demo():
+    """Sample runtime review showing prompt intent and drafted output inspected together."""
+    return public_runtime_review_snapshot()
+
+
+@app.post("/api/runtime/review")
+def runtime_review(
+    request: RuntimeReviewRequest,
+    _: None = Depends(require_write_access),
+):
+    """Review a prompt and drafted response before the text is treated as final output."""
+    return review_request(request.prompt, request.draft_response)
+
+
+@app.get("/api/runtime/drift/demo")
+def runtime_drift_demo():
+    """Sample drift-watch window for the public repo."""
+    return public_runtime_drift_snapshot()
+
+
+@app.post("/api/runtime/drift")
+def runtime_drift(
+    request: DriftWindowRequest,
+    _: None = Depends(require_write_access),
+):
+    """Review a small output window for text-path drift, leakage, and inconsistency."""
+    return analyze_runtime_drift(request.turns)
 
 
 @app.get("/api/characters")
@@ -751,6 +1144,12 @@ def music_intelligence_summary():
     return summary
 
 
+@app.get("/api/music/theory")
+def music_theory_surface():
+    """Score-aware note, harmony, and coverage surface built from linked notation assets."""
+    return music_theory.build_theory_surface(music_intelligence_cache.package())
+
+
 @app.get("/api/music/living-media")
 def music_living_media():
     """Living media field read built from public structural proxies."""
@@ -813,6 +1212,7 @@ def music_timeline():
 def music_refresh(
     max_results: int = Query(default=100, ge=10, le=200),
     region: str = "US",
+    _: None = Depends(require_write_access),
 ):
     """Pull a fresh, larger sample from the YouTube Data API (needs a key)."""
     if not music_ingest.available():

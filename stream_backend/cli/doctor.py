@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from stream_backend.config import RuntimeConfig
+from stream_backend.store import connect_sqlite, ensure_schema
 
 
 REQUIRED_MODULES = (
@@ -27,8 +28,16 @@ REQUIRED_FILES = (
     "app.py",
     "README.md",
     "contributing.md",
+    "ROADMAP.md",
     "requirements.txt",
     "requirements-dev.txt",
+    "NOTICE",
+    "docs/ADOPTION_PATHS.md",
+    "docs/API_CONTRACTS.md",
+    "docs/MODEL_REGISTRY.md",
+    "docs/PRODUCTION_READINESS.md",
+    "docs/QUICKSTART.md",
+    "docs/REPOSITORY_STRUCTURE.md",
     "manifest.webmanifest",
     "service-worker.js",
     "data_sources/youtube-top-100-songs-2025.csv",
@@ -40,6 +49,10 @@ STATIC_ARTIFACTS = (
     "data/music/quality.json",
     "data/music/decision-lab.json",
     "data/system/frontend-state.json",
+    "data/system/live-contract.json",
+    "data/system/live-metrics.json",
+    "data/system/api-contracts.json",
+    "data/system/model-registry.json",
     "data/system/streaming-readiness.json",
     "openapi.stream.json",
 )
@@ -94,6 +107,109 @@ def build_report(base_dir: Path) -> dict[str, Any]:
             "pass" if sqlite_writable else "fail",
             f"SQLite directory {'is' if sqlite_writable else 'is not'} writable",
             path=str(config.sqlite_path.relative_to(config.base_dir)),
+        )
+    )
+    if sqlite_writable:
+        try:
+            conn = connect_sqlite(config.sqlite_path)
+            try:
+                ensure_schema(conn)
+                sqlite_journal_mode = str(
+                    conn.execute("PRAGMA journal_mode").fetchone()[0]
+                ).lower()
+                sqlite_busy_timeout = int(
+                    conn.execute("PRAGMA busy_timeout").fetchone()[0]
+                )
+                sqlite_foreign_keys = int(
+                    conn.execute("PRAGMA foreign_keys").fetchone()[0]
+                )
+                sqlite_synchronous = str(
+                    conn.execute("PRAGMA synchronous").fetchone()[0]
+                ).lower()
+                runtime_run_columns = {
+                    str(row["name"])
+                    for row in conn.execute("PRAGMA table_info(runtime_runs)").fetchall()
+                }
+                runtime_event_columns = {
+                    str(row["name"])
+                    for row in conn.execute("PRAGMA table_info(runtime_events)").fetchall()
+                }
+                run_count = int(
+                    conn.execute("SELECT COUNT(*) FROM runtime_runs").fetchone()[0]
+                )
+                event_count = int(
+                    conn.execute("SELECT COUNT(*) FROM runtime_events").fetchone()[0]
+                )
+            finally:
+                conn.close()
+            pragma_ok = (
+                sqlite_journal_mode == "wal"
+                and sqlite_foreign_keys == 1
+                and sqlite_busy_timeout >= 30_000
+            )
+            checks.append(
+                _status(
+                    "sqlite-pragmas",
+                    "pass" if pragma_ok else "warn",
+                    "SQLite runtime uses WAL, foreign-key enforcement, and a bounded busy timeout for local materialization.",
+                    journal_mode=sqlite_journal_mode,
+                    synchronous=sqlite_synchronous,
+                    busy_timeout_ms=sqlite_busy_timeout,
+                    foreign_keys=sqlite_foreign_keys,
+                    run_count=run_count,
+                )
+            )
+            ledger_ok = {
+                "payload_hash",
+                "previous_chain_hash",
+                "chain_hash",
+            }.issubset(runtime_run_columns)
+            checks.append(
+                _status(
+                    "sqlite-ledger-schema",
+                    "pass" if ledger_ok else "warn",
+                    "Runtime persistence keeps a hash-linked local ledger shape so later materializations can be verified instead of silently replaced.",
+                    columns=sorted(runtime_run_columns),
+                )
+            )
+            event_window_ok = {
+                "event_id",
+                "observed_at",
+                "platform",
+                "market",
+                "track_id",
+                "artist_id",
+                "genre",
+                "language",
+                "label_tier",
+                "payload_hash",
+            }.issubset(runtime_event_columns)
+            checks.append(
+                _status(
+                    "sqlite-event-window",
+                    "pass" if event_window_ok else "warn",
+                    "The local event window can persist live market events for rolling metrics and replayable inspection.",
+                    columns=sorted(runtime_event_columns),
+                    event_count=event_count,
+                )
+            )
+        except Exception as exc:  # pragma: no cover - exercised in real env
+            checks.append(
+                _status(
+                    "sqlite-runtime",
+                    "fail",
+                    "SQLite runtime store could not be initialized cleanly.",
+                    error=str(exc),
+                )
+            )
+
+    write_key = os.getenv("STREAM_API_KEY", "").strip()
+    checks.append(
+        _status(
+            "write-endpoint-auth",
+            "pass",
+            "State-changing endpoints can require an API key when the local environment sets one.",
+            mode="protected" if write_key else "open_local_default",
         )
     )
 

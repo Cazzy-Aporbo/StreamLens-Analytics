@@ -20,6 +20,8 @@ def build_runtime_catalog(config: RuntimeConfig) -> dict:
             {"name": "API runtime", "path": "app.py", "purpose": "Serve live JSON and the browser surface."},
             {"name": "Static build", "path": "build_static.py", "purpose": "Bake API-equivalent artifacts for offline/static use."},
             {"name": "Runtime materializer", "path": "stream_backend/cli/materialize.py", "purpose": "Persist runtime snapshots and exports."},
+            {"name": "Event ingress window", "path": "/api/runtime/events", "purpose": "Accept bounded live event batches and recalculate weighted market metrics."},
+            {"name": "Event ingress contract", "path": "/api/runtime/events/contract", "purpose": "Describe batch bounds, retention posture, filterable fields, and a safe example payload."},
             {"name": "Validation CLI", "path": "stream_backend/cli/validate.py", "purpose": "Check runtime shape and export integrity."},
         ],
         "public_assets": [

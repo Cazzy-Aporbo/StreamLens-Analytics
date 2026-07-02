@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T19:22:15+00:00",
+  "generated_at": "2026-07-02T20:37:25.461+00:00",
   "sample_size": 5000,
   "hero": {
     "headline": "Public analysis should be able to survive a second question.",
@@ -208,7 +208,7 @@
     ]
   },
   "critical_spine": {
-    "generated_at": "2026-06-30T19:22:15+00:00",
+    "generated_at": "2026-07-02T20:37:25.461+00:00",
     "sample_size": 5000,
     "summary": {
       "posture": "critical_reading_before_claims",
@@ -280,9 +280,9 @@
         "purpose": "Explain how the pipeline behaves before anyone is asked to trust the visuals it produces.",
         "learn": "There are 2 public contracts and 4 explicit quality highlights in the current system surface. That is the spine underneath the charts.",
         "if_changes": "If quality gates fail or contracts drift, the visual layer should become less confident immediately.",
-        "improve": "Keep expanding lineage, refresh posture, and coverage notes so a contributor can see where a claim is strong, thin, or intentionally withheld.",
+        "improve": "Keep expanding lineage, refresh posture, and coverage notes so a contributor can see where a claim is strong, thin, or outside the public evidence.",
         "limits": "Documentation can still drift if it is not regenerated from the same backend that serves the UI.",
-        "scale": "This is the part that makes the repo feel operational rather than theatrical to senior engineers and data leads."
+        "scale": "This is the part that helps engineers and data leads review the work without guessing how it was made."
       },
       "scorecardVerdict": {
         "title": "Decision grade",
@@ -676,12 +676,12 @@
     ]
   },
   "freshness": {
-    "generated_at": "2026-06-30T19:22:15+00:00",
+    "generated_at": "2026-07-02T20:37:25.461+00:00",
     "representation_run_rows": 5000,
     "publication_year_share": 0.193,
     "inferred_year_share": 0.083,
     "notation_files": 0,
     "matched_catalog_songs": 0
   },
-  "payload_hash": "0cde109934b6b48b5a84c20a3e3b28f271bcc20562c569c37a483d6a314ec5dc"
+  "payload_hash": "6aad863cd1b6a090f6193730d2737084cf9efbabd61adae949071bc10bfe450b"
 }

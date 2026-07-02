@@ -1,0 +1,455 @@
+{
+  "generated_at": "2026-07-02T20:37:26.570430+00:00",
+  "source": "live",
+  "event_count": 12,
+  "filters": {},
+  "window": {
+    "start": "2026-07-02T19:09:02.669438+00:00",
+    "end": "2026-07-02T19:53:02.669438+00:00"
+  },
+  "headline": "A live operating window for market pressure.",
+  "pressure_band": "watch",
+  "pressure_score": 0.3414,
+  "summary": "This window joins exposure, recommendation share, and listener response so the stream can be read as a living operating surface rather than a static report.",
+  "axes": [
+    {
+      "id": "discovery_breadth",
+      "label": "Discovery breadth",
+      "value": 0.8753,
+      "value_label": "88/100",
+      "note": "Weighted genre entropy across the current event window."
+    },
+    {
+      "id": "language_balance",
+      "label": "Language balance",
+      "value": 0.8503,
+      "value_label": "85/100",
+      "note": "A broader language spread usually leaves more room for cross-market discovery."
+    },
+    {
+      "id": "independent_lift",
+      "label": "Independent lift",
+      "value": 0.46,
+      "value_label": "46/100",
+      "note": "Weighted exposure going to independent releases in the current window."
+    },
+    {
+      "id": "audience_followthrough",
+      "label": "Audience follow-through",
+      "value": 0.7031,
+      "value_label": "70/100",
+      "note": "Completion is carried as a weighted average rather than a raw mean so larger exposure lanes count proportionally."
+    }
+  ],
+  "metrics": {
+    "unique_tracks": 12,
+    "unique_artists": 12,
+    "genre_entropy": 0.8753,
+    "language_entropy": 0.8503,
+    "label_hhi": 0.5032,
+    "top_language_share": 0.39,
+    "top_label_share": 0.54,
+    "independent_share": 0.46,
+    "editorial_share": 0.54,
+    "completion_rate": 0.7031,
+    "skip_rate": 0.1552,
+    "save_rate": 0.0867,
+    "recommendation_volatility": 0.0579
+  },
+  "distributions": {
+    "genres": [
+      {
+        "label": "pop",
+        "share": 0.33
+      },
+      {
+        "label": "rnb",
+        "share": 0.12
+      },
+      {
+        "label": "alternative",
+        "share": 0.11
+      },
+      {
+        "label": "funk",
+        "share": 0.09
+      },
+      {
+        "label": "regional",
+        "share": 0.08
+      },
+      {
+        "label": "afrobeats",
+        "share": 0.07
+      }
+    ],
+    "languages": [
+      {
+        "label": "en",
+        "share": 0.39
+      },
+      {
+        "label": "ko",
+        "share": 0.14
+      },
+      {
+        "label": "tl",
+        "share": 0.12
+      },
+      {
+        "label": "pt",
+        "share": 0.09
+      },
+      {
+        "label": "es",
+        "share": 0.08
+      },
+      {
+        "label": "ja",
+        "share": 0.06
+      }
+    ],
+    "labels": [
+      {
+        "label": "major",
+        "share": 0.54
+      },
+      {
+        "label": "independent",
+        "share": 0.46
+      }
+    ],
+    "markets": [
+      {
+        "label": "US",
+        "share": 0.19
+      },
+      {
+        "label": "KR",
+        "share": 0.14
+      },
+      {
+        "label": "PH",
+        "share": 0.12
+      },
+      {
+        "label": "GB",
+        "share": 0.11
+      },
+      {
+        "label": "BR",
+        "share": 0.09
+      },
+      {
+        "label": "MX",
+        "share": 0.08
+      }
+    ]
+  },
+  "watchpoints": [
+    "Top language corridor: en at 39% of weighted exposure.",
+    "Top label share: major at 54% of weighted exposure.",
+    "Independent exposure: 46% with average save rate at 9%."
+  ],
+  "method_choices": [
+    {
+      "measure": "Exposure-weighted distributions",
+      "why": "Raw event counts flatten the field. Weighted shares preserve the actual force each item had in the stream."
+    },
+    {
+      "measure": "Entropy plus concentration",
+      "why": "Breadth and dominance answer different questions. Both are needed before a market read becomes persuasive."
+    },
+    {
+      "measure": "Idempotent event ingress",
+      "why": "Duplicate events should not quietly inflate the window. Stable event ids keep the live surface reproducible."
+    }
+  ],
+  "checks_and_balances": [
+    "If the live table is empty, the public surface falls back to a clearly marked demonstration window rather than fabricating live certainty.",
+    "The current window is weighted by exposure share, not by whichever cohort generated the most rows.",
+    "The result is a live diagnostic surface. It should guide review and intervention, not replace judgment about cause or motive."
+  ],
+  "retention": {
+    "max_rows": 5000,
+    "max_age_days": 30,
+    "matching_event_count": 12
+  },
+  "recent_events": [
+    {
+      "event_id": "demo-mosslight-12",
+      "observed_at": "2026-07-02T19:53:02.669438+00:00",
+      "ingested_at": "2026-07-02T19:57:02.669851+00:00",
+      "platform": "spotify",
+      "market": "CA",
+      "track_id": "mosslight",
+      "track_title": "Mosslight",
+      "artist_id": "rowan-vale",
+      "artist_name": "Rowan Vale",
+      "genre": "folk",
+      "language": "en",
+      "label_tier": "independent",
+      "independent_flag": 1,
+      "editorial_flag": 0,
+      "exposure_share": 0.02,
+      "recommendation_share": 0.02,
+      "completion_rate": 0.84,
+      "skip_rate": 0.05,
+      "save_rate": 0.14,
+      "payload_hash": "b2372bec6e27f062c6f0e3aa7c738a148902a1ab6d144ad8f0cdbfa7aa525bd4",
+      "source": "demo_runtime_seed"
+    },
+    {
+      "event_id": "demo-city-ember-11",
+      "observed_at": "2026-07-02T19:49:02.669438+00:00",
+      "ingested_at": "2026-07-02T19:57:02.669839+00:00",
+      "platform": "youtube",
+      "market": "ZA",
+      "track_id": "city-ember",
+      "track_title": "City Ember",
+      "artist_id": "uma-tide",
+      "artist_name": "Uma Tide",
+      "genre": "gqom",
+      "language": "zu",
+      "label_tier": "independent",
+      "independent_flag": 1,
+      "editorial_flag": 0,
+      "exposure_share": 0.03,
+      "recommendation_share": 0.02,
+      "completion_rate": 0.81,
+      "skip_rate": 0.07,
+      "save_rate": 0.12,
+      "payload_hash": "f814006e96247cb44f6115e3fb701532d56107eb304b450510fedde499dc83e5",
+      "source": "demo_runtime_seed"
+    },
+    {
+      "event_id": "demo-monsoon-thread-10",
+      "observed_at": "2026-07-02T19:45:02.669438+00:00",
+      "ingested_at": "2026-07-02T19:57:02.669825+00:00",
+      "platform": "spotify",
+      "market": "IN",
+      "track_id": "monsoon-thread",
+      "track_title": "Monsoon Thread",
+      "artist_id": "asha-vale",
+      "artist_name": "Asha Vale",
+      "genre": "film",
+      "language": "hi",
+      "label_tier": "major",
+      "independent_flag": 0,
+      "editorial_flag": 1,
+      "exposure_share": 0.04,
+      "recommendation_share": 0.03,
+      "completion_rate": 0.82,
+      "skip_rate": 0.08,
+      "save_rate": 0.11,
+      "payload_hash": "126e35494ae7e7436ca7fa8b0a4c09dddb4af3ab326ff418461d7bca15a97ba5",
+      "source": "demo_runtime_seed"
+    },
+    {
+      "event_id": "demo-pulse-verre-9",
+      "observed_at": "2026-07-02T19:41:02.669438+00:00",
+      "ingested_at": "2026-07-02T19:57:02.669810+00:00",
+      "platform": "youtube",
+      "market": "FR",
+      "track_id": "pulse-verre",
+      "track_title": "Pulse Verre",
+      "artist_id": "ciel-moderne",
+      "artist_name": "Ciel Moderne",
+      "genre": "electronic",
+      "language": "fr",
+      "label_tier": "independent",
+      "independent_flag": 1,
+      "editorial_flag": 0,
+      "exposure_share": 0.05,
+      "recommendation_share": 0.04,
+      "completion_rate": 0.77,
+      "skip_rate": 0.1,
+      "save_rate": 0.1,
+      "payload_hash": "35f3248bcaffe56a10b018c0960946c35cbaf84a38b4f76abbf25a61f90ea6d4",
+      "source": "demo_runtime_seed"
+    },
+    {
+      "event_id": "demo-night-relay-8",
+      "observed_at": "2026-07-02T19:37:02.669438+00:00",
+      "ingested_at": "2026-07-02T19:57:02.669796+00:00",
+      "platform": "spotify",
+      "market": "JP",
+      "track_id": "night-relay",
+      "track_title": "Night Relay",
+      "artist_id": "sora-wren",
+      "artist_name": "Sora Wren",
+      "genre": "city-pop",
+      "language": "ja",
+      "label_tier": "major",
+      "independent_flag": 0,
+      "editorial_flag": 1,
+      "exposure_share": 0.06,
+      "recommendation_share": 0.07,
+      "completion_rate": 0.73,
+      "skip_rate": 0.12,
+      "save_rate": 0.09,
+      "payload_hash": "22798d38283b7fb958a24fa064e3137f0e2653e6069fb7c5811f68f4130a4ff6",
+      "source": "demo_runtime_seed"
+    },
+    {
+      "event_id": "demo-river-wire-7",
+      "observed_at": "2026-07-02T19:33:02.669438+00:00",
+      "ingested_at": "2026-07-02T19:57:02.669782+00:00",
+      "platform": "youtube",
+      "market": "NG",
+      "track_id": "river-wire",
+      "track_title": "River Wire",
+      "artist_id": "kairo-sun",
+      "artist_name": "Kairo Sun",
+      "genre": "afrobeats",
+      "language": "en",
+      "label_tier": "independent",
+      "independent_flag": 1,
+      "editorial_flag": 0,
+      "exposure_share": 0.07,
+      "recommendation_share": 0.06,
+      "completion_rate": 0.79,
+      "skip_rate": 0.09,
+      "save_rate": 0.11,
+      "payload_hash": "6d62e1a16703d198df6709a53d190ab8f895f76b93a123d947e58ec477efe516",
+      "source": "demo_runtime_seed"
+    },
+    {
+      "event_id": "demo-silver-noon-6",
+      "observed_at": "2026-07-02T19:29:02.669438+00:00",
+      "ingested_at": "2026-07-02T19:57:02.669770+00:00",
+      "platform": "spotify",
+      "market": "KR",
+      "track_id": "silver-noon",
+      "track_title": "Silver Noon",
+      "artist_id": "violet-circuit",
+      "artist_name": "Violet Circuit",
+      "genre": "pop",
+      "language": "ko",
+      "label_tier": "major",
+      "independent_flag": 0,
+      "editorial_flag": 1,
+      "exposure_share": 0.14,
+      "recommendation_share": 0.16,
+      "completion_rate": 0.61,
+      "skip_rate": 0.24,
+      "save_rate": 0.06,
+      "payload_hash": "144a5a004404fc7690e77905876a9954fb8a49d4cea7bcf6974c33bbb401f95b",
+      "source": "demo_runtime_seed"
+    },
+    {
+      "event_id": "demo-carta-viva-5",
+      "observed_at": "2026-07-02T19:25:02.669438+00:00",
+      "ingested_at": "2026-07-02T19:57:02.669758+00:00",
+      "platform": "youtube",
+      "market": "MX",
+      "track_id": "carta-viva",
+      "track_title": "Carta Viva",
+      "artist_id": "sol-dorado",
+      "artist_name": "Sol Dorado",
+      "genre": "regional",
+      "language": "es",
+      "label_tier": "independent",
+      "independent_flag": 1,
+      "editorial_flag": 0,
+      "exposure_share": 0.08,
+      "recommendation_share": 0.07,
+      "completion_rate": 0.74,
+      "skip_rate": 0.13,
+      "save_rate": 0.08,
+      "payload_hash": "7707cccc64a5b4c2e4e436cfe6f8c72761c4488de87134c70234f67c58402b6d",
+      "source": "demo_runtime_seed"
+    }
+  ],
+  "signals": {
+    "top_market": {
+      "label": "US",
+      "share": 0.19
+    },
+    "top_genre": {
+      "label": "pop",
+      "share": 0.33
+    },
+    "top_language": {
+      "label": "en",
+      "share": 0.39
+    },
+    "top_label": {
+      "label": "major",
+      "share": 0.54
+    }
+  },
+  "invariants": {
+    "action": "allow",
+    "passed": true,
+    "failed_count": 0,
+    "invariants": [
+      {
+        "id": "minimum_window_size",
+        "label": "Minimum event window",
+        "observed": 12.0,
+        "operator": ">=",
+        "threshold": 10,
+        "severity": "review",
+        "passed": true,
+        "note": "Small windows can be inspected, but should not carry broad market claims."
+      },
+      {
+        "id": "label_concentration_cap",
+        "label": "Label concentration cap",
+        "observed": 0.54,
+        "operator": "<=",
+        "threshold": 0.72,
+        "severity": "quarantine",
+        "passed": true,
+        "note": "A single label tier should not dominate the exposure window without review."
+      },
+      {
+        "id": "language_balance_floor",
+        "label": "Language balance floor",
+        "observed": 0.8503,
+        "operator": ">=",
+        "threshold": 0.45,
+        "severity": "review",
+        "passed": true,
+        "note": "A narrow language corridor changes the meaning of discovery breadth."
+      },
+      {
+        "id": "genre_breadth_floor",
+        "label": "Genre breadth floor",
+        "observed": 0.8753,
+        "operator": ">=",
+        "threshold": 0.5,
+        "severity": "review",
+        "passed": true,
+        "note": "Low genre entropy can hide a corridor behind a large event count."
+      },
+      {
+        "id": "skip_rate_ceiling",
+        "label": "Skip-rate ceiling",
+        "observed": 0.1552,
+        "operator": "<=",
+        "threshold": 0.42,
+        "severity": "quarantine",
+        "passed": true,
+        "note": "High skip pressure should stop automated positive claims about fit."
+      },
+      {
+        "id": "recommendation_volatility_ceiling",
+        "label": "Recommendation volatility ceiling",
+        "observed": 0.0579,
+        "operator": "<=",
+        "threshold": 0.16,
+        "severity": "review",
+        "passed": true,
+        "note": "Volatile recommendation share needs a second look before it is treated as stable signal."
+      }
+    ],
+    "failed": [],
+    "policy": {
+      "allow": "No invariant failed.",
+      "review": "At least one soft boundary failed. Publish with caveat or inspect the window.",
+      "quarantine": "A hard boundary failed. Do not automate the downstream claim."
+    }
+  }
+}

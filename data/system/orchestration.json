@@ -1,6 +1,6 @@
 {
   "runtime": "stream_backend",
-  "generated_at": "2026-06-30T19:22:15+00:00",
+  "generated_at": "2026-07-02T20:37:25.461+00:00",
   "sample_size": 5000,
   "languages": [
     "python",
@@ -142,7 +142,7 @@
     "representation_checks": [],
     "music_checks": [],
     "music_quality": {
-      "generated_at": "2026-06-30",
+      "generated_at": "2026-07-02",
       "cohorts": {
         "core_top_100": {
           "songs": 100,

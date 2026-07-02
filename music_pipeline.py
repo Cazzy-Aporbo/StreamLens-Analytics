@@ -28,8 +28,10 @@ Author: Cazandra Aporbo, MS
 from __future__ import annotations
 
 import math
+import os
 import re
 import html
+import warnings
 from collections import Counter
 from datetime import date
 from functools import lru_cache
@@ -39,6 +41,13 @@ from typing import Dict, List, Optional, Sequence, Tuple
 import numpy as np
 import pandas as pd
 from scipy.stats import spearmanr
+
+os.environ.setdefault("LOKY_MAX_CPU_COUNT", "1")
+warnings.filterwarnings(
+    "ignore",
+    category=UserWarning,
+    module=r"joblib\.externals\.loky\.backend\.context",
+)
 
 from advanced_metrics import bootstrap_ci, gini, letter_grade, lorenz_points, theil_index
 from music_decision_lab import build_decision_lab
@@ -1299,7 +1308,7 @@ def _greedy_communities(g: nx.Graph) -> List[List[str]]:
 # --------------------------------------------------------------------------- #
 def _build_models() -> List[Tuple[str, object]]:
     return [
-        ("RandomForest", RandomForestRegressor(n_estimators=200, random_state=SEED)),
+        ("RandomForest", RandomForestRegressor(n_estimators=200, random_state=SEED, n_jobs=1)),
         (
             "GradientBoosting",
             GradientBoostingRegressor(n_estimators=150, random_state=SEED),
@@ -1333,7 +1342,7 @@ def predictability_analysis(df: Optional[pd.DataFrame] = None) -> Dict[str, obje
     ensemble_r2 = float(np.clip(1.0 - ss_res / ss_tot, -1.0, 1.0)) if ss_tot else 0.0
 
     # Feature importances from a RandomForest fit on all data.
-    rf = RandomForestRegressor(n_estimators=300, random_state=SEED).fit(x, y)
+    rf = RandomForestRegressor(n_estimators=300, random_state=SEED, n_jobs=1).fit(x, y)
     importances = sorted(
         (
             {
@@ -1362,7 +1371,7 @@ def predictability_analysis(df: Optional[pd.DataFrame] = None) -> Dict[str, obje
 def _predict_percentile(df: pd.DataFrame, features: List[str], query: Dict[str, float]) -> Dict[str, object]:
     x = df[features].to_numpy(dtype=float)
     y = np.log1p(df["view_count"].to_numpy(dtype=float))
-    model = RandomForestRegressor(n_estimators=300, random_state=SEED).fit(x, y)
+    model = RandomForestRegressor(n_estimators=300, random_state=SEED, n_jobs=1).fit(x, y)
     vec = np.array([[float(query.get(f, float(np.median(df[f])))) for f in features]])
     pred_log = float(model.predict(vec)[0])
     pred_views = float(np.expm1(pred_log))
@@ -2432,7 +2441,7 @@ def simulate_grid(df: Optional[pd.DataFrame] = None) -> Dict[str, object]:
     x = df[features].to_numpy(dtype=float)
     y = np.log1p(df["view_count"].to_numpy(dtype=float))
     y_sorted = np.sort(y)
-    model = RandomForestRegressor(n_estimators=300, random_state=SEED).fit(x, y)
+    model = RandomForestRegressor(n_estimators=300, random_state=SEED, n_jobs=1).fit(x, y)
     med = {f: float(np.median(df[f])) for f in features}
 
     rows = []

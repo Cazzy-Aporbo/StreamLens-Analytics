@@ -13,6 +13,7 @@ from __future__ import annotations
 
 from collections import Counter, defaultdict
 from dataclasses import asdict, dataclass
+from datetime import datetime, timezone
 import math
 from typing import Iterable
 
@@ -215,7 +216,142 @@ def public_media_lab_snapshot() -> dict:
         "compulsive_usage": compulsive,
         "generative_guard": generative,
         "causal_map": causal_map,
+        "insurability": translate_liability_posture(
+            events,
+            generative_guard=generative,
+            causal_map=causal_map,
+        ),
         "events": [asdict(event) for event in events],
+    }
+
+
+def translate_liability_posture(
+    events: Iterable[RecommendationEvent],
+    *,
+    payload: bytes | None = None,
+    generative_guard: dict | None = None,
+    causal_map: dict | None = None,
+) -> dict:
+    """Translate media-lab outputs into a bounded operational risk posture.
+
+    This is not insurance underwriting. It is a public translation layer that
+    turns recommendation and output-path signals into the kinds of review
+    questions policy, legal, and trust teams would actually ask.
+    """
+
+    events = list(events)
+    compulsive = analyze_compulsive_usage(events)
+    guard = generative_guard or guard_generated_buffer(
+        payload or b"safe-frame|copyrighted-castle|soundtrack-stem"
+    )
+    graph = causal_map or build_causal_map(events)
+
+    youth_safety_exposure = round(float(compulsive["risk_score"]), 4)
+    creative_rights_exposure = 1.0 if any(
+        reason.startswith("protected_signature:")
+        for reason in guard.get("reasons", [])
+    ) else 0.0
+    moderation_load = round(
+        min(
+            0.99,
+            float(compulsive["signals"].get("high_completion_rate", 0.0)) * 0.35
+            + float(compulsive["signals"].get("short_dwell_ratio", 0.0)) * 0.2
+            + min(1.0, graph.get("edge_count", 0) / 18) * 0.25
+            + min(1.0, graph.get("node_count", 0) / 18) * 0.1,
+        ),
+        4,
+    )
+    evidence_readiness = round(
+        min(
+            0.99,
+            0.3
+            + (0.25 if guard.get("reason_count", 0) > 0 else 0.0)
+            + min(0.2, graph.get("edge_count", 0) * 0.015)
+            + (0.15 if events else 0.0),
+        ),
+        4,
+    )
+    posture_score = round(
+        min(
+            0.99,
+            youth_safety_exposure * 0.42
+            + creative_rights_exposure * 0.28
+            + moderation_load * 0.18
+            + (1 - evidence_readiness) * 0.12,
+        ),
+        4,
+    )
+
+    if posture_score >= 0.72:
+        posture_band = "high"
+        review_priority = "immediate"
+    elif posture_score >= 0.52:
+        posture_band = "elevated"
+        review_priority = "near_term"
+    elif posture_score >= 0.34:
+        posture_band = "watch"
+        review_priority = "scheduled"
+    else:
+        posture_band = "clear"
+        review_priority = "routine"
+
+    return {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "posture_score": posture_score,
+        "posture_band": posture_band,
+        "review_priority": review_priority,
+        "claim_boundary": (
+            "This surface translates public recommendation and buffer signals into a review posture. "
+            "It is not an underwriting decision and it does not replace legal counsel."
+        ),
+        "exposures": {
+            "youth_safety": youth_safety_exposure,
+            "creative_rights": creative_rights_exposure,
+            "moderation_load": moderation_load,
+            "evidence_readiness": evidence_readiness,
+        },
+        "loss_channels": [
+            {
+                "name": "Compulsive recommendation pressure",
+                "score": youth_safety_exposure,
+                "why": "Short-cycle repetition and high completion patterns can become youth-safety or platform-duty questions.",
+            },
+            {
+                "name": "Protected content release",
+                "score": creative_rights_exposure,
+                "why": "A blocked protected signature is a direct cue that rights-handling needs to stay close to generation.",
+            },
+            {
+                "name": "Manual review burden",
+                "score": moderation_load,
+                "why": "Dense recommendation loops and repeated edges often create more human review work even before a public incident appears.",
+            },
+        ],
+        "recommended_controls": _recommended_liability_controls(
+            posture_band=posture_band,
+            creative_rights_exposure=creative_rights_exposure,
+            youth_safety_exposure=youth_safety_exposure,
+            moderation_load=moderation_load,
+        ),
+    }
+
+
+def public_insurability_snapshot() -> dict:
+    events = sample_recommendation_events()
+    guard = guard_generated_buffer(b"safe-frame|copyrighted-castle|soundtrack-stem")
+    graph = build_causal_map(events)
+    return {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "headline": "Liability translation",
+        "description": (
+            "A bounded bridge between recommendation risk, generated-buffer review, and the questions "
+            "operations or policy teams would ask before calling a system acceptable."
+        ),
+        "analysis": translate_liability_posture(
+            events,
+            generative_guard=guard,
+            causal_map=graph,
+        ),
     }
 
 
@@ -241,3 +377,24 @@ def _max_streak(values: list[str]) -> int:
         else:
             current = 1
     return best
+
+
+def _recommended_liability_controls(
+    *,
+    posture_band: str,
+    creative_rights_exposure: float,
+    youth_safety_exposure: float,
+    moderation_load: float,
+) -> list[str]:
+    controls = []
+    if creative_rights_exposure > 0:
+        controls.append("Route generated media through a rights review lane before release.")
+    if youth_safety_exposure >= 0.34:
+        controls.append("Add friction, diversity injection, and late-night safeguards to the recommendation flow.")
+    if moderation_load >= 0.4:
+        controls.append("Budget for manual review and keep causal traces attached to repeated recommendation paths.")
+    if posture_band in {"high", "elevated"}:
+        controls.append("Keep release authority close to the evidence trail rather than relying on post-release cleanup.")
+    if not controls:
+        controls.append("Keep sampling the recommendation stream so risk stays observable as the field changes.")
+    return controls

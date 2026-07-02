@@ -12,7 +12,17 @@ class EpochClock:
     def date_label(self) -> str:
         return self.generated_at.split("T", 1)[0]
 
+    @property
+    def run_label(self) -> str:
+        return (
+            self.generated_at.replace("-", "")
+            .replace(":", "")
+            .replace("+00:00", "z")
+            .replace(".", "")
+            .replace("T", "t")
+        )
+
     @classmethod
     def now(cls) -> "EpochClock":
-        value = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+        value = datetime.now(timezone.utc).isoformat(timespec="milliseconds")
         return cls(generated_at=value)

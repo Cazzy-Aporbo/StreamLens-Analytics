@@ -1464,6 +1464,250 @@
                 radial-gradient(circle at top right, rgba(255,200,222,0.22), transparent 42%);
         }
 
+        .operating-grid {
+            max-width: 1400px;
+            margin: 1.3rem auto 0;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .operating-grid-head {
+            grid-column: 1 / -1;
+            display: grid;
+            gap: 0.45rem;
+            padding: 0.15rem 0 0.2rem;
+        }
+
+        .operating-grid-head h3 {
+            margin: 0;
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: clamp(1.2rem, 1.8vw, 1.75rem);
+            color: rgba(255, 245, 226, 0.96);
+        }
+
+        .operating-grid-head p {
+            margin: 0;
+            max-width: 66rem;
+            color: rgba(232, 236, 255, 0.78);
+            line-height: 1.6;
+            font-size: 0.94rem;
+        }
+
+        .operating-card {
+            position: relative;
+            padding: 1.15rem 1.15rem 1.05rem;
+            border-radius: 1.2rem;
+            background:
+                radial-gradient(circle at top right, rgba(141, 232, 223, 0.12), transparent 34%),
+                linear-gradient(160deg, rgba(14,18,36,0.94), rgba(21,17,43,0.9));
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 16px 34px rgba(27, 34, 82, 0.12);
+            overflow: hidden;
+            min-height: 100%;
+        }
+
+        .operating-card::after {
+            content: '';
+            position: absolute;
+            inset: auto -2rem -2rem auto;
+            width: 7rem;
+            height: 7rem;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 194, 208, 0.16), rgba(255, 194, 208, 0));
+            pointer-events: none;
+        }
+
+        .operating-kicker {
+            display: inline-block;
+            margin-bottom: 0.55rem;
+            font-size: 0.76rem;
+            letter-spacing: 0.14rem;
+            text-transform: uppercase;
+            color: var(--primary-secondary);
+            font-weight: 700;
+        }
+
+        .operating-card h4 {
+            margin: 0 0 0.42rem;
+            font-size: 1.02rem;
+            line-height: 1.35;
+            color: rgba(255, 247, 234, 0.97);
+        }
+
+        .operating-card p {
+            margin: 0 0 0.85rem;
+            color: rgba(232, 236, 255, 0.8);
+            line-height: 1.58;
+            font-size: 0.92rem;
+        }
+
+        .operating-stat {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0.45rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .operating-stat strong {
+            font-size: 1.45rem;
+            line-height: 1;
+            background: linear-gradient(96deg, #fff3cb 0%, #d9d0ff 34%, #8ce5dd 72%, #ffc2d0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: rgba(255, 247, 230, 0.96);
+        }
+
+        .operating-stat span {
+            color: rgba(255, 227, 178, 0.84);
+            font-size: 0.82rem;
+            letter-spacing: 0.08rem;
+            text-transform: uppercase;
+        }
+
+        .operating-points {
+            display: grid;
+            gap: 0.45rem;
+            margin: 0 0 0.9rem;
+            padding: 0;
+            list-style: none;
+        }
+
+        .operating-points li {
+            color: rgba(228, 234, 255, 0.78);
+            line-height: 1.48;
+            font-size: 0.88rem;
+        }
+
+        .operating-link {
+            margin-top: auto;
+        }
+
+        .runtime-pulse {
+            max-width: 1400px;
+            margin: 1rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .runtime-pulse-shell {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.4rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background:
+                radial-gradient(circle at top left, rgba(140, 229, 221, 0.11), transparent 26%),
+                radial-gradient(circle at bottom right, rgba(255, 194, 208, 0.12), transparent 28%),
+                linear-gradient(155deg, rgba(12, 16, 34, 0.95), rgba(24, 19, 48, 0.92));
+            box-shadow: 0 22px 46px rgba(22, 27, 66, 0.15);
+            padding: 1.2rem 1.25rem 1.1rem;
+        }
+
+        .runtime-pulse-head {
+            display: grid;
+            gap: 0.45rem;
+            margin-bottom: 0.95rem;
+        }
+
+        .runtime-pulse-head h3 {
+            margin: 0;
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: clamp(1.12rem, 1.6vw, 1.55rem);
+            color: rgba(255, 246, 229, 0.97);
+        }
+
+        .runtime-pulse-head p {
+            margin: 0;
+            max-width: 58rem;
+            color: rgba(233, 238, 255, 0.78);
+            line-height: 1.6;
+            font-size: 0.93rem;
+        }
+
+        .runtime-pulse-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.8rem;
+            margin-bottom: 0.95rem;
+        }
+
+        .runtime-pulse-cell {
+            padding: 0.9rem 0.95rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background:
+                linear-gradient(155deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025)),
+                radial-gradient(circle at top right, rgba(255, 236, 179, 0.1), transparent 35%);
+        }
+
+        .runtime-pulse-cell span {
+            display: inline-block;
+            margin-bottom: 0.35rem;
+            font-size: 0.74rem;
+            letter-spacing: 0.13rem;
+            text-transform: uppercase;
+            color: rgba(255, 231, 186, 0.8);
+        }
+
+        .runtime-pulse-cell strong {
+            display: block;
+            margin-bottom: 0.24rem;
+            font-size: 1.45rem;
+            line-height: 1;
+            background: linear-gradient(94deg, #fff3cb 0%, #d9d0ff 34%, #8ce5dd 72%, #ffc2d0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .runtime-pulse-cell p {
+            margin: 0;
+            color: rgba(233, 238, 255, 0.74);
+            font-size: 0.86rem;
+            line-height: 1.5;
+        }
+
+        .runtime-pulse-notes {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+            gap: 0.9rem;
+        }
+
+        .runtime-pulse-panel {
+            padding: 0.95rem 1rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: linear-gradient(155deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+        }
+
+        .runtime-pulse-panel h4 {
+            margin: 0 0 0.45rem;
+            color: rgba(255, 246, 229, 0.95);
+            font-size: 0.98rem;
+        }
+
+        .runtime-pulse-panel p {
+            margin: 0;
+            color: rgba(233, 238, 255, 0.76);
+            line-height: 1.58;
+            font-size: 0.9rem;
+        }
+
+        .runtime-pulse-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .runtime-pulse-list li {
+            color: rgba(228, 234, 255, 0.8);
+            line-height: 1.48;
+            font-size: 0.88rem;
+        }
+
         .intro-lane-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -4021,6 +4265,10 @@
         }
 
         @media (max-width: 1080px) {
+            .runtime-pulse-notes {
+                grid-template-columns: 1fr;
+            }
+
             .analysis-deck {
                 grid-template-columns: 1fr;
             }
@@ -5618,11 +5866,25 @@
             if (path === '/api/system/governance') return load('system/governance.json').then(J);
             if (path === '/api/system/bias-propagation') return load('system/bias-propagation.json').then(J);
             if (path === '/api/system/trojan-horse') return load('system/trojan-horse.json').then(J);
+            if (path === '/api/system/readiness') return load('system/readiness.json').then(J);
+            if (path === '/api/system/integrations') return load('system/integrations.json').then(J);
+            if (path === '/api/system/bias-dynamics') return load('system/bias-dynamics.json').then(J);
             if (path === '/api/system/catalog') return load('system/catalog.json').then(J);
+            if (path === '/api/system/model-registry') return load('system/model-registry.json').then(J);
+            if (path === '/api/system/api-contracts') return load('system/api-contracts.json').then(J);
             if (path === '/api/system/frontend-state') return load('system/frontend-state.json').then(J);
             if (path === '/api/system/critical-spine') return load('system/critical-spine.json').then(J);
             if (path === '/api/system/comparatives') return load('system/comparatives.json').then(J);
-            if (path === '/api/system/runtime' || path === '/api/system/runtime/latest') return load('system/runtime.json').then(J);
+            if (path === '/api/system/runtime') return load('system/runtime.json').then(J);
+            if (path === '/api/system/runtime/latest') return load('system/runtime-latest.json').then(J);
+            if (path === '/api/system/runtime/ledger') return load('system/runtime-ledger.json').then(J);
+            if (path === '/api/runtime/events/contract') return load('system/live-contract.json').then(J);
+            if (path === '/api/runtime/events/latest') return load('system/live-events.json').then(J);
+            if (path === '/api/runtime/metrics/live') return load('system/live-metrics.json').then(J);
+            if (path === '/api/runtime/invariants/live') return load('system/live-metrics.json').then(function (d) { return J(d.invariants || {}); });
+            if (path === '/api/runtime/review/demo') return load('system/runtime-review.json').then(J);
+            if (path === '/api/runtime/drift/demo') return load('system/runtime-drift.json').then(J);
+            if (path === '/api/media-lab/insurability') return load('system/media-insurability.json').then(J);
             if (path === '/api/bias-library') {
                 return load('bias-library.json').then(function (d) {
                     if (qs.category) {
@@ -5673,6 +5935,7 @@
             if (path === '/api/music/quality') return load('music/quality.json').then(J);
             if (path === '/api/music/decision-lab') return load('music/decision-lab.json').then(J);
             if (path === '/api/music/intelligence') return load('music/intelligence.json').then(J);
+            if (path === '/api/music/theory') return load('music/theory.json').then(J);
             if (path === '/api/music/living-media') return load('music/living-media.json').then(J);
             if (path === '/api/music/index') {
                 return load('music/index.json').then(function (rows) {
@@ -9059,7 +9322,7 @@
                 <div class="hero-proof-list">
                     <div class="hero-proof-item">
                         <strong>Compare the surface to the source</strong>
-                        <span>The preview, repository, and methods notebook stay close enough to check against each other instead of asking for blind trust.</span>
+                        <span>The preview, repository, and methods notebook stay close enough to check against each other without asking for faith first.</span>
                     </div>
                     <div class="hero-proof-item">
                         <strong>Keep the analytical scope visible</strong>
@@ -9097,7 +9360,7 @@
     <div class="story-strip" id="storyStrip">
         <span class="act" id="storyAct">Act I — Orientation</span>
         <h3 id="storyTitle">Why this matters to people, not just dashboards.</h3>
-        <p id="storyText">People do not need another model asking to be trusted. They need a place to see whether attention is broad or bottlenecked, whether a hit is being helped along by scale, and whether a system is repeating something because it is easy rather than because it is good. <strong>Governance</strong> matters here because someone has to keep those boundaries honest.</p>
+        <p id="storyText">People do not need another dashboard telling them what to believe. They need a place to see whether attention is broad or bottlenecked, whether a hit is being helped along by scale, and whether a system is repeating something because it is easy rather than because it is good. <strong>Governance</strong> matters here because someone has to keep those boundaries honest.</p>
     </div>
 
     <div class="research-strip">
@@ -9196,6 +9459,145 @@
             <a class="entry-link" href="https://github.com/loopchii/Stream/blob/main/contributing.md" target="_blank" rel="noopener noreferrer">Contribution guide</a>
         </div>
     </div>
+
+    <div class="operating-grid" id="operatingGrid">
+        <div class="operating-grid-head">
+            <span class="entry-grid-kicker">Verified Surfaces</span>
+            <h3>What is already working here.</h3>
+            <p>Each card is drawn from the live backend or the local ledger. The point is not spectacle. It is to let you see, quickly, what is active, what is partial, and where the next useful proof belongs.</p>
+        </div>
+        <div class="operating-card">
+            <span class="operating-kicker">Readiness</span>
+            <h4 id="operatingReadinessTitle">Checking local posture…</h4>
+            <div class="operating-stat"><strong id="operatingReadinessValue">—</strong><span id="operatingReadinessMeta">doctor</span></div>
+            <p id="operatingReadinessCopy">Loading local checks, coverage, and proof points.</p>
+            <ul class="operating-points" id="operatingReadinessPoints">
+                <li>Waiting for the backend summary.</li>
+            </ul>
+            <button class="entry-link operating-link" type="button" onclick="showTab('learn', document.querySelector('[data-tab=learn]'));">Open methods</button>
+        </div>
+        <div class="operating-card">
+            <span class="operating-kicker">Runtime Review</span>
+            <h4 id="operatingReviewTitle">Reviewing prompt and draft together…</h4>
+            <div class="operating-stat"><strong id="operatingReviewValue">—</strong><span id="operatingReviewMeta">mode</span></div>
+            <p id="operatingReviewCopy">Loading the local review lane.</p>
+            <ul class="operating-points" id="operatingReviewPoints">
+                <li>Waiting for the example decision.</li>
+            </ul>
+            <button class="entry-link operating-link" type="button" onclick="document.getElementById('trojanHorseLab').scrollIntoView({ behavior: 'smooth', block: 'start' });">Open guard lane</button>
+        </div>
+        <div class="operating-card">
+            <span class="operating-kicker">Drift Watch</span>
+            <h4 id="operatingDriftTitle">Reading output windows for instability…</h4>
+            <div class="operating-stat"><strong id="operatingDriftValue">—</strong><span id="operatingDriftMeta">window</span></div>
+            <p id="operatingDriftCopy">Loading the text-path drift probe.</p>
+            <ul class="operating-points" id="operatingDriftPoints">
+                <li>Waiting for the sample window analysis.</li>
+            </ul>
+            <button class="entry-link operating-link" type="button" onclick="showTab('insights', document.querySelector('[data-tab=insights]'));">Trace the findings</button>
+        </div>
+        <div class="operating-card">
+            <span class="operating-kicker">Bias In Motion</span>
+            <h4 id="operatingBiasTitle">Reading structural pressure…</h4>
+            <div class="operating-stat"><strong id="operatingBiasValue">—</strong><span id="operatingBiasMeta">band</span></div>
+            <p id="operatingBiasCopy">Loading the structural bias surface.</p>
+            <ul class="operating-points" id="operatingBiasPoints">
+                <li>Waiting for network and drift signals.</li>
+            </ul>
+            <button class="entry-link operating-link" type="button" onclick="showTab('biaslib', document.querySelector('[data-tab=biaslib]'));">Study the pattern library</button>
+        </div>
+        <div class="operating-card">
+            <span class="operating-kicker">Liability Translation</span>
+            <h4 id="operatingLiabilityTitle">Turning signals into review posture…</h4>
+            <div class="operating-stat"><strong id="operatingLiabilityValue">—</strong><span id="operatingLiabilityMeta">priority</span></div>
+            <p id="operatingLiabilityCopy">Loading the bounded media-risk surface.</p>
+            <ul class="operating-points" id="operatingLiabilityPoints">
+                <li>Waiting for exposure signals.</li>
+            </ul>
+            <button class="entry-link operating-link" type="button" onclick="showTab('music', document.querySelector('[data-tab=music]'));">Enter the music lane</button>
+        </div>
+        <div class="operating-card">
+            <span class="operating-kicker">Integration Paths</span>
+            <h4 id="operatingIntegrationTitle">Loading the current entry paths…</h4>
+            <div class="operating-stat"><strong id="operatingIntegrationValue">—</strong><span id="operatingIntegrationMeta">paths</span></div>
+            <p id="operatingIntegrationCopy">Loading adoption routes and boundaries.</p>
+            <ul class="operating-points" id="operatingIntegrationPoints">
+                <li>Waiting for local integration routes.</li>
+            </ul>
+            <a class="entry-link operating-link" href="https://github.com/loopchii/Stream" target="_blank" rel="noopener noreferrer">Open the repository</a>
+        </div>
+        <div class="operating-card">
+            <span class="operating-kicker">Runtime Ledger</span>
+            <h4 id="operatingLedgerTitle">Verifying the local chain…</h4>
+            <div class="operating-stat"><strong id="operatingLedgerValue">—</strong><span id="operatingLedgerMeta">runs</span></div>
+            <p id="operatingLedgerCopy">Loading the persisted runtime ledger.</p>
+            <ul class="operating-points" id="operatingLedgerPoints">
+                <li>Waiting for the latest chain state.</li>
+            </ul>
+            <button class="entry-link operating-link" type="button" onclick="showTab('learn', document.querySelector('[data-tab=learn]'));">Inspect the methods</button>
+        </div>
+        <div class="operating-card">
+            <span class="operating-kicker">Score Evidence</span>
+            <h4 id="operatingTheoryTitle">Reading the notation lane…</h4>
+            <div class="operating-stat"><strong id="operatingTheoryValue">—</strong><span id="operatingTheoryMeta">events</span></div>
+            <p id="operatingTheoryCopy">Loading linked note and chord evidence.</p>
+            <ul class="operating-points" id="operatingTheoryPoints">
+                <li>Waiting for score-linked coverage.</li>
+            </ul>
+            <button class="entry-link operating-link" type="button" onclick="showTab('music', document.querySelector('[data-tab=music]'));">Open the music lane</button>
+        </div>
+    </div>
+
+    <section class="runtime-pulse" id="runtimePulse">
+        <div class="runtime-pulse-shell">
+            <div class="runtime-pulse-head">
+                <span class="entry-grid-kicker">Live Runtime Window</span>
+                <h3>What the current event field is doing.</h3>
+                <p>This surface reads a rolling stream of exposure, recommendation, and listener response events. When the local table is empty, it falls back to a marked demonstration window instead of pretending to be live.</p>
+            </div>
+            <div class="runtime-pulse-grid">
+                <div class="runtime-pulse-cell">
+                    <span>Pressure band</span>
+                    <strong id="runtimePulseBand">—</strong>
+                    <p id="runtimePulseBandNote">Waiting for the event window.</p>
+                </div>
+                <div class="runtime-pulse-cell">
+                    <span>Current window</span>
+                    <strong id="runtimePulseCount">—</strong>
+                    <p id="runtimePulseCountNote">No event window loaded yet.</p>
+                </div>
+                <div class="runtime-pulse-cell">
+                    <span>Discovery breadth</span>
+                    <strong id="runtimePulseBreadth">—</strong>
+                    <p id="runtimePulseBreadthNote">Genre entropy is still loading.</p>
+                </div>
+                <div class="runtime-pulse-cell">
+                    <span>Independent lift</span>
+                    <strong id="runtimePulseIndependent">—</strong>
+                    <p id="runtimePulseIndependentNote">Independent share is still loading.</p>
+                </div>
+            </div>
+            <div class="runtime-pulse-notes">
+                <div class="runtime-pulse-panel">
+                    <h4 id="runtimePulseHeadline">Reading the operating window…</h4>
+                    <p id="runtimePulseSummary">Waiting for live metrics.</p>
+                </div>
+                <div class="runtime-pulse-panel">
+                    <h4>Current watchpoints</h4>
+                    <ul class="runtime-pulse-list" id="runtimePulseList">
+                        <li>Waiting for the current window.</li>
+                    </ul>
+                </div>
+                <div class="runtime-pulse-panel">
+                    <h4 id="runtimeContractTitle">Ingress contract</h4>
+                    <p id="runtimeContractSummary">Loading batch limits, retention, and filter lanes.</p>
+                    <ul class="runtime-pulse-list" id="runtimeContractList">
+                        <li>Waiting for the event contract.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <div id="tab-dashboard" class="tab-panel active">
 
@@ -9406,7 +9808,7 @@
             <div class="analysis-deck-copy">
                 <span class="analysis-kicker">Live command surface</span>
                 <h2>Read the field before you name the failure.</h2>
-                <p>This surface is here to make the logic legible. Instead of dropping you into five unrelated charts, it shows how the current slice behaves as one environment: attention pressure, representation balance, and dialogue allocation move together, or they do not. The point is to help a critical reader see the pattern before they trust the verdict.</p>
+                <p>This surface is here to make the logic legible. Instead of dropping you into five unrelated charts, it shows how the current slice behaves as one environment: attention pressure, representation balance, and dialogue allocation move together, or they do not. The point is to help a critical reader see the pattern before they carry it into a verdict.</p>
                 <div class="analysis-deck-grid">
                     <div class="analysis-deck-card">
                         <span class="k">What it is doing</span>
@@ -9512,7 +9914,7 @@
                             <span class="eyebrow">Need next</span>
                             <div class="decision-switch" id="decisionGoalSwitch">
                                 <button class="active" data-goal="measure" onclick="StreamLensApp.setDecisionGoal('measure', this)">Measure imbalance</button>
-                                <button data-goal="trust" onclick="StreamLensApp.setDecisionGoal('trust', this)">Pressure-test the claim</button>
+                                <button data-goal="trust" onclick="StreamLensApp.setDecisionGoal('trust', this)">Audit the claim</button>
                                 <button data-goal="opportunity" onclick="StreamLensApp.setDecisionGoal('opportunity', this)">Find the opening</button>
                                 <button data-goal="build" onclick="StreamLensApp.setDecisionGoal('build', this)">Choose what to build</button>
                                 <button data-goal="explain" onclick="StreamLensApp.setDecisionGoal('explain', this)">Explain it fast</button>
@@ -9553,7 +9955,7 @@
                 <p><strong>Pattern Analysis:</strong> Look for clustering by color family (platform bias) or by shade intensity (genre bias). Before you call a point biased, compare it against year, platform, genre, media type, and sample size. Bubbles in the upper-right quadrant represent the stronger cases after those checks.</p>
                 <div class="chart-reading-grid">
                     <div class="chart-reading-card"><span class="k">Decision question</span><span class="v">Is the imbalance broad across the field, or mostly tied to one platform-genre pocket?</span></div>
-                    <div class="chart-reading-card"><span class="k">What strengthens trust</span><span class="v">Clusters that stay coherent after year, platform, and genre filters are changed deserve more weight.</span></div>
+                    <div class="chart-reading-card"><span class="k">What strengthens the case</span><span class="v">Clusters that stay coherent after year, platform, and genre filters are changed deserve more weight.</span></div>
                     <div class="chart-reading-card"><span class="k">When to slow down</span><span class="v">A dramatic bubble with a small cohort can be directionally useful without being ready for a procurement claim.</span></div>
                 </div>
             </div>
@@ -9735,7 +10137,7 @@
                     <div class="note">Start with rows, then compare format, then isolate genre.</div>
                 </div>
                 <div class="analysis-atlas-track">
-                    <button class="analysis-atlas-step active" data-target="exploreRows" style="--atlas-wash:rgba(91,85,255,0.18)" onclick="StreamLensApp.jumpToViz('exploreRows', this)"><span class="n">01</span><span class="t">Rows first</span><span class="s">Inspect the raw cohort before you trust a summary.</span></button>
+                    <button class="analysis-atlas-step active" data-target="exploreRows" style="--atlas-wash:rgba(91,85,255,0.18)" onclick="StreamLensApp.jumpToViz('exploreRows', this)"><span class="n">01</span><span class="t">Rows first</span><span class="s">Inspect the raw cohort before you repeat a summary.</span></button>
                     <button class="analysis-atlas-step" data-target="exploreMedia" style="--atlas-wash:rgba(15,182,168,0.18)" onclick="StreamLensApp.jumpToViz('exploreMedia', this)"><span class="n">02</span><span class="t">Format split</span><span class="s">Series, film, kids, and docuseries rarely behave the same way.</span></button>
                     <button class="analysis-atlas-step" data-target="exploreGenre" style="--atlas-wash:rgba(240,119,159,0.18)" onclick="StreamLensApp.jumpToViz('exploreGenre', this)"><span class="n">03</span><span class="t">Genre pressure</span><span class="s">Only then decide whether the signal is structural or genre-shaped.</span></button>
                 </div>
@@ -10075,7 +10477,7 @@
                             </div>
                             <div class="bias-harm-grid" id="libraryPropagationHarm">
                                 <div class="bias-harm-card"><span class="k">Representation</span><span class="v">—</span><span class="s">Pressure score</span></div>
-                                <div class="bias-harm-card"><span class="k">Trust</span><span class="v">—</span><span class="s">Pressure score</span></div>
+                                <div class="bias-harm-card"><span class="k">Credibility</span><span class="v">—</span><span class="s">Pressure score</span></div>
                             </div>
                             <div class="bias-action-grid" id="libraryPropagationActions">
                                 <div class="bias-action-card"><span class="k">Action route</span><p>Loading role-specific action path…</p></div>
@@ -10174,7 +10576,7 @@
                         <div class="dataops-copy">
                             <span class="analysis-kicker">Data platform</span>
                             <h3>Enterprise readers should be able to see the grain, the guardrails, and the serving boundary in one pass.</h3>
-                            <p>Stream now exposes a live contract surface for both the synthetic representation lane and the public music lane. That means row grain, partitions, quality checks, and serving posture are visible instead of being buried in code comments or left to trust alone.</p>
+                            <p>Stream now exposes a live contract surface for both the synthetic representation lane and the public music lane. That means row grain, partitions, quality checks, and serving posture are visible instead of being buried in code comments or left as assumption.</p>
                             <div class="dataops-pill-row">
                                 <span class="dataops-pill">Hybrid ETL + ELT</span>
                                 <span class="dataops-pill">Gold metrics only after checks</span>
@@ -10430,7 +10832,7 @@
                 <div class="mv-audit-callout">
                     <div class="mv-audit-copy">
                         <div class="mv-audit-kicker">Research protocol</div>
-                        <h3>Inspect how the music lane was assembled before you trust what it says.</h3>
+                        <h3>Inspect how the music lane was assembled before you repeat what it says.</h3>
                         <p>The charts stay public-facing, but the method should still be inspectable. Open the audit to see cohort boundaries, source additions, cleaning decisions, and the guardrails that keep the model from flattering itself.</p>
                         <div class="mv-audit-actions">
                             <button class="mv-audit-btn" id="mvAuditToggle" onclick="MusicViz.toggleAudit()">
@@ -11093,6 +11495,7 @@
             activeTab: 'dashboard',
             _vizRefreshTimer: null,
             _vizRefreshFrame: null,
+            _runtimePulseTimer: null,
 
             // ==================== INITIALIZATION ====================
             init() {
@@ -11109,7 +11512,13 @@
                 this.deferNonCriticalWork(() => {
                     this.spawnParticles();
                     this.loadTrojanHorseSurface();
+                    this.loadOperatingSurface();
                     this.loadLiveMetrics();
+                    this.loadRuntimePulse();
+                    this.loadRuntimeContract();
+                    if (!this._runtimePulseTimer) {
+                        this._runtimePulseTimer = window.setInterval(() => this.loadRuntimePulse(), 12000);
+                    }
                 }, 160);
             },
 
@@ -11417,7 +11826,7 @@
                             label: 'Let ordinary work pass cleanly',
                             prompt: 'Summarize the strongest genre shifts in the public music data and give me three honest caveats.',
                             nuisance: 'Shows the guard surface stays quiet when the request is already safe.',
-                            value: 'Selective behaviour is part of trust.'
+                            value: 'Selective behaviour is part of the design.'
                         }
                     ];
                 return {
@@ -11485,7 +11894,7 @@
                         safe: 'I will not optimize for compulsive usage around minors. I can propose variety injection, session limits, recovery prompts, and age-aware safety defaults instead.',
                         reason: 'The requested objective optimizes for unsafe retention behaviour around minors.',
                         nuisance: 'Interrupts a harmful optimization goal before it becomes product copy or pseudo-strategy.',
-                        value: 'Useful for product, trust, and policy teams that need a hard stop before a meeting turns into implementation.',
+                        value: 'Useful for product, risk, and policy teams that need a hard stop before a meeting turns into implementation.',
                         standardMs: 129,
                         interceptMs: 13
                     },
@@ -11498,7 +11907,7 @@
                         safe: 'The current music surface shows attention concentrating heavily in a small winner set, while genre spread and collaboration patterns still leave room for different release strategies. Three caveats: the field is platform-shaped, correlation is not causation, and a strong single-year spike should not be confused with a durable structural change.',
                         reason: 'No risky fragment detected.',
                         nuisance: 'Demonstrates that the guard stays quiet when the request is already safe.',
-                        value: 'Selective behaviour is part of trust.',
+                        value: 'Selective behaviour is part of the design.',
                         standardMs: 74,
                         interceptMs: 7
                     }
@@ -11569,6 +11978,203 @@
                 this.syncHeroSignals();
                 const firstPreset = this._trojanPresets[0];
                 if (firstPreset) this.setTrojanPreset(firstPreset.preset_id, true);
+            },
+
+            setOperatingPoints(id, items) {
+                const node = document.getElementById(id);
+                if (!node) return;
+                const rows = (items || []).filter(Boolean).slice(0, 3);
+                node.innerHTML = rows.length
+                    ? rows.map((item) => `<li>${this.escapeTrojanHtml(item)}</li>`).join('')
+                    : '<li>No additional notes yet.</li>';
+            },
+
+            async loadOperatingSurface() {
+                const read = async (path) => {
+                    const res = await fetch(path);
+                    if (!res.ok) throw new Error(`failed:${path}`);
+                    return res.json();
+                };
+                const humanize = (value) => String(value || '').replace(/_/g, ' ');
+                const percent = (value) => `${Math.round((Number(value) || 0) * 100)}%`;
+                const compactHash = (value) => {
+                    const text = String(value || '');
+                    return text.length > 12 ? `${text.slice(0, 8)}…${text.slice(-4)}` : text || 'pending';
+                };
+
+                try {
+                    const [readiness, review, drift, bias, liability, integrations, ledger, theory] = await Promise.all([
+                        read('/api/system/readiness'),
+                        read('/api/runtime/review/demo'),
+                        read('/api/runtime/drift/demo'),
+                        read('/api/system/bias-dynamics'),
+                        read('/api/media-lab/insurability'),
+                        read('/api/system/integrations'),
+                        read('/api/system/runtime/ledger'),
+                        read('/api/music/theory')
+                    ]);
+
+                    const overall = readiness.overall || {};
+                    const proof = readiness.proof_points || {};
+                    const posture = readiness.commercial_posture || {};
+                    const readinessTotal = (overall.doctor_pass_count || 0) + (overall.doctor_warn_count || 0) + (overall.doctor_fail_count || 0);
+                    const readinessLabel = humanize(overall.label || 'ready_with_visible_limits');
+                    const readinessWarnings = readiness.friction_log || [];
+                    document.getElementById('operatingReadinessTitle').textContent = readinessLabel;
+                    document.getElementById('operatingReadinessValue').textContent = `${overall.doctor_pass_count || 0}/${readinessTotal || 0}`;
+                    document.getElementById('operatingReadinessMeta').textContent = `${overall.doctor_warn_count || 0} notes`;
+                    document.getElementById('operatingReadinessCopy').textContent = posture.best_fit_today || overall.summary || '';
+                    this.setOperatingPoints('operatingReadinessPoints', [
+                        `${(proof.tracked_rows || 0).toLocaleString()} tracked rows across ${proof.dataset_count || 0} datasets, with ${(proof.live_event_count || 0).toLocaleString()} events in the live window.`,
+                        `${percent(proof.genre_known_share)} known genre coverage; ${percent(proof.publication_year_share)} year coverage.`,
+                        readinessWarnings[0] ? `Watch item: ${readinessWarnings[0].detail}` : ''
+                    ]);
+
+                    const example = review.example || {};
+                    document.getElementById('operatingReviewTitle').textContent = example.category_label || example.categoryLabel || 'Runtime review';
+                    document.getElementById('operatingReviewValue').textContent = example.blocked ? 'Block' : 'Pass';
+                    document.getElementById('operatingReviewMeta').textContent = humanize(example.review_posture || example.reviewPosture || 'pass_through');
+                    document.getElementById('operatingReviewCopy').textContent = review.description || example.reason || '';
+                    this.setOperatingPoints('operatingReviewPoints', [
+                        (example.matched_terms || example.matchedTerms || []).length
+                            ? `Signals: ${(example.matched_terms || example.matchedTerms).join(', ')}`
+                            : 'Signals stayed quiet on the sample.',
+                        (example.evidence_sources || example.evidenceSources || []).length
+                            ? `Evidence lane: ${(example.evidence_sources || example.evidenceSources).join(', ')}`
+                            : 'Evidence stayed inside the prompt path.',
+                        (example.recommended_actions || example.recommendedActions || [])[0] || ''
+                    ]);
+
+                    const driftAnalysis = drift.analysis || {};
+                    const driftSignals = driftAnalysis.signals || {};
+                    document.getElementById('operatingDriftTitle').textContent = `Current band: ${humanize(driftAnalysis.drift_band || 'clear')}`;
+                    document.getElementById('operatingDriftValue').textContent = `${Math.round((driftAnalysis.drift_score || 0) * 100)}`;
+                    document.getElementById('operatingDriftMeta').textContent = 'drift score';
+                    document.getElementById('operatingDriftCopy').textContent = drift.description || driftAnalysis.summary || '';
+                    this.setOperatingPoints('operatingDriftPoints', [
+                        `${percent(driftSignals.unsafe_turn_share)} of the sample window triggered an unsafe signal.`,
+                        `${percent(driftSignals.duplicate_ratio)} duplicate phrasing across the current window.`,
+                        (driftAnalysis.recommended_actions || [])[0] || ''
+                    ]);
+
+                    document.getElementById('operatingBiasTitle').textContent = bias.headline || 'Bias in motion';
+                    document.getElementById('operatingBiasValue').textContent = `${Math.round((bias.bias_score || 0) * 100)}`;
+                    document.getElementById('operatingBiasMeta').textContent = humanize(bias.posture_band || 'watch');
+                    document.getElementById('operatingBiasCopy').textContent = bias.summary || '';
+                    this.setOperatingPoints('operatingBiasPoints', [
+                        (bias.dimensions || [])[1]
+                            ? `${(bias.dimensions[1] || {}).label}: ${(bias.dimensions[1] || {}).value_label || '—'}`
+                            : '',
+                        (bias.dimensions || [])[2]
+                            ? `${(bias.dimensions[2] || {}).label}: ${(bias.dimensions[2] || {}).value_label || '—'}`
+                            : '',
+                        (bias.watchpoints || [])[0] || ''
+                    ]);
+
+                    const liabilityAnalysis = liability.analysis || {};
+                    const exposures = liabilityAnalysis.exposures || {};
+                    document.getElementById('operatingLiabilityTitle').textContent = `Review priority: ${humanize(liabilityAnalysis.review_priority || 'routine')}`;
+                    document.getElementById('operatingLiabilityValue').textContent = `${Math.round((liabilityAnalysis.posture_score || 0) * 100)}`;
+                    document.getElementById('operatingLiabilityMeta').textContent = humanize(liabilityAnalysis.posture_band || 'clear');
+                    document.getElementById('operatingLiabilityCopy').textContent = liability.description || liabilityAnalysis.claim_boundary || '';
+                    this.setOperatingPoints('operatingLiabilityPoints', [
+                        `${percent(exposures.youth_safety)} youth-safety exposure in the sample stream.`,
+                        `${percent(exposures.creative_rights)} protected-content exposure in the sample buffer.`,
+                        (liabilityAnalysis.recommended_controls || [])[0] || ''
+                    ]);
+
+                    const available = integrations.available_now || [];
+                    const commercial = integrations.commercial_boundary || {};
+                    document.getElementById('operatingIntegrationTitle').textContent = integrations.headline || 'Integration paths';
+                    document.getElementById('operatingIntegrationValue').textContent = String(available.length || 0);
+                    document.getElementById('operatingIntegrationMeta').textContent = 'paths now';
+                    document.getElementById('operatingIntegrationCopy').textContent = integrations.description || '';
+                    this.setOperatingPoints('operatingIntegrationPoints', [
+                        available[0] ? `${available[0].title} via ${available[0].entry}` : '',
+                        available[1] ? `${available[1].title} via ${available[1].entry}` : '',
+                        (commercial.ready_now || [])[0] ? `Best used today for ${commercial.ready_now[0].toLowerCase()}.` : ''
+                    ]);
+
+                    document.getElementById('operatingLedgerTitle').textContent =
+                        ledger.ok ? 'Local ledger verified' : `Ledger status: ${humanize(ledger.status || 'pending')}`;
+                    document.getElementById('operatingLedgerValue').textContent = String(ledger.run_count || 0);
+                    document.getElementById('operatingLedgerMeta').textContent = 'recorded runs';
+                    document.getElementById('operatingLedgerCopy').textContent =
+                        ledger.ok
+                            ? `The latest local runtime chain closes cleanly at ${compactHash(ledger.latest_chain_hash)}.`
+                            : 'The local runtime chain needs another look before it is treated as settled proof.';
+                    this.setOperatingPoints('operatingLedgerPoints', [
+                        `${ledger.verifiable_run_count || 0} of ${ledger.run_count || 0} runs are currently verifiable.`,
+                        ledger.broken_links && ledger.broken_links.length
+                            ? `${ledger.broken_links.length} broken chain links need repair.`
+                            : 'No broken chain links are visible in the current ledger window.',
+                        (ledger.items || [])[0]
+                            ? `Most recent run: ${((ledger.items[0] || {}).run_id || '').replace(/^.*-n/, 'n')}`
+                            : ''
+                    ]);
+
+                    const coverage = theory.coverage || {};
+                    document.getElementById('operatingTheoryTitle').textContent = theory.headline || 'Score evidence';
+                    document.getElementById('operatingTheoryValue').textContent = `${(coverage.parsed_note_events || 0).toLocaleString()}`;
+                    document.getElementById('operatingTheoryMeta').textContent = 'note events';
+                    document.getElementById('operatingTheoryCopy').textContent =
+                        (theory.claim_boundaries || [])[0] || 'Linked score evidence is still loading.';
+                    this.setOperatingPoints('operatingTheoryPoints', [
+                        `${coverage.pieces_with_notes || 0} score-linked pieces across ${coverage.catalog_song_count || 0} catalog rows.`,
+                        `${percent(coverage.notation_link_rate)} notation link rate in the current music index.`,
+                        ((theory.piece_examples || [])[0] || {}).title
+                            ? `Most detailed linked piece: ${theory.piece_examples[0].title}.`
+                            : ''
+                    ]);
+                } catch (error) {
+                    console.warn('operating surface unavailable', error);
+                }
+            },
+
+            async loadRuntimePulse() {
+                const percent = (value) => `${Math.round((Number(value) || 0) * 100)}%`;
+                try {
+                    const res = await fetch('/api/runtime/metrics/live', { headers: { 'Accept': 'application/json' } });
+                    if (!res.ok) return;
+                    const data = await res.json();
+                    const metrics = data.metrics || {};
+                    const signals = data.signals || {};
+                    document.getElementById('runtimePulseBand').textContent = String(data.pressure_band || 'watch').replace(/_/g, ' ');
+                    document.getElementById('runtimePulseBandNote').textContent = `Source: ${data.source || 'demonstration'}`;
+                    document.getElementById('runtimePulseCount').textContent = String(data.event_count || 0);
+                    document.getElementById('runtimePulseCountNote').textContent = `${metrics.unique_tracks || 0} tracks across ${metrics.unique_artists || 0} artists.`;
+                    document.getElementById('runtimePulseBreadth').textContent = percent(metrics.genre_entropy || 0);
+                    document.getElementById('runtimePulseBreadthNote').textContent =
+                        `${signals.top_genre ? signals.top_genre.label : 'genre'} leads the window at ${percent((signals.top_genre || {}).share || 0)}.`;
+                    document.getElementById('runtimePulseIndependent').textContent = percent(metrics.independent_share || 0);
+                    document.getElementById('runtimePulseIndependentNote').textContent =
+                        `Average save rate is ${percent(metrics.save_rate || 0)} with completion at ${percent(metrics.completion_rate || 0)}.`;
+                    document.getElementById('runtimePulseHeadline').textContent = data.headline || 'Live runtime window';
+                    document.getElementById('runtimePulseSummary').textContent = data.summary || '';
+                    this.setOperatingPoints('runtimePulseList', data.watchpoints || []);
+                } catch (error) {
+                    console.warn('runtime pulse unavailable', error);
+                }
+            },
+
+            async loadRuntimeContract() {
+                try {
+                    const res = await fetch('/api/runtime/events/contract', { headers: { 'Accept': 'application/json' } });
+                    if (!res.ok) return;
+                    const data = await res.json();
+                    const retention = data.retention || {};
+                    const batch = data.batch_limits || {};
+                    const filters = (data.filters || []).map((item) => item.name).filter(Boolean);
+                    document.getElementById('runtimeContractTitle').textContent = data.headline || 'Ingress contract';
+                    document.getElementById('runtimeContractSummary').textContent = data.summary || '';
+                    this.setOperatingPoints('runtimeContractList', [
+                        `Batch window: ${batch.min_events || 1} to ${batch.max_events || 0} events per write.`,
+                        `Retention: ${retention.max_rows || 0} rows or ${retention.max_age_days || 0} days, whichever closes first.`,
+                        filters.length ? `Queryable filters: ${filters.join(', ')}.` : ''
+                    ]);
+                } catch (error) {
+                    console.warn('runtime contract unavailable', error);
+                }
             },
 
             bindTrojanHorseInputs() {
@@ -12352,7 +12958,7 @@
                 const roleRoutes = {
                     creator: { headline: 'What a creator can do', summary: 'Interrogate the premise, the speaking power, and the packaging before the pattern hardens.', actions: ['Check who gets agency.', 'Check who is centred in the synopsis and artwork.', 'Check whether the bias survives the cut and the shelf.'] },
                     operator: { headline: 'What an operator can instrument', summary: 'Place checks before the final report so the same distortion does not become a repeated default.', actions: ['Audit rows and labels together.', 'Compare exposure outcomes against catalog shape.', 'Treat recurrence as a systems problem.'] },
-                    buyer: { headline: 'What a buyer should care about', summary: 'Bias can narrow demand and make a catalogue look smaller than it really is.', actions: ['Check whether shelving is manufacturing underperformance.', 'Read trust and revenue together.', 'Look for demand being left on the table.'] },
+                    buyer: { headline: 'What a buyer should care about', summary: 'Bias can narrow demand and make a catalogue look smaller than it really is.', actions: ['Check whether shelving is manufacturing underperformance.', 'Read credibility and revenue together.', 'Look for demand being left on the table.'] },
                     public: { headline: 'What an ordinary viewer can learn', summary: 'Notice not only the story, but what the shelf keeps repeating.', actions: ['Track who gets complexity.', 'Track who gets visibility.', 'Use the result to ask a better next question.'] }
                 };
                 return {
@@ -12540,7 +13146,7 @@
                     harm.innerHTML = [
                         ['Representation', 'Who gets presence, complexity, and legitimacy.', harmProfile.representation],
                         ['Revenue', 'How much demand or catalogue value gets left on the table.', harmProfile.revenue],
-                        ['Trust', 'How much audience confidence and internal credibility this can corrode.', harmProfile.trust],
+                        ['Credibility', 'How much audience confidence and internal credibility this can corrode.', harmProfile.trust],
                         ['Safety', 'How strongly the pattern can translate into harm or exclusion.', harmProfile.safety]
                     ].map(([label, note, value]) => `
                         <div class="bias-harm-card">
@@ -14503,7 +15109,7 @@
 
                 const goalProfiles = {
                     measure: { label: 'Measure imbalance' },
-                    trust: { label: 'Pressure-test the claim' },
+                    trust: { label: 'Audit the claim' },
                     opportunity: { label: 'Find the opening' },
                     build: { label: 'Choose what to build' },
                     explain: { label: 'Explain it fast' }
@@ -14553,7 +15159,7 @@
 
                 if (this.state.decisionGoal === 'trust') {
                     output = {
-                        headline: 'Audit the rows, the contracts, and the caveats before trusting the chart.',
+                        headline: 'Audit the rows, the contracts, and the caveats before repeating the chart.',
                         summary: `${roleProfile.perspective} The active lens is ${metricLabel.toLowerCase()} on ${sliceLabel}. Use the row surface, the data platform surface, and the time check together so the claim stays attached to cohort shape, quality gates, and historical context.`,
                         signals: [
                             { label: 'Metric in focus', value: metricLabel, note: 'The current analytic lens you asked the dashboard to prioritize.' },
@@ -14561,7 +15167,7 @@
                             { label: 'Time context', value: String(this.state.year), note: 'A claim deserves less confidence if it only works in one moment.' }
                         ],
                         steps: [
-                            { tab: 'explore', target: 'exploreRows', title: 'Inspect the rows', note: 'See what the current cohort actually contains before trusting the summary layer.' },
+                            { tab: 'explore', target: 'exploreRows', title: 'Inspect the rows', note: 'See what the current cohort actually contains before repeating the summary layer.' },
                             { tab: 'learn', target: 'learnDataSystem', title: 'Inspect the data platform', note: 'Read lineage, quality gates, serving posture, and contract grain in one place.' },
                             { tab: 'dashboard', target: 'dashTimeline', title: 'Stress-test through time', note: 'A good story should survive more than one year and one filter setting.' }
                         ],
@@ -14608,7 +15214,7 @@
                         questions: [
                             'Which surface is visually persuasive but still operationally thin?',
                             'What can an external contributor improve without private infrastructure or hidden assumptions?',
-                            'If one new feature landed tomorrow, which one would most improve trust rather than spectacle?'
+                            'If one new feature landed tomorrow, which one would most improve the evidence rather than the spectacle?'
                         ]
                     };
                 } else if (this.state.decisionGoal === 'explain') {
@@ -15676,7 +16282,7 @@
                     span: 'End where the evidence is concrete',
                     copy: 'The final stop is the least theatrical one. If a conclusion cannot survive contact with the underlying songs, it was never strong enough to keep.',
                     measure: 'Sortable source rows with titles, channels, counts, virality, and structural metadata.',
-                    why: 'Trust improves when the surface can always return you to the specific entries that generated it.'
+                    why: 'The reading gets stronger when the surface can always return you to the specific entries that generated it.'
                 }
             },
 
@@ -16105,7 +16711,7 @@
                         trust: {
                             score: 0,
                             grade: 'F',
-                            summary: 'No trust posture is available yet.',
+                            summary: 'No evidence posture is available yet.',
                             signals: [],
                             questions: []
                         },
@@ -18726,7 +19332,7 @@
                         { label: 'Score path', value: 'Checking', note: 'The bridge is deciding whether note-level analysis is active or intentionally dormant in this repository state.' }
                     );
                 } else if (noteFiles > 0 && noteEvents > 0) {
-                    status.textContent = noteFiles.toLocaleString() + ' linked notation files · trust ' + ((trust.grade || '—') + ' / ' + Math.round(Number(trust.score || 0) * 100));
+                    status.textContent = noteFiles.toLocaleString() + ' linked notation files · evidence ' + ((trust.grade || '—') + ' / ' + Math.round(Number(trust.score || 0) * 100));
                     copy.textContent = roleCopy[activeRole] + ' ' + (((decisionLab.summary || {}).headline) || '');
                     bridgeCards.push(
                         { label: 'Note families', value: (topNotes[0] || {}).item || '—', note: topNotes.length ? 'Most common parsed note family in linked notation.' : 'No parsed note families yet.' },
@@ -18763,9 +19369,9 @@
                 }
                 if (!isLoading && trust && typeof trust.score !== 'undefined') {
                     bridgeCards.push({
-                        label: 'Trust posture',
+                        label: 'Evidence posture',
                         value: (trust.grade || '—') + ' · ' + Math.round(Number(trust.score || 0) * 100) + '/100',
-                        note: trust.summary || 'The decision lab keeps a separate trust read on coverage, freshness, and source balance.'
+                        note: trust.summary || 'The decision lab keeps a separate evidence read on coverage, freshness, and source balance.'
                     });
                 }
 
@@ -19032,14 +19638,14 @@
                         score: (corridorBalance * 0.22) + (genreDiversity * 0.18) + (languageBreadth * 0.16) + (somaticInvitation * 0.16) + (concentrationRelief * 0.14) + (publicationCoverage * 0.14),
                         confidence: (coverage * 0.4) + (publicationCoverage * 0.32) + (trustScore * 0.28),
                         scoreLabel: 'How likely the discovery field is to feel broad instead of polished-but-repetitive.',
-                        confidenceLabel: 'How safely you can read variety here without over-trusting missing labels.',
+                        confidenceLabel: 'How safely you can read variety here without over-reading missing labels.',
                         factors: [
                             { label: 'Corridor balance', value: corridorBalance, valueLabel: Math.round(corridorBalance * 100) + '/100', note: 'Higher means attention is less trapped inside one cultural corridor.' },
                             { label: 'Catalog breadth', value: genreDiversity, valueLabel: 'Genre diversity', note: 'Higher means discovery is less likely to collapse into one lane.' },
                             { label: 'Language reach', value: languageBreadth, valueLabel: 'Language breadth', note: 'Higher means the public field offers more than one language path into attention.' },
                             { label: 'Bodily invitation', value: somaticInvitation, valueLabel: Math.round(somaticInvitation * 100) + '/100', note: 'A public proxy for how strongly the field keeps rewarding repeat-ready shapes.' },
                             { label: 'Attention spread', value: concentrationRelief, valueLabel: 'Top-10 relief', note: 'Higher means fewer songs monopolise the field at the top.' },
-                            { label: 'Time depth', value: publicationCoverage, valueLabel: 'Year coverage', note: 'Higher means the public context has enough publication history to trust a variety claim.' }
+                            { label: 'Time depth', value: publicationCoverage, valueLabel: 'Year coverage', note: 'Higher means the public context has enough publication history to support a variety claim.' }
                         ]
                     },
                     business: {

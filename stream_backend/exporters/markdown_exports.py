@@ -9,6 +9,7 @@ def write_runtime_markdown(path: Path, snapshot_payload: Mapping[str, Any]) -> P
     frontend = snapshot_payload["frontend_state"]
     music = snapshot_payload["music"]
     representation = snapshot_payload["representation"]
+    bias_dynamics = snapshot_payload.get("bias_dynamics", {})
     lines = [
         "# Stream Runtime Surface",
         "",
@@ -24,6 +25,12 @@ def write_runtime_markdown(path: Path, snapshot_payload: Mapping[str, Any]) -> P
         lines.append(f"- **{signal['label']}**: `{signal['display']}` — {signal['note']}")
     lines.extend(
         [
+            "",
+            "## Structural Bias Read",
+            "",
+            f"- **Band**: `{bias_dynamics.get('posture_band', 'watch')}`",
+            f"- **Score**: `{bias_dynamics.get('bias_score', 0)}`",
+            f"- **Summary**: {bias_dynamics.get('summary', 'Bias dynamics are still being assembled.')}",
             "",
             "## Runtime Notes",
             "",

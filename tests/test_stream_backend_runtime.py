@@ -13,6 +13,13 @@ def test_runtime_materializes_json_sqlite_and_markdown(tmp_path):
     assert runtime.config.sqlite_path.exists()
     assert (tmp_path / "data" / "system" / "frontend-state.json").exists()
     assert (tmp_path / "data" / "system" / "governance.json").exists()
+    assert (tmp_path / "data" / "system" / "readiness.json").exists()
+    assert (tmp_path / "data" / "system" / "integrations.json").exists()
+    assert (tmp_path / "data" / "system" / "bias-dynamics.json").exists()
+    assert (tmp_path / "data" / "system" / "live-metrics.json").exists()
+    assert (tmp_path / "data" / "system" / "runtime-review.json").exists()
+    assert (tmp_path / "data" / "system" / "runtime-drift.json").exists()
+    assert (tmp_path / "data" / "system" / "media-insurability.json").exists()
     assert (tmp_path / "data" / "system" / "critical-spine.json").exists()
     assert (tmp_path / "data" / "system" / "comparatives.json").exists()
     assert (tmp_path / "data" / "system" / "runtime.json").exists()
@@ -28,5 +35,14 @@ def test_runtime_latest_snapshot_round_trips(tmp_path):
     assert latest is not None
     assert latest["run_id"] == payload["run_id"]
     assert latest["sample_size"] == 5000
+    assert latest["payload_hash"]
+    assert latest["chain_hash"]
     assert "frontend_state" in latest
+    assert "readiness" in latest
+    assert "integrations" in latest
+    assert "bias_dynamics" in latest
+    assert "live_metrics" in latest
+    assert "runtime_review" in latest
+    assert "runtime_drift" in latest
+    assert "media_insurability" in latest
     assert "critical_spine" in latest
