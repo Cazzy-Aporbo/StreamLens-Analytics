@@ -153,8 +153,8 @@
   ],
   "sample_event": {
     "event_id": "demo-glass-hearts-1",
-    "observed_at": "2026-07-02T19:49:26.574265+00:00",
-    "ingested_at": "2026-07-02T20:37:26.574282+00:00",
+    "observed_at": "2026-07-02T19:56:49.892135+00:00",
+    "ingested_at": "2026-07-02T20:44:49.892143+00:00",
     "platform": "spotify",
     "market": "US",
     "track_id": "glass-hearts",
@@ -172,6 +172,6 @@
     "skip_rate": 0.21,
     "save_rate": 0.08,
     "source": "demo_runtime_seed",
-    "payload_hash": "c15926d0b169c842e230f25b92c903388a84f3fa967a9d7e3b9f89bca96ed8d3"
+    "payload_hash": "2bc38b75a884a9272ebe60a175122646caa7caf130eb8f3b3e61c33a7a163b46"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-02T20:37:25.461+00:00",
+  "generated_at": "2026-07-02T20:44:49.427+00:00",
   "overall": {
     "level": "pass",
     "label": "ready_for_local_use",
@@ -15,7 +15,7 @@
     "public_asset_count": 4,
     "dataset_count": 2,
     "quality_gate_count": 11,
-    "tracked_rows": 5636,
+    "tracked_rows": 1136,
     "live_event_count": 12,
     "genre_known_share": 0.0,
     "publication_year_share": 0.0,

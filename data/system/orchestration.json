@@ -1,7 +1,7 @@
 {
   "runtime": "stream_backend",
-  "generated_at": "2026-07-02T20:37:25.461+00:00",
-  "sample_size": 5000,
+  "generated_at": "2026-07-02T20:44:49.427+00:00",
+  "sample_size": 500,
   "languages": [
     "python",
     "sqlite",
@@ -322,8 +322,8 @@
     "representation_scorecard": {
       "inequality": {
         "screen_time": {
-          "gini": 0.23851392108127167,
-          "theil": 0.08895040136296423,
+          "gini": 0.23263660707644718,
+          "theil": 0.08013434909229719,
           "lorenz": [
             {
               "p": 0.0,
@@ -331,89 +331,89 @@
             },
             {
               "p": 0.05,
-              "l": 0.009610816248100054
+              "l": 0.009145237618575143
             },
             {
               "p": 0.1,
-              "l": 0.030363654545782676
+              "l": 0.030598158599658493
             },
             {
               "p": 0.15,
-              "l": 0.05657782693503192
+              "l": 0.058478935396598763
             },
             {
               "p": 0.2,
-              "l": 0.0868360719215635
+              "l": 0.08951095147302982
             },
             {
               "p": 0.25,
-              "l": 0.12049770292270134
+              "l": 0.12404875007452552
             },
             {
               "p": 0.3,
-              "l": 0.15719625458230793
+              "l": 0.16154179046112108
             },
             {
               "p": 0.35,
-              "l": 0.19662940025845488
+              "l": 0.20105602883975673
             },
             {
               "p": 0.4,
-              "l": 0.23876265108886735
+              "l": 0.24338081991057484
             },
             {
               "p": 0.45,
-              "l": 0.2837714905704345
+              "l": 0.2883922250155361
             },
             {
               "p": 0.5,
-              "l": 0.3314344225496487
+              "l": 0.3365163141297462
             },
             {
               "p": 0.55,
-              "l": 0.38173185838455914
+              "l": 0.3869137320604115
             },
             {
               "p": 0.6,
-              "l": 0.4347103583541236
+              "l": 0.4397776755834297
             },
             {
               "p": 0.65,
-              "l": 0.49047372462233846
+              "l": 0.49523004895433254
             },
             {
               "p": 0.7,
-              "l": 0.5490723208238896
+              "l": 0.5537549115107931
             },
             {
               "p": 0.75,
-              "l": 0.610837896619951
+              "l": 0.6146256326383801
             },
             {
               "p": 0.8,
-              "l": 0.676387258155978
+              "l": 0.6784794527728332
             },
             {
               "p": 0.85,
-              "l": 0.7459335845895679
+              "l": 0.747237068758892
             },
             {
               "p": 0.9,
-              "l": 0.8206791181490575
+              "l": 0.8213266954088476
             },
             {
               "p": 0.95,
-              "l": 0.9029419379910063
+              "l": 0.9032247579207257
             },
             {
               "p": 1.0,
-              "l": 1.0000000000000016
+              "l": 1.000000000000001
             }
           ]
         },
         "dialogue": {
-          "gini": 0.24428112031978277,
-          "theil": 0.09377615720916098,
+          "gini": 0.24363214795271837,
+          "theil": 0.0905293219319807,
           "lorenz": [
             {
               "p": 0.0,
@@ -421,79 +421,79 @@
             },
             {
               "p": 0.05,
-              "l": 0.008487613065340578
+              "l": 0.00831009512359388
             },
             {
               "p": 0.1,
-              "l": 0.028224638961468564
+              "l": 0.02818827309952262
             },
             {
               "p": 0.15,
-              "l": 0.05377239683998897
+              "l": 0.05360465914509363
             },
             {
               "p": 0.2,
-              "l": 0.08376848762046567
+              "l": 0.08380041671073113
             },
             {
               "p": 0.25,
-              "l": 0.1170836223312824
+              "l": 0.11756029410946171
             },
             {
               "p": 0.3,
-              "l": 0.1535612841850887
+              "l": 0.15440004601258295
             },
             {
               "p": 0.35,
-              "l": 0.192804815980845
+              "l": 0.19411929504270078
             },
             {
               "p": 0.4,
-              "l": 0.23483364356095301
+              "l": 0.23634697198241875
             },
             {
               "p": 0.45,
-              "l": 0.2796921688509022
+              "l": 0.28161370581261375
             },
             {
               "p": 0.5,
-              "l": 0.32741831849538156
+              "l": 0.32971726380980476
             },
             {
               "p": 0.55,
-              "l": 0.377923288643412
+              "l": 0.3796668911635432
             },
             {
               "p": 0.6,
-              "l": 0.4309661988492131
+              "l": 0.4319301350877486
             },
             {
               "p": 0.65,
-              "l": 0.4868467621098389
+              "l": 0.487655454810263
             },
             {
               "p": 0.7,
-              "l": 0.545617890719831
+              "l": 0.5462342968145563
             },
             {
               "p": 0.75,
-              "l": 0.6077187937254899
+              "l": 0.606976472356271
             },
             {
               "p": 0.8,
-              "l": 0.6736678636069053
+              "l": 0.6723570131154415
             },
             {
               "p": 0.85,
-              "l": 0.7437002455611488
+              "l": 0.7421773970607607
             },
             {
               "p": 0.9,
-              "l": 0.819168718251467
+              "l": 0.8177920268357258
             },
             {
               "p": 0.95,
-              "l": 0.9017957063708067
+              "l": 0.9010321290281883
             },
             {
               "p": 1.0,
@@ -503,124 +503,124 @@
         }
       },
       "diversity_detail": {
-        "race_shannon": 0.7127884439424652,
-        "race_simpson": 0.5839820800000001,
-        "gender_simpson": 0.49319448,
-        "age_simpson": 0.6068600799999999
+        "race_shannon": 0.6862537142212546,
+        "race_simpson": 0.560056,
+        "gender_simpson": 0.479016,
+        "age_simpson": 0.591944
       },
       "effect_sizes": {
         "gender_dialogue": {
-          "chi_square": 3584510.15519657,
-          "cramers_v": 0.5758311978265818,
+          "chi_square": 364143.5549395807,
+          "cramers_v": 0.5812109426692635,
           "magnitude": "large"
         },
         "age_dialogue": {
-          "chi_square": 973478.9276790688,
-          "cramers_v": 0.30008449786547364,
+          "chi_square": 121408.91827386021,
+          "cramers_v": 0.33560062682015707,
           "magnitude": "medium"
         },
         "racial_dialogue": {
-          "chi_square": 5887735.838839141,
-          "cramers_v": 0.5218424970097814,
+          "chi_square": 667001.6567238669,
+          "cramers_v": 0.5562191370793892,
           "magnitude": "large"
         }
       },
       "trend": {
         "gender_parity": {
-          "slope": 0.00577495235250107,
-          "intercept": -10.92449709048734,
-          "r_squared": 0.24036380560567183
+          "slope": 0.0016716784882298504,
+          "intercept": -2.652701134140029,
+          "r_squared": 0.0015305157511779077
         },
         "diversity": {
-          "slope": 0.0013135065712689964,
-          "intercept": -1.943202957373202,
-          "r_squared": 0.10391754034555822
+          "slope": 0.002826896249791501,
+          "intercept": -5.010072991365955,
+          "r_squared": 0.029730336457822193
         },
         "series": [
           {
             "year": 2015,
-            "diversity": 0.689110631757241,
-            "gender_parity": 0.6681715575620768,
-            "avg_sentiment": 0.5697874592181922
+            "diversity": 0.7492058696168413,
+            "gender_parity": 0.8,
+            "avg_sentiment": 0.5648279129999694
           },
           {
             "year": 2016,
-            "diversity": 0.7222845656160927,
-            "gender_parity": 0.7669172932330827,
-            "avg_sentiment": 0.5554927291160559
+            "diversity": 0.715886800584993,
+            "gender_parity": 0.75,
+            "avg_sentiment": 0.5316563384146288
           },
           {
             "year": 2017,
-            "diversity": 0.7051314375525228,
-            "gender_parity": 0.6903553299492385,
-            "avg_sentiment": 0.5613717181293777
+            "diversity": 0.6802636557218542,
+            "gender_parity": 0.5789473684210527,
+            "avg_sentiment": 0.5615493147745085
           },
           {
             "year": 2018,
-            "diversity": 0.7046436420109018,
-            "gender_parity": 0.7852193995381063,
-            "avg_sentiment": 0.5609544330653152
+            "diversity": 0.6653338231103811,
+            "gender_parity": 0.9565217391304348,
+            "avg_sentiment": 0.557746390311802
           },
           {
             "year": 2019,
-            "diversity": 0.7110568936525024,
-            "gender_parity": 0.7540229885057471,
-            "avg_sentiment": 0.5610943116543271
+            "diversity": 0.7296896017359168,
+            "gender_parity": 0.6122448979591837,
+            "avg_sentiment": 0.5554024515281399
           },
           {
             "year": 2020,
-            "diversity": 0.7029091616069149,
-            "gender_parity": 0.6814814814814815,
-            "avg_sentiment": 0.573517788666615
+            "diversity": 0.6514350168480969,
+            "gender_parity": 0.46808510638297873,
+            "avg_sentiment": 0.5807437415693047
           },
           {
             "year": 2021,
-            "diversity": 0.7393616890303186,
-            "gender_parity": 0.7719298245614035,
-            "avg_sentiment": 0.5573745967200202
+            "diversity": 0.7020255692978093,
+            "gender_parity": 0.8717948717948718,
+            "avg_sentiment": 0.6209140949733052
           },
           {
             "year": 2022,
-            "diversity": 0.6862677910664226,
-            "gender_parity": 0.7233009708737864,
-            "avg_sentiment": 0.566031655170363
+            "diversity": 0.5899015907252193,
+            "gender_parity": 0.7058823529411765,
+            "avg_sentiment": 0.5218700848915288
           },
           {
             "year": 2023,
-            "diversity": 0.7123371014743244,
-            "gender_parity": 0.7777777777777778,
-            "avg_sentiment": 0.5707875986864814
+            "diversity": 0.6977543212871509,
+            "gender_parity": 0.7027027027027027,
+            "avg_sentiment": 0.5575857439106565
           },
           {
             "year": 2024,
-            "diversity": 0.7189751485711936,
-            "gender_parity": 0.7531172069825436,
-            "avg_sentiment": 0.5720537993522172
+            "diversity": 0.6637261644641603,
+            "gender_parity": 0.5555555555555556,
+            "avg_sentiment": 0.5809895764311688
           },
           {
             "year": 2025,
-            "diversity": 0.7227260563694744,
-            "gender_parity": 0.7911111111111111,
-            "avg_sentiment": 0.5641964054810713
+            "diversity": 0.7539691311378088,
+            "gender_parity": 0.9473684210526315,
+            "avg_sentiment": 0.561180181980421
           },
           {
             "year": 2026,
-            "diversity": 0.7140407198017398,
-            "gender_parity": 0.7621247113163973,
-            "avg_sentiment": 0.5711386359398956
+            "diversity": 0.8208590315229951,
+            "gender_parity": 0.75,
+            "avg_sentiment": 0.5662353670507455
           }
         ]
       },
       "confidence": {
         "gender_parity": {
-          "point": 0.744,
-          "low": 0.71678,
-          "high": 0.7668
+          "point": 0.732,
+          "low": 0.64,
+          "high": 0.816
         },
         "diversity": {
-          "point": 0.7127884439424652,
-          "low": 0.6968174118486581,
-          "high": 0.7254324796664244
+          "point": 0.6862537142212547,
+          "low": 0.6367689696602894,
+          "high": 0.7304759396145525
         }
       },
       "scorecard": {
@@ -632,91 +632,75 @@
         ],
         "platforms": [
           {
-            "diversity": 0.728,
-            "parity": 0.752,
-            "dialogue_equity": 0.782,
-            "screen_equity": 0.766,
-            "overall": 0.757,
+            "diversity": 0.685,
+            "parity": 0.842,
+            "dialogue_equity": 0.868,
+            "screen_equity": 0.788,
+            "overall": 0.796,
             "grade": "B",
             "grades": {
+              "diversity": "C+",
+              "parity": "B+",
+              "dialogue_equity": "A-",
+              "screen_equity": "B"
+            },
+            "sample_size": 76,
+            "platform": "hbo_max"
+          },
+          {
+            "diversity": 0.711,
+            "parity": 0.729,
+            "dialogue_equity": 0.804,
+            "screen_equity": 0.748,
+            "overall": 0.748,
+            "grade": "B-",
+            "grades": {
               "diversity": "B-",
+              "parity": "B-",
+              "dialogue_equity": "B+",
+              "screen_equity": "B-"
+            },
+            "sample_size": 85,
+            "platform": "apple_tv"
+          },
+          {
+            "diversity": 0.637,
+            "parity": 0.791,
+            "dialogue_equity": 0.789,
+            "screen_equity": 0.773,
+            "overall": 0.748,
+            "grade": "B-",
+            "grades": {
+              "diversity": "C",
               "parity": "B",
               "dialogue_equity": "B",
               "screen_equity": "B"
             },
-            "sample_size": 851,
-            "platform": "hbo_max"
-          },
-          {
-            "diversity": 0.726,
-            "parity": 0.82,
-            "dialogue_equity": 0.71,
-            "screen_equity": 0.76,
-            "overall": 0.754,
-            "grade": "B",
-            "grades": {
-              "diversity": "B-",
-              "parity": "B+",
-              "dialogue_equity": "B-",
-              "screen_equity": "B"
-            },
-            "sample_size": 854,
+            "sample_size": 91,
             "platform": "disney_plus"
           },
           {
-            "diversity": 0.735,
-            "parity": 0.747,
-            "dialogue_equity": 0.722,
-            "screen_equity": 0.761,
-            "overall": 0.741,
+            "diversity": 0.675,
+            "parity": 0.773,
+            "dialogue_equity": 0.737,
+            "screen_equity": 0.776,
+            "overall": 0.74,
             "grade": "B-",
             "grades": {
-              "diversity": "B-",
-              "parity": "B-",
+              "diversity": "C+",
+              "parity": "B",
               "dialogue_equity": "B-",
               "screen_equity": "B"
             },
-            "sample_size": 801,
+            "sample_size": 88,
             "platform": "amazon_prime"
           },
           {
-            "diversity": 0.696,
-            "parity": 0.742,
-            "dialogue_equity": 0.734,
-            "screen_equity": 0.762,
-            "overall": 0.734,
-            "grade": "B-",
-            "grades": {
-              "diversity": "C+",
-              "parity": "B-",
-              "dialogue_equity": "B-",
-              "screen_equity": "B"
-            },
-            "sample_size": 811,
-            "platform": "hulu"
-          },
-          {
-            "diversity": 0.689,
-            "parity": 0.727,
-            "dialogue_equity": 0.75,
-            "screen_equity": 0.754,
-            "overall": 0.73,
-            "grade": "B-",
-            "grades": {
-              "diversity": "C+",
-              "parity": "B-",
-              "dialogue_equity": "B",
-              "screen_equity": "B"
-            },
-            "sample_size": 858,
-            "platform": "apple_tv"
-          },
-          {
-            "diversity": 0.695,
-            "parity": 0.674,
-            "dialogue_equity": 0.768,
-            "screen_equity": 0.767,
-            "overall": 0.726,
+            "diversity": 0.663,
+            "parity": 0.667,
+            "dialogue_equity": 0.773,
+            "screen_equity": 0.753,
+            "overall": 0.714,
             "grade": "B-",
             "grades": {
               "diversity": "C+",
@@ -724,24 +708,40 @@
               "dialogue_equity": "B",
               "screen_equity": "B"
             },
-            "sample_size": 825,
+            "sample_size": 69,
+            "platform": "hulu"
+          },
+          {
+            "diversity": 0.679,
+            "parity": 0.593,
+            "dialogue_equity": 0.8,
+            "screen_equity": 0.779,
+            "overall": 0.713,
+            "grade": "B-",
+            "grades": {
+              "diversity": "C+",
+              "parity": "C-",
+              "dialogue_equity": "B+",
+              "screen_equity": "B"
+            },
+            "sample_size": 91,
             "platform": "netflix"
           }
         ],
         "industry": {
-          "diversity": 0.713,
-          "parity": 0.744,
-          "dialogue_equity": 0.743,
-          "screen_equity": 0.761,
-          "overall": 0.74,
+          "diversity": 0.686,
+          "parity": 0.732,
+          "dialogue_equity": 0.791,
+          "screen_equity": 0.767,
+          "overall": 0.744,
           "grade": "B-",
           "grades": {
-            "diversity": "B-",
+            "diversity": "C+",
             "parity": "B-",
-            "dialogue_equity": "B-",
+            "dialogue_equity": "B",
             "screen_equity": "B"
           },
-          "sample_size": 5000,
+          "sample_size": 500,
           "platform": "industry"
         }
       }

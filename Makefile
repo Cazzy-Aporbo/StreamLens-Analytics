@@ -1,6 +1,6 @@
 PYTHON ?= python3
 
-.PHONY: doctor test api static materialize analysis docker-build docker-up enterprise-up cargo-test seed-live-demo
+.PHONY: doctor test api static materialize analysis pages-site docker-build docker-up enterprise-up cargo-test seed-live-demo
 
 doctor:
 	$(PYTHON) -m stream_backend.cli.doctor
@@ -19,6 +19,9 @@ materialize:
 
 analysis:
 	$(PYTHON) run_analysis.py --output-dir exports
+
+pages-site:
+	$(PYTHON) -m stream_backend.cli.prepare_pages_site --output-dir _site
 
 docker-build:
 	docker build -t loopchii-stream .

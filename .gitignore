@@ -11,6 +11,7 @@ analysis_results.json
 data/system/runtime/
 exports/
 loopchii-wasm-core/target/
+_site/
 
 # OS / editor
 .DS_Store

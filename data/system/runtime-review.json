@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-02T20:37:26.576316+00:00",
+  "generated_at": "2026-07-02T20:44:49.892420+00:00",
   "headline": "Live runtime review",
   "description": "A local review lane that inspects prompt intent and drafted output together, then returns a decision before the risky fragment is treated as acceptable text.",
   "example": {

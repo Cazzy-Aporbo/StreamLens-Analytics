@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-02T20:37:25.461+00:00",
-  "sample_size": 5000,
+  "generated_at": "2026-07-02T20:44:49.427+00:00",
+  "sample_size": 500,
   "summary": {
     "posture": "critical_reading_before_claims",
     "promise": "Each visual should answer a concrete question, name its boundary, and suggest how to improve the analysis instead of simply asking to be believed.",
@@ -15,7 +15,7 @@
     "dashFieldMap": {
       "title": "Multi-dimensional bias field",
       "purpose": "Show whether imbalance is broad across the field or concentrated inside a smaller platform-genre pocket. This is the first orientation surface, not the final verdict.",
-      "learn": "The current synthetic run tracks parity at 0.74 and diversity at 0.71. The bubble field matters because a healthy average can still hide a small cluster where power keeps narrowing.",
+      "learn": "The current synthetic run tracks parity at 0.73 and diversity at 0.69. The bubble field matters because a healthy average can still hide a small cluster where power keeps narrowing.",
       "if_changes": "If the upper-right cluster collapses when you change year, genre, or media type, the story is fragile. If it survives those slices, the signal is stronger and more portable.",
       "improve": "Improve this read by increasing sample size, checking the row explorer, and confirming whether the same cluster holds in the network, timeline, and role pattern surfaces.",
       "limits": "This view is synthetic and descriptive. It can show where to ask harder questions, but it cannot claim a real platform changed behavior without a real catalog lane.",
@@ -33,7 +33,7 @@
     "dashNetwork": {
       "title": "Character interaction topology",
       "purpose": "Show whether representation gaps are also social-topology gaps: who gets clustered together, who gets isolated, and who becomes the center of narrative gravity.",
-      "learn": "Current gender homophily is 0.04 with density 0.02. That matters because visibility alone does not tell you whether the same groups keep inheriting the social center.",
+      "learn": "Current gender homophily is 0.01 with density 0.02. That matters because visibility alone does not tell you whether the same groups keep inheriting the social center.",
       "if_changes": "If homophily weakens once you change genre or platform, the exclusion point may be format-specific. If it stays high, the pattern is more structural.",
       "improve": "Improve this analysis with more row depth, richer interaction definitions, and a comparison against dialogue share so centrality is not mistaken for speech power.",
       "limits": "This is still a modeled graph. It helps reason about topology, but it is not evidence of actual writer-room intent.",
@@ -42,7 +42,7 @@
     "dashTimeline": {
       "title": "Temporal evolution",
       "purpose": "Separate durable movement from one-year noise. A serious repository should show whether improvement is compounding, stalling, or just moving the imbalance elsewhere.",
-      "learn": "The synthetic lane moves from parity 0.67 to 0.76. Read that beside diversity and sentiment, not as a single hero line.",
+      "learn": "The synthetic lane moves from parity 0.80 to 0.75. Read that beside diversity and sentiment, not as a single hero line.",
       "if_changes": "If one metric improves while another stalls, the system is not truly getting better; it is changing where the pressure sits.",
       "improve": "Improve this read with wider time coverage, documented gaps, and publication notes that explain whether the field is measuring releases, recirculation, or catalog resurfacing.",
       "limits": "Trend lines are compelling, but they are only as honest as the date coverage beneath them.",
@@ -60,7 +60,7 @@
     "exploreRows": {
       "title": "Row explorer",
       "purpose": "Give contributors and reviewers a direct path back to the evidence so the repo never asks for blind trust.",
-      "learn": "The current runtime is carrying 5,000 synthetic rows. This view matters because every persuasive summary should still be traceable to a row-level source.",
+      "learn": "The current runtime is carrying 500 synthetic rows. This view matters because every persuasive summary should still be traceable to a row-level source.",
       "if_changes": "If the row slice changes the story, the summary was oversold. That is a feature, not a failure.",
       "improve": "Add pagination, stronger schema cues, and more comparison affordances so contributors can pressure the data faster.",
       "limits": "Raw rows are necessary, but they do not explain themselves. They need contracts, quality checks, and honest labeling.",
@@ -78,7 +78,7 @@
     "scorecardVerdict": {
       "title": "Decision grade",
       "purpose": "Compress complexity into a usable decision signal only after the nuance has already been made visible.",
-      "learn": "The current screen-time gini proxy is 0.24. The grade matters only because the repo lets a reader walk backward into the ingredients.",
+      "learn": "The current screen-time gini proxy is 0.23. The grade matters only because the repo lets a reader walk backward into the ingredients.",
       "if_changes": "If a small shift flips the grade dramatically, the compression is too brittle and needs more context.",
       "improve": "Keep effect sizes, trend fit, and caveats close to the grade so no one mistakes compression for full truth.",
       "limits": "A grade is useful for decisions, not for understanding the full field. It should route someone into the evidence, not replace it.",

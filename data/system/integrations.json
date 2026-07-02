@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-02T20:37:26.570860+00:00",
+  "generated_at": "2026-07-02T20:44:49.892076+00:00",
   "headline": "Integration paths",
   "description": "These are the integration paths the repository can honestly support today. They are smaller than a full production streaming estate, yet they are substantive enough to run, test, extend, and question.",
   "available_now": [
