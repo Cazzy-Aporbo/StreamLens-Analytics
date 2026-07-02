@@ -7,6 +7,7 @@
     <meta name="description" content="Stream is LOOPCHii’s open-source media analysis repo for bias, music virality, cultural attention, and data-quality-aware research. Inspect the methods, audit the data, and contribute publicly.">
     <meta name="keywords" content="LOOPCHii Stream, media bias analysis, music virality analysis, cultural analytics, public research, ethical programming, YouTube music analysis, data quality, data engineering">
     <meta name="author" content="Cazandra Aporbo · LOOPCHii">
+    <meta name="copyright" content="2024-present LOOPCHii">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <meta name="theme-color" content="#5b55ff">
     <meta property="og:title" content="Stream | LOOPCHii Open Media Analysis Repository">
@@ -26,6 +27,8 @@
             "name": "LOOPCHii Stream",
             "description": "An open-source media analysis repository for bias, music virality, cultural pressure, and data-quality-aware research.",
             "codeRepository": "https://github.com/loopchii/Stream",
+            "license": "https://www.apache.org/licenses/LICENSE-2.0",
+            "url": "https://github.com/loopchii/Stream",
             "author": {
                 "@type": "Person",
                 "name": "Cazandra Aporbo"
@@ -2796,6 +2799,27 @@
             color: rgba(236, 233, 255, 0.68);
             font-size: 0.92rem;
             text-align: left;
+        }
+
+        .footer-legal-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem 1.1rem;
+            margin-top: 0.82rem;
+            color: rgba(236, 233, 255, 0.7);
+            font-size: 0.88rem;
+        }
+
+        .footer-legal-row a {
+            color: rgba(214, 240, 255, 0.9);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(214, 240, 255, 0.24);
+            transition: border-color 0.24s ease, color 0.24s ease;
+        }
+
+        .footer-legal-row a:hover {
+            color: #ffffff;
+            border-color: rgba(255, 216, 156, 0.55);
         }
 
         .guide-panel {
@@ -11361,17 +11385,25 @@
                 <img src="./assets/loopchii.svg" alt="">
             </div>
             <div class="footer-brand-copy">
-                <span class="eyebrow">LOOPCHii open media lab</span>
-                <h3>Built to be inspected, challenged, and extended.</h3>
-                <p>Stream is a public LOOPCHii surface for representation asymmetries, attention concentration, media bias, and music-market structure. The synthetic representation lane stays clearly labeled. The music lane stays separate because it is built from public source data and should be read with a different quality posture.</p>
+                <span class="eyebrow">LOOPCHii public research surface</span>
+                <h3>Open methods, public evidence, and a clear boundary around what remains private.</h3>
+                <p>Stream studies representation asymmetries, attention concentration, media bias, and music-market structure on public evidence. The modeled representation lane stays labeled. The public music lane stays separate, because its inputs, cleaning rules, and limits belong to a different reading of the evidence.</p>
                 <div class="footer-link-row">
                     <a href="https://github.com/loopchii/Stream" target="_blank" rel="noopener noreferrer">Repository</a>
+                    <a href="https://loopchii.com" target="_blank" rel="noopener noreferrer">loopchii.com</a>
+                    <a href="./LICENSE" target="_blank" rel="noopener noreferrer">Apache 2.0</a>
+                    <a href="./NOTICE" target="_blank" rel="noopener noreferrer">NOTICE</a>
                     <a href="./contributing.md" target="_blank" rel="noopener noreferrer">Contributing</a>
                     <a href="./openapi.stream.json" target="_blank" rel="noopener noreferrer">OpenAPI</a>
                     <a href="./StreamLen_processors.html" target="_blank" rel="noopener noreferrer">Methods Notebook</a>
                 </div>
-                <p class="author-name">Created by Cazandra Aporbo, MS</p>
-                <p class="footer-credit">Mathematical framework development: September 10, 2024 to present. Public repository stewardship under LOOPCHii.</p>
+                <p class="author-name">Cazandra Aporbo, MS · LOOPCHii</p>
+                <p class="footer-credit">&copy; 2024&ndash;present LOOPCHii. Stream is released under the Apache License 2.0.</p>
+                <div class="footer-legal-row">
+                    <span>Public site: <a href="https://loopchii.com" target="_blank" rel="noopener noreferrer">loopchii.com</a></span>
+                    <span>License: <a href="./LICENSE" target="_blank" rel="noopener noreferrer">Apache License 2.0</a></span>
+                    <span>Attribution: <a href="./NOTICE" target="_blank" rel="noopener noreferrer">NOTICE</a></span>
+                </div>
             </div>
         </div>
         <div class="footer-support">

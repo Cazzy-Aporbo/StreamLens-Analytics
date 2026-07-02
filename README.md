@@ -13,6 +13,8 @@
   ·
   <a href="https://htmlpreview.github.io/?https://github.com/loopchii/Stream/blob/main/StreamLen_processors.html">Open the methods notebook</a>
   ·
+  <a href="https://loopchii.com">Visit loopchii.com</a>
+  ·
   <a href="https://github.com/loopchii/Stream/actions/workflows/ci.yml">View CI</a>
 </p>
 
@@ -75,6 +77,18 @@ The repository is intentionally readable before it is ambitious. The public
 code separates analysis, backend contracts, compiled metric primitives, static
 exports, and the browser surface. See [docs/REPOSITORY_STRUCTURE.md](docs/REPOSITORY_STRUCTURE.md)
 for the file map.
+
+## Code Reality
+
+Stream is still an HTML-heavy repository at the GitHub language-bar level. That is because the public explorer remains a large single-file browser surface, and the notebook stays committed in-source for inspection.
+
+The actual computational split now lives underneath that surface:
+
+- analysis and backend routes live in Python
+- contract artifacts and static builds are generated from the backend path
+- compiled metric primitives live in `loopchii-wasm-core`
+
+So yes, the language chart is still front-end weighted. That is the present state of the repository. More decoupling should happen in code, not in the prose.
 
 ## What Runs Today
 
